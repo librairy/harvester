@@ -2,6 +2,7 @@ package org.librairy.harvester.services;
 
 import org.apache.camel.model.RouteDefinition;
 import org.apache.camel.spring.SpringCamelContext;
+import org.librairy.harvester.executor.ParallelExecutor;
 import org.librairy.harvester.routes.RouteDefinitionFactory;
 import org.librairy.model.domain.relations.Relation;
 import org.librairy.model.domain.resources.Domain;
@@ -39,6 +40,9 @@ public class SourceService {
     @Autowired
     URIGenerator uriGenerator;
 
+    @Autowired
+    ParallelExecutor executor;
+
     public SourceService(){
 
     }
@@ -61,36 +65,45 @@ public class SourceService {
         LOG.info("All sources were restored from ddbb.");
     }
 
-    public void handle(String uri) throws Exception {
+
+    public void handleParallel(Resource resource){
+        executor.execute(() -> handle(resource));
+    }
 
 
-        Optional<Resource> res = udm.read(Resource.Type.SOURCE).byUri(uri);
+    public void handle(Resource resource){
 
-        if (!res.isPresent()){
-            LOG.warn("Source not found by uri: " + uri);
-            return;
+        try{
+            Optional<Resource> res = udm.read(Resource.Type.SOURCE).byUri(resource.getUri());
+
+            if (!res.isPresent()){
+                LOG.warn("Source not found by uri: " + resource.getUri());
+                return;
+            }
+
+            Source source = res.get().asSource();
+
+            List<String> domains = udm.find(Resource.Type.DOMAIN).from(Resource.Type.SOURCE,resource.getUri());
+
+            Domain domain;
+            if (domains == null || domains.isEmpty()){
+                LOG.info("creating a new domain associated to source: " + resource.getUri());
+                domain = Resource.newDomain();
+                domain.setUri(uriGenerator.newFor(Resource.Type.DOMAIN));
+                domain.setName(source.getName());
+                domain.setDescription("attached to source: " + source.getUri());
+                udm.save(domain);
+                LOG.info("Domain: " + domain + " attached to source: " + source);
+                udm.save(Relation.newComposes(source.getUri(),domain.getUri()));
+
+            }else{
+                domain = ResourceUtils.map(udm.read(Resource.Type.DOMAIN).byUri(domains.get(0)).get(),Domain.class);
+            }
+
+            addRoute(source,domain);
+        }catch (Exception e){
+            LOG.error("Error adding source: " + resource.getUri(), e);
         }
-
-        Source source = res.get().asSource();
-
-        List<String> domains = udm.find(Resource.Type.DOMAIN).from(Resource.Type.SOURCE,uri);
-
-        Domain domain;
-        if (domains == null || domains.isEmpty()){
-            LOG.info("creating a new domain associated to source: " + uri);
-            domain = Resource.newDomain();
-            domain.setUri(uriGenerator.newFor(Resource.Type.DOMAIN));
-            domain.setName(source.getName());
-            domain.setDescription("attached to source: " + source.getUri());
-            udm.save(domain);
-            LOG.info("Domain: " + domain + " attached to source: " + source);
-            udm.save(Relation.newComposes(source.getUri(),domain.getUri()));
-
-        }else{
-            domain = ResourceUtils.map(udm.read(Resource.Type.DOMAIN).byUri(domains.get(0)).get(),Domain.class);
-        }
-
-        addRoute(source,domain);
     }
 
     private void addRoute(Source source, Domain domain) throws Exception {

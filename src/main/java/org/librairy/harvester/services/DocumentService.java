@@ -1,14 +1,15 @@
 package org.librairy.harvester.services;
 
-import org.librairy.harvester.annotator.TextAnnotator;
+import org.apache.commons.lang.StringUtils;
 import org.librairy.harvester.executor.ParallelExecutor;
 import org.librairy.harvester.parser.IParser;
+import org.librairy.harvester.parser.MetaInformation;
 import org.librairy.harvester.parser.ParserFactory;
 import org.librairy.model.domain.relations.Relation;
 import org.librairy.model.domain.resources.Document;
-import org.librairy.model.domain.resources.Item;
+import org.librairy.model.domain.resources.File;
 import org.librairy.model.domain.resources.Resource;
-import org.librairy.model.utils.ResourceUtils;
+import org.librairy.model.utils.TimeUtils;
 import org.librairy.storage.UDM;
 import org.librairy.storage.generator.URIGenerator;
 import org.slf4j.Logger;
@@ -17,9 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import java.io.*;
-import java.util.Optional;
-import java.util.stream.Collectors;
+import java.util.List;
 
 /**
  * Created by cbadenes on 11/02/16.
@@ -36,9 +35,6 @@ public class DocumentService {
     URIGenerator uriGenerator;
 
     @Autowired
-    TextAnnotator textMiner;
-
-    @Autowired
     ParserFactory parserFactory;
 
     @Autowired
@@ -47,38 +43,80 @@ public class DocumentService {
     @Value("${librairy.harvester.folder.input}")
     protected String inputFolder;
 
-    public void handleParallel(String uri){
-        executor.execute(() -> handle(uri));
+    public void handleParallel(File file){
+        executor.execute(() -> handle(file));
     }
 
-    public void handle(String uri){
-        //Read document from db
-        Optional<Resource> res = udm.read(Resource.Type.DOCUMENT).byUri(uri);
+    public void handle(File file){
+        // Create a new Document
+        try{
+            LOG.info("Processing file: " + file );
 
-        if (!res.isPresent()){
-            LOG.warn("Received event of unknown resource: " + uri);
-            return;
+            // Domain URI
+            String domainUri        = file.getDomain();
+
+            // Source URI
+            String sourceUri        = file.getSource();
+
+            // Document File
+            String path             = file.getUrl();
+
+
+            java.io.File ioFile = new java.io.File(path);
+
+            if (!ioFile.exists()){
+                LOG.warn("File does not exist: " + ioFile.getAbsolutePath() + " from: " + file);
+                return;
+            }
+
+            // Parser
+            IParser parser = parserFactory.parserOf(ioFile);
+
+            // Metainformation
+            MetaInformation metaInformation = parser.getMetaInformation();
+            metaInformation.setSourceUri(sourceUri);
+
+            // Check if exist document based on title
+            List<String> docs = udm.find(Resource.Type.DOCUMENT).by(Document.TITLE,metaInformation.getTitle());
+
+            if (docs != null && !docs.isEmpty()){
+                LOG.warn("Document titled: '"+metaInformation.getTitle()+"' exists in ddbb with uri: " + docs);
+                return;
+            }
+
+            // Document
+            String description = parser.getDescription();
+            Document document = Resource.newDocument();
+            document.setUri(uriGenerator.basedOnContent(Resource.Type.DOCUMENT,description));
+            document.setPublishedOn(metaInformation.getPublished());
+            document.setPublishedBy(metaInformation.getSourceUri());
+            document.setAuthoredOn(metaInformation.getAuthored());
+            document.setAuthoredBy(metaInformation.getCreators());
+            document.setContributedBy(metaInformation.getContributors());
+
+            String fileName = StringUtils.substringAfter(ioFile.getAbsolutePath(),inputFolder);
+            document.setRetrievedFrom(fileName);
+
+            document.setRetrievedOn(TimeUtils.asISO());
+            document.setFormat(metaInformation.getPubFormat());
+            document.setLanguage(metaInformation.getLanguage());
+            document.setTitle(metaInformation.getTitle());
+            document.setSubject(metaInformation.getSubject());
+            document.setDescription(description);
+            document.setRights(metaInformation.getRights());
+            document.setType(metaInformation.getType());
+
+
+            LOG.info("Adding new document: " + document.getUri());
+            udm.save(document);
+            // Relate it to Source
+            udm.save(Relation.newProvides(sourceUri,document.getUri()));
+            // Relate it to Domain
+            udm.save(Relation.newContains(domainUri,document.getUri()));
+
+        }catch (RuntimeException e){
+            LOG.error("Error adding document from: " + file, e);
         }
-
-        Document document = (Document) res.get();
-
-        String path = inputFolder + document.getRetrievedFrom();
-
-        File file = new File(path);
-
-        // Textual Item
-        Item item = ResourceUtils.map(document,Item.class);
-        item.setUri(uriGenerator.basedOnContent(Resource.Type.ITEM,document.getDescription()));
-        item.setFormat("txt");
-        item.setUrl(path);
-        item.setContent(parserFactory.parserOf(file).getContent());
-
-        String tokens   = textMiner.tokenize(item.getContent()).stream().filter(token -> token.isValid()).map(token -> token.getLemma()).collect(Collectors.joining(" "));
-        item.setTokens(tokens);
-
-        LOG.info("Adding new item: " + item.getUri());
-        udm.save(item);
-        udm.save(Relation.newBundles(document.getUri(),item.getUri()));
     }
 
 }

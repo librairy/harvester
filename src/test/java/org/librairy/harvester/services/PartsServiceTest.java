@@ -20,7 +20,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  * Created by cbadenes on 15/03/16.
  */
 @Category(IntegrationTest.class)
-public class ItemServiceTest {
+public class PartsServiceTest {
 
 
     @Test

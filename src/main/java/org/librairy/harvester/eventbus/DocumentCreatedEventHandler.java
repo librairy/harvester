@@ -1,8 +1,7 @@
 package org.librairy.harvester.eventbus;
 
-import org.librairy.harvester.services.DocumentService;
+import org.librairy.harvester.services.ItemService;
 import org.librairy.model.Event;
-import org.librairy.model.domain.resources.Document;
 import org.librairy.model.domain.resources.Resource;
 import org.librairy.model.modules.BindingKey;
 import org.librairy.model.modules.EventBus;
@@ -24,7 +23,7 @@ public class DocumentCreatedEventHandler implements EventBusSubscriber {
     private static final Logger LOG = LoggerFactory.getLogger(DocumentCreatedEventHandler.class);
 
     @Autowired
-    DocumentService service;
+    ItemService service;
 
     @Autowired
     protected EventBus eventBus;
@@ -42,7 +41,7 @@ public class DocumentCreatedEventHandler implements EventBusSubscriber {
     public void handle(Event event) {
         LOG.info("New Document event received: " + event);
         try{
-            service.handleParallel(event.to(String.class));
+            service.handleParallel(event.to(Resource.class));
         } catch (RuntimeException e){
             // TODO Notify to event-bus when source has not been added
             LOG.warn(e.getMessage());

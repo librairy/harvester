@@ -43,7 +43,7 @@ public class SourceCreatedEventHandler implements EventBusSubscriber {
     public void handle(Event event) {
         LOG.info("New Source event received: " + event);
         try{
-            sourceService.handle(event.to(String.class));
+            sourceService.handleParallel(event.to(Resource.class));
         } catch (RuntimeException e){
             // TODO Notify to event-bus when source has not been added
             LOG.warn(e.getMessage());

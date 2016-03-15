@@ -5,8 +5,6 @@ import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.librairy.harvester.Config;
-import org.librairy.model.domain.resources.Domain;
-import org.librairy.model.domain.resources.File;
 import org.librairy.model.domain.resources.Resource;
 import org.librairy.model.domain.resources.Source;
 import org.librairy.storage.UDM;
@@ -34,10 +32,10 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
         "librairy.neo4j.port = 5030",
         "librairy.eventbus.host = wiig.dia.fi.upm.es"
 })
-public class FileServiceTest {
+public class DocumentServiceTest {
 
     @Autowired
-    FileService fileService;
+    DocumentService documentService;
 
     @Autowired
     UDM udm;

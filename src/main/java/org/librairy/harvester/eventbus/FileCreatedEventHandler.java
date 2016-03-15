@@ -1,6 +1,6 @@
 package org.librairy.harvester.eventbus;
 
-import org.librairy.harvester.services.FileService;
+import org.librairy.harvester.services.DocumentService;
 import org.librairy.model.Event;
 import org.librairy.model.domain.resources.File;
 import org.librairy.model.modules.BindingKey;
@@ -23,7 +23,7 @@ public class FileCreatedEventHandler implements EventBusSubscriber {
     private static final Logger LOG = LoggerFactory.getLogger(FileCreatedEventHandler.class);
 
     @Autowired
-    FileService service;
+    DocumentService service;
 
     @Autowired
     protected EventBus eventBus;
