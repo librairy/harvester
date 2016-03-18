@@ -1,24 +1,32 @@
-FROM tomcat:8.0
-MAINTAINER Carlos Badenes <cbadenes@gmail.com>
+FROM tomcat:8-jre8
+MAINTAINER Librairy <librairy.framework@gmail.com>
+
+ENV LIBRAIRY_HOME /librairy
+RUN mkdir $LIBRAIRY_HOME
 
 WORKDIR /usr/local/tomcat
 
-ENV COLUMN_DB_HOST column-db
-ENV DOCUMENT_DB_HOST document-db
-ENV GRAPH_DB_HOST graph-db
-ENV MESSAGE_BROKER_HOST eventbus
-
-ENV LIBRAIRY_HOME /usr/local/librairy
+RUN mkdir $LIBRAIRY_HOME/files
+RUN mkdir $LIBRAIRY_HOME/files/uploaded
+RUN mkdir $LIBRAIRY_HOME/files/serialized
+RUN mkdir $LIBRAIRY_HOME/files/collected
 
 ENV TEXT_MINER_URL http://backingdata.org/dri/library/1.2/DRIresources-1.2.tar.gz
-
-RUN mkdir $LIBRAIRY_HOME
-RUN mkdir $LIBRAIRY_HOME/workspace
-RUN mkdir $LIBRAIRY_HOME/serialized
-
-RUN curl "$TEXT_MINER_URL" | tar -C /usr/local -zx
+RUN curl "$TEXT_MINER_URL" | tar -C "$LIBRAIRY_HOME" -zx
 
 ADD harvester.war /usr/local/tomcat/webapps/harvester.war
+
+ENV COLUMN_DB_HOST column-db
+ENV COLUMN_DB_PORT 9042
+
+ENV DOCUMENT_DB_HOST document-db
+ENV DOCUMENT_DB_PORT 9300
+
+ENV GRAPH_DB_HOST graph-db
+ENV GRAPH_DB_PORT 7474
+
+ENV MESSAGE_BROKER_HOST event-bus
+ENV MESSAGE_BROKER_PORT 5672
 
 VOLUME $LIBRAIRY_HOME
 

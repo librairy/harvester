@@ -1,0 +1,24 @@
+ftp:
+  container_name: ftp
+  image: librairy/ftp:1.0
+  restart: always
+  ports:
+    - "5051:21"
+  volumes:
+    - ./data:/home/ftpusers/librairy
+harvester:
+  container_name: harvester
+  image: librairy/harvester
+  restart: always
+  volumes:
+    - ./data:/librairy/files/uploaded
+  environment:
+    - JAVA_OPTS='-Xms8g'
+    - COLUMN_DB_HOST=wiig.dia.fi.upm.es
+    - COLUMN_DB_PORT=5011
+    - DOCUMENT_DB_HOST=wiig.dia.fi.upm.es
+    - DOCUMENT_DB_PORT=5021
+    - GRAPH_DB_HOST=wiig.dia.fi.upm.es
+    - GRAPH_DB_PORT=5030
+    - MESSAGE_BROKER_HOST=wiig.dia.fi.upm.es
+    - MESSAGE_BROKER_PORT=5041

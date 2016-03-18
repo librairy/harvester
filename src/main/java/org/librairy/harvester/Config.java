@@ -25,10 +25,8 @@ import java.util.List;
  * Created by cbadenes on 01/12/15.
  */
 @Configuration("harvester")
-//@ComponentScan({"org.librairy.harvester","org.librairy.storage","org.librairy.eventbus"})
-//@PropertySource({"classpath:harvester.properties","classpath:eventbus.properties","classpath:storage.properties"})
 @ComponentScan({"org.librairy.harvester","org.librairy"})
-@PropertySource({"classpath:harvester.properties"})
+@PropertySource({"classpath:harvester.properties","classpath:eventbus.properties"})
 public class Config {
 
 
