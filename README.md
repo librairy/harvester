@@ -8,9 +8,9 @@ Collect and process local files
 
 ## Get Start!
 
-The only prerequisite to consider is to have installed [Docker](https://www.docker.com/) in your system.
+The only prerequisite to consider is to install [Docker](https://www.docker.com/) in your system.
 
-And now, run `docker-compose up` by using this file `docker-compose.yml`:  
+Then, run `docker-compose up` by using this file `docker-compose.yml`:  
 
 ```yml
 ftp:
@@ -44,7 +44,7 @@ Instead of deploy all containers as a whole, you can deploy each of them indepen
 docker run -it --rm --name ftp -p 5051:21 -v /Users/cbadenes/Downloads/ftp:/librairy/files/uploaded librairy/ftp:1.0
 ```
 
-Remember, by using the flags: `-it --rm`, the services runs in foreground mode, if you want to deploy it in background mode and even as a domain service you should use: `-d --restart=always`
+Remember that, by using the flags: `-it --rm`, the services runs in foreground mode, if you want to deploy it in background mode,  or even as a domain service, you should use: `-d --restart=always`
 
 ## Document-oriented Database
 
