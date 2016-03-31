@@ -13,7 +13,6 @@ In that case, add the following services to the existing `docker-compose.yml` fi
 ftp:
   container_name: ftp
   image: librairy/ftp:1.0
-  restart: always
   ports:
     - "5051:21"
   volumes:
@@ -21,7 +20,6 @@ ftp:
 harvester:
   container_name: harvester
   image: librairy/harvester
-  restart: always
   volumes:
     - ./data:/librairy/files/uploaded
   links:
