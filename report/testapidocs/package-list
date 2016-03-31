@@ -1,0 +1,7 @@
+org.librairy.harvester
+org.librairy.harvester.annotator
+org.librairy.harvester.parser
+org.librairy.harvester.routes.file
+org.librairy.harvester.routes.oaipmh
+org.librairy.harvester.routes.rss
+org.librairy.harvester.services

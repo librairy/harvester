@@ -1,0 +1,600 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<rss version="0.91">
+  <channel>
+    <title>librairy harvester - Checkstyle report</title>
+    <link>https://github.com/librairy/boot</link>
+    <description>librairy harvester - Checkstyle report</description>
+    <language>en-us</language>
+    <copyright>&#169;2016 Ontology Engineering Group</copyright>
+    <item>
+      <title>File: 39,
+             Errors: 780,
+             Warnings: 0,
+             Infos: 0
+      </title>
+            <link>https://github.com/librairy/boot/checkstyle.html</link>
+      <description>
+        <p>Click <a href="https://github.com/librairy/boot/checkstyle.html">here</a> for the full Checkstyle report.</p>
+
+        <table summary="Files" boder="1">
+          <thead>
+            <tr>
+              <th>Files</th>
+              <th style="width:30px;"><abbr title="Info">I</abbr></th>
+              <th style="width:30px;"><abbr title="Warning">W</abbr></th>
+              <th style="width:30px;"><abbr title="Error">E</abbr></th>
+            </tr>
+          </thead>
+          <tbody>
+                          <tr>
+                <td>
+                  <a href="https://github.com/librairy/boot/checkstyle.html#org.librairy.harvester.routes.file.FileRouteMaker.java">org/librairy/harvester/routes/file/FileRouteMaker.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  23
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/librairy/boot/checkstyle.html#org.librairy.harvester.services.ItemService.java">org/librairy/harvester/services/ItemService.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  31
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/librairy/boot/checkstyle.html#org.librairy.harvester.annotator.stanford.StopWordAnnotatorWrapper.java">org/librairy/harvester/annotator/stanford/StopWordAnnotatorWrapper.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  44
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/librairy/boot/checkstyle.html#org.librairy.harvester.services.PartsService.java">org/librairy/harvester/services/PartsService.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  42
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/librairy/boot/checkstyle.html#org.librairy.harvester.annotator.upf.UpfAnnotator.java">org/librairy/harvester/annotator/upf/UpfAnnotator.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  21
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/librairy/boot/checkstyle.html#org.librairy.harvester.parser.PDFParser.java">org/librairy/harvester/parser/PDFParser.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  17
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/librairy/boot/checkstyle.html#org.librairy.harvester.parser.ParserFactory.java">org/librairy/harvester/parser/ParserFactory.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  5
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/librairy/boot/checkstyle.html#org.librairy.harvester.eventbus.SourceCreatedEventHandler.java">org/librairy/harvester/eventbus/SourceCreatedEventHandler.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  17
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/librairy/boot/checkstyle.html#org.librairy.harvester.executor.ParallelExecutor.java">org/librairy/harvester/executor/ParallelExecutor.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  12
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/librairy/boot/checkstyle.html#org.librairy.harvester.routes.rss.RssRouteMaker.java">org/librairy/harvester/routes/rss/RssRouteMaker.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  9
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/librairy/boot/checkstyle.html#org.librairy.harvester.routes.processor.ResourceBuilder.java">org/librairy/harvester/routes/processor/ResourceBuilder.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  16
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/librairy/boot/checkstyle.html#org.librairy.harvester.routes.RouteDefinitionFactory.java">org/librairy/harvester/routes/RouteDefinitionFactory.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  21
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/librairy/boot/checkstyle.html#org.librairy.harvester.annotator.upf.SectionReader.java">org/librairy/harvester/annotator/upf/SectionReader.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  77
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/librairy/boot/checkstyle.html#org.librairy.harvester.routes.rss.RssRouteBuilder.java">org/librairy/harvester/routes/rss/RssRouteBuilder.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  4
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/librairy/boot/checkstyle.html#org.librairy.harvester.eventbus.ItemCreatedEventHandler.java">org/librairy/harvester/eventbus/ItemCreatedEventHandler.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  16
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/librairy/boot/checkstyle.html#org.librairy.harvester.routes.common.CommonRouteBuilder.java">org/librairy/harvester/routes/common/CommonRouteBuilder.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  13
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/librairy/boot/checkstyle.html#org.librairy.harvester.routes.oaipmh.OAIPMHRouteBuilder.java">org/librairy/harvester/routes/oaipmh/OAIPMHRouteBuilder.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  10
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/librairy/boot/checkstyle.html#DRIconfig.properties">DRIconfig.properties</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/librairy/boot/checkstyle.html#org.librairy.harvester.parser.MetaInformation.java">org/librairy/harvester/parser/MetaInformation.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  22
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/librairy/boot/checkstyle.html#log4j.properties">log4j.properties</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  1
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/librairy/boot/checkstyle.html#org.librairy.harvester.eventbus.DocumentCreatedEventHandler.java">org/librairy/harvester/eventbus/DocumentCreatedEventHandler.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  16
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/librairy/boot/checkstyle.html#org.librairy.harvester.serializer.AnnotatedDocumentSerializer.java">org/librairy/harvester/serializer/AnnotatedDocumentSerializer.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  23
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/librairy/boot/checkstyle.html#org.librairy.harvester.annotator.TextAnnotator.java">org/librairy/harvester/annotator/TextAnnotator.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  21
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/librairy/boot/checkstyle.html#org.librairy.harvester.routes.processor.ErrorHandler.java">org/librairy/harvester/routes/processor/ErrorHandler.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  4
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/librairy/boot/checkstyle.html#org.librairy.harvester.routes.rest.RestRouteBuilder.java">org/librairy/harvester/routes/rest/RestRouteBuilder.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  4
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/librairy/boot/checkstyle.html#org.librairy.harvester.parser.IParser.java">org/librairy/harvester/parser/IParser.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  3
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/librairy/boot/checkstyle.html#org.librairy.harvester.annotator.upf.AnnotatedDocument.java">org/librairy/harvester/annotator/upf/AnnotatedDocument.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  89
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/librairy/boot/checkstyle.html#org.librairy.harvester.helper.HarvesterHelper.java">org/librairy/harvester/helper/HarvesterHelper.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  10
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/librairy/boot/checkstyle.html#harvester.properties">harvester.properties</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/librairy/boot/checkstyle.html#org.librairy.harvester.services.SourceService.java">org/librairy/harvester/services/SourceService.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  46
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/librairy/boot/checkstyle.html#org.librairy.harvester.services.DocumentService.java">org/librairy/harvester/services/DocumentService.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  36
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/librairy/boot/checkstyle.html#org.librairy.harvester.routes.RouteMaker.java">org/librairy/harvester/routes/RouteMaker.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  3
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/librairy/boot/checkstyle.html#org.librairy.harvester.routes.oaipmh.OAIPMHRouteMaker.java">org/librairy/harvester/routes/oaipmh/OAIPMHRouteMaker.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  10
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/librairy/boot/checkstyle.html#org.librairy.harvester.annotator.stanford.StanfordParser.java">org/librairy/harvester/annotator/stanford/StanfordParser.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  31
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/librairy/boot/checkstyle.html#org.librairy.harvester.annotator.upf.AnnotatedAuthor.java">org/librairy/harvester/annotator/upf/AnnotatedAuthor.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  20
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/librairy/boot/checkstyle.html#org.librairy.harvester.eventbus.FileCreatedEventHandler.java">org/librairy/harvester/eventbus/FileCreatedEventHandler.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  16
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/librairy/boot/checkstyle.html#org.librairy.harvester.Config.java">org/librairy/harvester/Config.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  31
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/librairy/boot/checkstyle.html#org.librairy.harvester.routes.converter.FileTypeConverter.java">org/librairy/harvester/routes/converter/FileTypeConverter.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  3
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="https://github.com/librairy/boot/checkstyle.html#org.librairy.harvester.annotator.stanford.Token.java">org/librairy/harvester/annotator/stanford/Token.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  13
+                </td>
+              </tr>
+                      </tbody>
+        </table>
+        
+      </description>
+    </item>
+  </channel>
+</rss>
+
