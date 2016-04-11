@@ -33,7 +33,7 @@
     <!-- location of Spring Configuration Class-->
     <context-param>
         <param-name>contextConfigLocation</param-name>
-        <param-value>org.librairy.harvester.Config</param-value>
+        <param-value>org.librairy.harvester.file.Config</param-value>
     </context-param>
 
     <!-- the listener that kick-starts Spring -->

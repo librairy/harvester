@@ -1,1 +1,2 @@
-org.librairy.harvester.routes.converter
+org.librairy.harvester.file.routes.converter.FileConverter
+org.librairy.harvester.file.routes.converter.FileTypeConverter
