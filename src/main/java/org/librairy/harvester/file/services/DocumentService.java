@@ -52,13 +52,10 @@ public class DocumentService {
 
     private ParallelExecutor executor;
 
-    private ConcurrentHashMap<String,Integer> counter;
-
     @PostConstruct
     public void setup(){
 
         this.executor = new ParallelExecutor();
-        this.counter = new ConcurrentHashMap<>();
     }
 
     public void handleParallel(File file){
@@ -68,18 +65,7 @@ public class DocumentService {
     public void handle(File file){
         // Create a new Document
         try{
-            LOG.info("Processing file: " + file );
-
-            Integer value = counter.get(file.getUrl());
-            if ((value != null)){
-                LOG.error("Duplicated file!!!! -> " + file.getUrl());
-                value += 1;
-                counter.put(file.getUrl(),value);
-                return;
-            }
-
-            counter.put(file.getUrl(),0);
-
+            //TODO Move file to .done/ folder
 
             // Domain URI
             String domainUri        = file.getDomain();
@@ -190,7 +176,7 @@ public class DocumentService {
 
             }
 
-        }catch (RuntimeException e){
+        }catch (Exception e){
             LOG.error("Error adding document from: " + file, e);
         }
     }
