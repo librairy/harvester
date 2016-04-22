@@ -19,12 +19,7 @@ import java.util.Collections;
  *
  * @author cbadenes
  */
-@Component
 public class PdfDescriptor implements Descriptor{
-    @Override
-    public String getFileExtension() {
-        return "pdf";
-    }
 
     @Override
     public FileDescription describe(File file) {

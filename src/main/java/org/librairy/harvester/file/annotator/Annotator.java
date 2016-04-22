@@ -1,7 +1,5 @@
 package org.librairy.harvester.file.annotator;
 
-import java.io.File;
-
 /**
  * Created on 07/04/16:
  *
@@ -9,9 +7,11 @@ import java.io.File;
  */
 public interface Annotator {
 
-
-    AnnotatedDocument annotate(File file);
-
-    AnnotatedDocument annotate(String text);
+    /**
+     *
+     * @param itemURI the URI of the ITEM to be annotated
+     * @return
+     */
+    AnnotatedDocument annotate(String itemURI);
 
 }

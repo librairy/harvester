@@ -1,10 +1,9 @@
 package org.librairy.harvester.file.services;
 
-import lombok.Getter;
-import lombok.Setter;
-import org.librairy.harvester.file.annotator.TextAnnotator;
+import org.librairy.harvester.file.annotator.AnnotatedDocument;
+import org.librairy.harvester.file.annotator.Annotator;
 import org.librairy.harvester.file.executor.ParallelExecutor;
-import org.librairy.harvester.file.tokenizer.TextTokenizer;
+import org.librairy.harvester.file.tokenizer.Tokenizer;
 import org.librairy.model.domain.relations.Relation;
 import org.librairy.model.domain.resources.Part;
 import org.librairy.model.domain.resources.Resource;
@@ -13,7 +12,6 @@ import org.librairy.storage.generator.URIGenerator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -34,19 +32,10 @@ public class PartsService {
     URIGenerator uriGenerator;
 
     @Autowired
-    TextAnnotator textAnnotator;
+    Annotator annotator;
 
     @Autowired
-    TextTokenizer textTokenizer;
-
-    @Getter
-    @Setter
-    @Value("${harvester.input.folder.serial}")
-    String serializationDirectory;
-
-    @Value("${harvester.input.folder.external}")
-    protected String inputFolder;
-
+    Tokenizer tokenizer;
 
     private ParallelExecutor executor;
 
@@ -63,15 +52,15 @@ public class PartsService {
     public void handle(Resource resource){
         try{
 
-            // Read Item
-//            Optional<Resource> res = udm.read(Resource.Type.ITEM).byUri(resource.getUri());
-//
-//            if (!res.isPresent()){
-//                LOG.warn("No document found by uri: " + resource.getUri());
-//                return;
-//            }
-//            Item item = res.get().asItem();
+            AnnotatedDocument annotatedDocument = annotator.annotate(resource.getUri());
 
+            //Rhethorical Classes
+            annotatedDocument.getRhetoricalClasses().entrySet().stream().forEach(rclass -> createAndSavePart(rclass
+                    .getKey(),rclass.getValue(),resource.getUri()));
+
+            //Sections
+            annotatedDocument.getSections().entrySet().stream().forEach(rclass -> createAndSavePart(rclass.getKey(),rclass
+                    .getValue(),resource.getUri()));
 
 
         }catch (Exception e){
@@ -85,7 +74,7 @@ public class PartsService {
         part.setSense(sense);
         part.setContent(rawContent);
 
-        String tokens   = textTokenizer.tokenize(rawContent).stream().
+        String tokens   = tokenizer.tokenize(rawContent).stream().
                 filter(token -> token.isValid()).
                 map(token -> token.getLemma()).
                 collect(Collectors.joining(" "));

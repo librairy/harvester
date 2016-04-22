@@ -9,7 +9,5 @@ import java.io.File;
  */
 public interface Descriptor {
 
-    String getFileExtension();
-
     FileDescription describe(File file);
 }

@@ -7,7 +7,5 @@ import java.io.File;
  */
 public interface Parser {
 
-    String getFileExtension();
-
     ParsedDocument parse(File file);
 }

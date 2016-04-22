@@ -3,19 +3,17 @@ package org.librairy.harvester.file.services;
 import com.google.common.base.Strings;
 import org.librairy.harvester.file.executor.ParallelExecutor;
 import org.librairy.harvester.file.parser.ParsedDocument;
-import org.librairy.harvester.file.parser.TextParser;
-import org.librairy.harvester.file.tokenizer.TextTokenizer;
+import org.librairy.harvester.file.parser.Parser;
+import org.librairy.harvester.file.tokenizer.Tokenizer;
 import org.librairy.model.domain.relations.Relation;
 import org.librairy.model.domain.resources.Document;
 import org.librairy.model.domain.resources.Item;
 import org.librairy.model.domain.resources.Resource;
-import org.librairy.model.utils.ResourceUtils;
 import org.librairy.storage.UDM;
 import org.librairy.storage.generator.URIGenerator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -38,10 +36,10 @@ public class ItemService {
     URIGenerator uriGenerator;
 
     @Autowired
-    TextTokenizer textTokenizer;
+    Tokenizer tokenizer;
 
     @Autowired
-    TextParser textParser;
+    Parser parser;
 
     private ParallelExecutor executor;
 
@@ -69,7 +67,7 @@ public class ItemService {
 
             // Parsing File of the Document
             File file = new File(document.getRetrievedFrom());
-            ParsedDocument parsedDocument = textParser.parse(file);
+            ParsedDocument parsedDocument = parser.parse(file);
 
             // -> Textual Item
             String textualContent = parsedDocument.getText();
@@ -97,7 +95,7 @@ public class ItemService {
         item.setFormat(type);
         item.setUrl(url);
         item.setContent(content);
-        String tokens = textTokenizer.tokenize(item.getContent()).stream().
+        String tokens = tokenizer.tokenize(item.getContent()).stream().
                 filter(token -> token.isValid()).
                 map(token -> token.getLemma()).
                 collect(Collectors.joining(" "));

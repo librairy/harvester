@@ -2,11 +2,8 @@ package org.librairy.harvester.file.routes.processor;
 
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
-import org.apache.commons.beanutils.BeanUtils;
-import org.librairy.harvester.file.descriptor.FileDescriptor;
 import org.librairy.model.Record;
 import org.librairy.model.domain.resources.File;
-import org.librairy.model.domain.resources.MetaInformation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;

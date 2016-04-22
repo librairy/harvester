@@ -1,5 +1,6 @@
 package org.librairy.harvester.file.annotator;
 
+import com.google.common.collect.ImmutableMap;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -14,9 +15,9 @@ import java.util.Map;
 public class AnnotatedDocument implements Serializable{
 
 
-    private Map<String,String> sections;
+    private Map<String,String> sections = ImmutableMap.of();
 
 
-    private Map<String,String> rhetoricalClasses;
+    private Map<String,String> rhetoricalClasses = ImmutableMap.of();
 
 }

@@ -19,15 +19,9 @@ import java.util.stream.Stream;
  *
  * @author cbadenes
  */
-@Component
 public class TxtDescriptor implements Descriptor{
 
     private static final Logger LOG = LoggerFactory.getLogger(TxtDescriptor.class);
-
-    @Override
-    public String getFileExtension() {
-        return "txt";
-    }
 
     @Override
     public FileDescription describe(File file) {

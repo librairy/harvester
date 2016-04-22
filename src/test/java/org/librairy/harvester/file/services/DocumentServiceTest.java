@@ -1,7 +1,6 @@
 package org.librairy.harvester.file.services;
 
 import es.cbadenes.lab.test.IntegrationTest;
-import it.uniroma1.lcl.jlt.util.Files;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
@@ -18,9 +17,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import java.io.File;
-import java.io.IOException;
-
 /**
  * Created by cbadenes on 15/03/16.
  */
@@ -33,7 +29,6 @@ import java.io.IOException;
         "harvester.input.folder.meta            = src/test/resources/workspace/meta",
         "harvester.input.folder.external        = src/test/resources/workspace/uploaded",
         "harvester.input.folder.hoarder         = src/test/resources/workspace/collected",
-        "harvester.input.folder.serial          = src/test/resources/workspace/serialized",
         "librairy.cassandra.contactpoints       = zavijava.dia.fi.upm.es",
         "librairy.cassandra.port                = 5011",
         "librairy.cassandra.keyspace            = research",

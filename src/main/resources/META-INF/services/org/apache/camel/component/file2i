@@ -15,4 +15,4 @@
 # limitations under the License.
 #
 
-class=org.librairy.harvester.file.component.FileComponent
+class=org.librairy.harvester.component.FileComponent

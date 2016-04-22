@@ -52,12 +52,10 @@ public class FileRouteMaker implements RouteMaker{
                 append("?" +
                         "autoCreate=true&" +
                         "recursive=true&" +
-                        "maxMessagesPerPoll=50&"+
-                        "noop=true&" + //true
+                        "noop=true&" +
                         "chmod=777&" +
+                        "exclude=.*\\.ser&" +
                         "delete=false&" +
-//                        "move=.done&" +
-//                        "moveFailed=.error&" +
                         "processStrategy=#customProcessStrategy&" +
                         "readLock=changed&" +
                         "readLockCheckInterval=2000&" +

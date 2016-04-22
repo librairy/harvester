@@ -15,15 +15,9 @@ import java.nio.file.Files;
  *
  * @author cbadenes
  */
-@Component
 public class TxtParser implements Parser {
 
     private static final Logger LOG = LoggerFactory.getLogger(TxtParser.class);
-
-    @Override
-    public String getFileExtension() {
-        return "txt";
-    }
 
     @Override
     public ParsedDocument parse(File file) {

@@ -25,7 +25,22 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @Category(IntegrationTest.class)
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = Config.class)
-@TestPropertySource(properties = { "harvester.input.folder.external = src/test/resources/inbox"})
+@TestPropertySource(properties = {
+        "harvester.input.folder                 = src/test/resources/workspace",
+        "harvester.input.folder.default         = src/test/resources/workspace/default",
+        "harvester.input.folder.meta            = src/test/resources/workspace/meta",
+        "harvester.input.folder.external        = src/test/resources/workspace/uploaded",
+        "harvester.input.folder.hoarder         = src/test/resources/workspace/collected",
+        "librairy.cassandra.contactpoints       = wiig.dia.fi.upm.es",
+        "librairy.cassandra.port                = 5011",
+        "librairy.cassandra.keyspace            = research",
+        "librairy.elasticsearch.contactpoints   = wiig.dia.fi.upm.es",
+        "librairy.elasticsearch.port            = 5021",
+        "librairy.neo4j.contactpoints           = wiig.dia.fi.upm.es",
+        "librairy.neo4j.port                    = 5030",
+        "librairy.eventbus.host                 = wiig.dia.fi.upm.es",
+        "librairy.eventbus.port                 = 5041"
+})
 public class HarvestingTest {
 
     private static final Logger LOG = LoggerFactory.getLogger(HarvestingTest.class);
@@ -43,11 +58,9 @@ public class HarvestingTest {
         LOG.info("Wake Up!");
     }
 
+
     @Test
     public void simulate() throws InterruptedException {
-
-        // Reset DDBDD
-        udm.delete(Resource.Type.ANY);
 
         // Domain
         Domain domain = new Domain();

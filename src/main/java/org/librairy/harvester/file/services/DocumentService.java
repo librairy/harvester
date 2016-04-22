@@ -2,11 +2,9 @@ package org.librairy.harvester.file.services;
 
 import com.google.common.base.Strings;
 import it.uniroma1.lcl.jlt.util.Files;
-import org.apache.camel.Exchange;
-import org.apache.camel.Processor;
-import org.apache.commons.lang.StringUtils;
+import org.librairy.harvester.file.descriptor.Descriptor;
 import org.librairy.harvester.file.descriptor.FileDescription;
-import org.librairy.harvester.file.descriptor.FileDescriptor;
+import org.librairy.harvester.file.descriptor.DefaultFileDescriptor;
 import org.librairy.harvester.file.eventbus.FileCreatedEventHandler;
 import org.librairy.harvester.file.executor.ParallelExecutor;
 import org.librairy.model.Event;
@@ -22,13 +20,9 @@ import org.librairy.storage.generator.URIGenerator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
-import java.util.List;
-import java.util.Optional;
-import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Created by cbadenes on 11/02/16.
@@ -45,7 +39,7 @@ public class DocumentService {
     URIGenerator uriGenerator;
 
     @Autowired
-    FileDescriptor fileDescriptor;
+    Descriptor fileDescriptor;
 
     @Autowired
     EventBus eventBus;

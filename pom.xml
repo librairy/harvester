@@ -8,7 +8,7 @@
     <packaging>war</packaging>
     <name>librairy harvester</name>
     <description>Collect and analyze unstructured files.</description>
-    <url>https://github.com/librairy/boot</url>
+    <url>https://github.com/librairy/harvester-file</url>
     <organization>
         <name>Ontology Engineering Group</name>
         <url>http://www.oeg-upm.net</url>
@@ -648,6 +648,11 @@
             </dependency>
             <dependency>
                 <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-web</artifactId>
+                <version>${springboot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-amqp</artifactId>
                 <version>${springboot.version}</version>
             </dependency>
@@ -866,9 +871,13 @@
         </dependency>
 
         <!-- Spring Web -->
+        <!--<dependency>-->
+            <!--<groupId>org.springframework</groupId>-->
+            <!--<artifactId>spring-web</artifactId>-->
+        <!--</dependency>-->
         <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-web</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
         <!-- Unit tests -->

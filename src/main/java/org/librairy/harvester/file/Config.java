@@ -1,17 +1,12 @@
 package org.librairy.harvester.file;
 
-import com.datastax.driver.core.Cluster;
-import com.datastax.driver.core.ConsistencyLevel;
-import com.datastax.driver.core.policies.RetryPolicy;
 import com.rabbitmq.client.ConnectionFactory;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.processor.idempotent.FileIdempotentRepository;
-import org.apache.camel.processor.idempotent.cassandra.CassandraIdempotentRepository;
 import org.apache.camel.spring.SpringCamelContext;
-import org.librairy.harvester.file.component.GenericFileProcessStrategy;
-import org.librairy.harvester.file.component.strategy.GenericFileDeleteProcessStrategy;
-import org.librairy.harvester.file.component.strategy.GenericFileNoOpProcessStrategy;
-import org.librairy.harvester.file.component.strategy.GenericFileRenameProcessStrategy;
+import org.librairy.harvester.component.GenericFileProcessStrategy;
+import org.librairy.harvester.component.strategy.GenericFileNoOpProcessStrategy;
+import org.librairy.harvester.component.strategy.GenericFileRenameProcessStrategy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
@@ -21,21 +16,17 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.core.env.Environment;
-import org.springframework.data.cassandra.config.CassandraClusterFactoryBean;
 
 import java.io.File;
-import java.net.InetSocketAddress;
 import java.net.URISyntaxException;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
  * Created by cbadenes on 01/12/15.
  */
-@Configuration("harvester-file")
+@Configuration("org.librairy.harvester.file")
 @ComponentScan({"org.librairy"})
 @PropertySource({"classpath:harvester.properties","classpath:eventbus.properties","classpath:eventbus.properties"})
 public class Config {
@@ -115,7 +106,8 @@ public class Config {
 
     @Bean(name="customProcessStrategy")
     public GenericFileProcessStrategy getCustomProcessStrategy() {
-        return new GenericFileRenameProcessStrategy();
+        //return new GenericFileRenameProcessStrategy();
+        return new GenericFileNoOpProcessStrategy();
     }
 
 }

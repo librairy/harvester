@@ -16,7 +16,6 @@ import java.text.SimpleDateFormat;
 /**
  * Created by cbadenes on 14/03/16.
  */
-@Component
 public class PDFParser implements Parser {
 
     private static final Logger LOG = LoggerFactory.getLogger(PDFParser.class);
@@ -29,11 +28,6 @@ public class PDFParser implements Parser {
         this.timeFormatter  = new SimpleDateFormat("yyyyMMdd'T'HH:mm:ssZ");
     }
 
-
-    @Override
-    public String getFileExtension() {
-        return "pdf";
-    }
 
     @Override
     public ParsedDocument parse(File file) {

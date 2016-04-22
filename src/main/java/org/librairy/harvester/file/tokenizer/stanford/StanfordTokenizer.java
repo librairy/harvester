@@ -17,7 +17,6 @@ import java.util.Properties;
 /**
  * Created by cbadenes on 07/01/16.
  */
-@Component
 public class StanfordTokenizer implements Tokenizer {
 
     /**

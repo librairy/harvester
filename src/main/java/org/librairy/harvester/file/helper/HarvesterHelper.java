@@ -2,7 +2,8 @@ package org.librairy.harvester.file.helper;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.librairy.harvester.file.annotator.TextAnnotator;
+import org.librairy.harvester.file.annotator.Annotator;
+import org.librairy.harvester.file.annotator.DefaultAnnotator;
 import org.librairy.model.modules.EventBus;
 import org.librairy.storage.UDM;
 import org.librairy.storage.generator.URIGenerator;
@@ -16,10 +17,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class HarvesterHelper {
 
-    @Getter @Setter
-    @Value("${harvester.input.folder.serial}")
-    String serializationDirectory;
-
     @Getter
     @Autowired
     UDM udm;
@@ -30,7 +27,7 @@ public class HarvesterHelper {
 
     @Getter
     @Autowired
-    TextAnnotator textMiner;
+    Annotator textMiner;
 
     @Getter
     @Autowired
