@@ -14,6 +14,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
+import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -30,6 +32,17 @@ public class FileRouteMaker implements RouteMaker{
 
     @Value("${harvester.input.folder.default}")
     protected String defaultFolder;
+
+    @PostConstruct
+    public void setup(){
+
+        File inputF = new File(inputFolder);
+        if (!inputF.exists()) inputF.mkdirs();
+
+        File defaultF = new File(defaultFolder);
+        if (!defaultF.exists()) defaultF.mkdirs();
+
+    }
 
     @Override
     public boolean accept(String protocol) {
