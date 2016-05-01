@@ -3,6 +3,7 @@ package org.librairy.harvester.file.services;
 import org.librairy.harvester.file.annotator.AnnotatedDocument;
 import org.librairy.harvester.file.annotator.Annotator;
 import org.librairy.harvester.file.executor.ParallelExecutor;
+import org.librairy.harvester.file.tokenizer.Language;
 import org.librairy.harvester.file.tokenizer.Tokenizer;
 import org.librairy.model.domain.relations.Relation;
 import org.librairy.model.domain.resources.Part;
@@ -74,7 +75,7 @@ public class PartsService {
         part.setSense(sense);
         part.setContent(rawContent);
 
-        String tokens   = tokenizer.tokenize(rawContent).stream().
+        String tokens   = tokenizer.tokenize(rawContent, Language.EN).stream().
                 filter(token -> token.isValid()).
                 map(token -> token.getLemma()).
                 collect(Collectors.joining(" "));

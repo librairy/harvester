@@ -1,6 +1,6 @@
 package org.librairy.harvester.file.tokenizer;
 
-import org.librairy.harvester.file.tokenizer.stanford.StanfordTokenizer;
+import org.librairy.harvester.file.tokenizer.stanford.StanfordTokenizerEN;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,8 +24,7 @@ public class ParallelTokenizer {
     private static final Logger LOG = LoggerFactory.getLogger(ParallelTokenizer.class);
 
     public void test(){
-        StanfordTokenizer tokenizer = new StanfordTokenizer();
-        tokenizer.setup();
+        StanfordTokenizerEN tokenizer = new StanfordTokenizerEN();
 
 
         Runnable task = new Runnable() {

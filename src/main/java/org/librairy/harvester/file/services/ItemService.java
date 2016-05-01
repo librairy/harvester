@@ -1,9 +1,11 @@
 package org.librairy.harvester.file.services;
 
 import com.google.common.base.Strings;
+import org.apache.commons.lang.StringUtils;
 import org.librairy.harvester.file.executor.ParallelExecutor;
 import org.librairy.harvester.file.parser.ParsedDocument;
 import org.librairy.harvester.file.parser.Parser;
+import org.librairy.harvester.file.tokenizer.Language;
 import org.librairy.harvester.file.tokenizer.Tokenizer;
 import org.librairy.model.domain.relations.Relation;
 import org.librairy.model.domain.resources.Document;
@@ -69,10 +71,13 @@ public class ItemService {
             File file = new File(document.getRetrievedFrom());
             ParsedDocument parsedDocument = parser.parse(file);
 
+            String fileName = StringUtils.substringBeforeLast(file.getName(), ".");
+            Language language = fileName.endsWith("_ES")? Language.ES : Language.EN;
+
             // -> Textual Item
             String textualContent = parsedDocument.getText();
             if (!Strings.isNullOrEmpty(textualContent)){
-                Item textualItem = createItem(textualContent, "text", file.getAbsolutePath());
+                Item textualItem = createItem(textualContent, "text", file.getAbsolutePath(),language);
                 udm.save(textualItem);
                 udm.save(Relation.newBundles(document.getUri(),textualItem.getUri()));
                 LOG.info("Added textual item: " + textualItem.getUri());
@@ -89,13 +94,13 @@ public class ItemService {
     }
 
 
-    private Item createItem(String content, String type, String url){
+    private Item createItem(String content, String type, String url, Language language){
         Item item = Resource.newItem();
         item.setUri(uriGenerator.basedOnContent(Resource.Type.ITEM,content));
         item.setFormat(type);
         item.setUrl(url);
         item.setContent(content);
-        String tokens = tokenizer.tokenize(item.getContent()).stream().
+        String tokens = tokenizer.tokenize(item.getContent(),language).stream().
                 filter(token -> token.isValid()).
                 map(token -> token.getLemma()).
                 collect(Collectors.joining(" "));
