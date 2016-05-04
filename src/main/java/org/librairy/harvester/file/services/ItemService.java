@@ -3,6 +3,7 @@ package org.librairy.harvester.file.services;
 import com.google.common.base.Strings;
 import org.apache.commons.lang.StringUtils;
 import org.librairy.harvester.file.executor.ParallelExecutor;
+import org.librairy.harvester.file.helper.LanguageHelper;
 import org.librairy.harvester.file.parser.ParsedDocument;
 import org.librairy.harvester.file.parser.Parser;
 import org.librairy.harvester.file.tokenizer.Language;
@@ -71,8 +72,7 @@ public class ItemService {
             File file = new File(document.getRetrievedFrom());
             ParsedDocument parsedDocument = parser.parse(file);
 
-            String fileName = StringUtils.substringBeforeLast(file.getName(), ".");
-            Language language = fileName.endsWith("_ES")? Language.ES : Language.EN;
+            Language language = LanguageHelper.getLanguageFrom(file);
 
             // -> Textual Item
             String textualContent = parsedDocument.getText();

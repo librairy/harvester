@@ -8,7 +8,7 @@ WORKDIR /usr/local/tomcat
 
 RUN mkdir $LIBRAIRY_HOME/files
 RUN mkdir $LIBRAIRY_HOME/files/default
-RUN mkdir $LIBRAIRY_HOME/files/uploaded
+RUN mkdir $LIBRAIRY_HOME/files/custom
 RUN mkdir $LIBRAIRY_HOME/files/serialized
 RUN mkdir $LIBRAIRY_HOME/files/collected
 

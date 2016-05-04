@@ -6,5 +6,5 @@ package org.librairy.harvester.file.tokenizer;
  * @author cbadenes
  */
 public enum Language {
-    EN, ES;
+    EN, ES
 }

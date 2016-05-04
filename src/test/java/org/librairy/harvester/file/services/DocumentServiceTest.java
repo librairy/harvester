@@ -27,7 +27,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
         "harvester.input.folder                 = src/test/resources/workspace",
         "harvester.input.folder.default         = src/test/resources/workspace/default",
         "harvester.input.folder.meta            = src/test/resources/workspace/meta",
-        "harvester.input.folder.external        = src/test/resources/workspace/uploaded",
+        "harvester.input.folder.external        = src/test/resources/workspace/custom",
         "harvester.input.folder.hoarder         = src/test/resources/workspace/collected",
         "librairy.cassandra.contactpoints       = zavijava.dia.fi.upm.es",
         "librairy.cassandra.port                = 5011",

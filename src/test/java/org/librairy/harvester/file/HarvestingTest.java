@@ -26,11 +26,11 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = Config.class)
 @TestPropertySource(properties = {
-        "harvester.input.folder                 = src/test/resources/workspace",
-        "harvester.input.folder.default         = src/test/resources/workspace/default",
-        "harvester.input.folder.meta            = src/test/resources/workspace/meta",
-        "harvester.input.folder.external        = src/test/resources/workspace/uploaded",
-        "harvester.input.folder.hoarder         = src/test/resources/workspace/collected",
+        "harvester.input.folder                 = src/test/resources/sample",
+        "harvester.input.folder.default         = src/test/resources/sample/default",
+        "harvester.input.folder.meta            = src/test/resources/sample/meta",
+        "harvester.input.folder.external        = src/test/resources/sample/custom",
+        "harvester.input.folder.hoarder         = src/test/resources/sample/collected",
         "librairy.cassandra.contactpoints       = wiig.dia.fi.upm.es",
         "librairy.cassandra.port                = 5011",
         "librairy.cassandra.keyspace            = research",

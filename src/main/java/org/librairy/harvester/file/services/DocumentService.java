@@ -78,37 +78,14 @@ public class DocumentService {
                 return;
             }
 
-            // Check is exists
-            String docURI = uriGenerator.from(Resource.Type.DOCUMENT,Files.getFileNameWithoutExtension(ioFile
-                    .getAbsolutePath()));
-//            if (udm.exists(Resource.Type.DOCUMENT).withUri(docURI)){
-//                LOG.warn("Document from file: '"+ioFile.getAbsolutePath()+"' already exists in" + "ddbb with uri: " +
-//                        docURI);
-//
-//                //TODO Set this domain and this source
-//
-//                return;
-//            }
-
             // Retrieve File Description
             FileDescription fileDescription = fileDescriptor.describe(ioFile);
-
-//            // Check if exist document based on title
-//            List<String> docs = udm.find(Resource.Type.DOCUMENT).by(Document.TITLE,fileDescription.getMetaInformation().getTitle());
-//            if (docs != null && !docs.isEmpty()){
-//                LOG.warn("Document titled: '"+fileDescription.getMetaInformation().getTitle()+"' already exists in " +
-//                        "ddbb with uri: " + docs);
-//
-//                // Set this domain and this source
-//
-//                return;
-//            }
 
             // Document
             Document document = Resource.newDocument();
             // -> uri
-            //document.setUri(uriGenerator.basedOnContent(Resource.Type.DOCUMENT,fileDescription.getSummary()));
-            document.setUri(docURI);
+            document.setUri(uriGenerator.basedOnContent(Resource.Type.DOCUMENT,fileDescription.getSummary()));
+            //document.setUri(uriGenerator.from(Resource.Type.DOCUMENT,Files.getFileNameWithoutExtension(ioFile.getAbsolutePath()));
             // -> publishedOn
             document.setPublishedOn(fileDescription.getMetaInformation().getPublished());
             // -> publishedBy
@@ -143,12 +120,12 @@ public class DocumentService {
 
 
             // Relate it to Source
-            udm.save(Relation.newProvides(sourceUri,docURI));
+            udm.save(Relation.newProvides(sourceUri,document.getUri()));
             // Relate it to Domain
-            udm.save(Relation.newContains(domainUri,docURI));
+            udm.save(Relation.newContains(domainUri,document.getUri()));
             // Relate it to Document
             if (!Strings.isNullOrEmpty(file.getAggregatedFrom())){
-                udm.save(Relation.newAggregates(file.getAggregatedFrom(),docURI));
+                udm.save(Relation.newAggregates(file.getAggregatedFrom(),document.getUri()));
             }
 
 
@@ -162,7 +139,7 @@ public class DocumentService {
                     aggregatedFileDesc.setDomain(domainUri);
                     aggregatedFileDesc.setSource(sourceUri);
                     aggregatedFileDesc.setUrl(aggregatedFile.getAbsolutePath());
-                    aggregatedFileDesc.setAggregatedFrom(docURI);
+                    aggregatedFileDesc.setAggregatedFrom(document.getUri());
 
                     LOG.info("Publishing event from aggregated file: " + aggregatedFileDesc);
                     eventBus.post(Event.from(aggregatedFileDesc), RoutingKey.of(FileCreatedEventHandler.ROUTING_KEY));

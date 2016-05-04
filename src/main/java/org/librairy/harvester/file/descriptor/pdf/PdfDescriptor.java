@@ -6,6 +6,8 @@ import org.apache.pdfbox.pdmodel.encryption.SecurityHandler;
 import org.apache.pdfbox.util.PDFTextStripper;
 import org.librairy.harvester.file.descriptor.Descriptor;
 import org.librairy.harvester.file.descriptor.FileDescription;
+import org.librairy.harvester.file.helper.LanguageHelper;
+import org.librairy.harvester.file.tokenizer.Language;
 import org.librairy.model.domain.resources.MetaInformation;
 import org.springframework.stereotype.Component;
 
@@ -31,7 +33,9 @@ public class PdfDescriptor implements Descriptor{
             PDDocument pdDocument = PDDocument.load(file);
 
             // MetaInformation
-            fileDescription.setMetaInformation(retrieveMetaInformation(pdDocument));
+            MetaInformation metainformation = retrieveMetaInformation(pdDocument);
+            metainformation.setLanguage(LanguageHelper.getLanguageFrom(file).name());
+            fileDescription.setMetaInformation(metainformation);
 
             // Summary
             fileDescription.setSummary(retrieveSummary(pdDocument));
@@ -59,16 +63,18 @@ public class PdfDescriptor implements Descriptor{
         metaInformation.setType("file");
         metaInformation.setSubject(docInformation.getSubject());
 
-        metaInformation.setPublished(timeFormatter.format(docInformation.getModificationDate().getTime()));
-        metaInformation.setAuthored(timeFormatter.format(docInformation.getCreationDate().getTime()));
+        if (docInformation.getModificationDate() != null){
+            metaInformation.setPublished(timeFormatter.format(docInformation.getModificationDate().getTime()));
+        }
 
-        //TODO Retrieve language!!
-        //metaInformation.setLanguage("en");
+        if (docInformation.getCreationDate() != null){
+            metaInformation.setAuthored(timeFormatter.format(docInformation.getCreationDate().getTime()));
+        }
         //metaInformation.setPubURI("unknown");
         //metaInformation.setContributors("unknown");
         SecurityHandler securityHandler = document.getSecurityHandler();
         //metaInformation.setRights("unknown");
-        if (securityHandler != null){
+        if (securityHandler != null && securityHandler.getCurrentAccessPermission() != null){
             metaInformation.setRights(securityHandler.getCurrentAccessPermission().toString());
         }
         return metaInformation;

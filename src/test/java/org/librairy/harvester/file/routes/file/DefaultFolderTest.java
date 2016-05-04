@@ -34,7 +34,7 @@ import java.io.File;
         "harvester.input.folder                 = src/test/resources/sample",
         "harvester.input.folder.default         = src/test/resources/sample/default",
         "harvester.input.folder.meta            = src/test/resources/sample/meta",
-        "harvester.input.folder.external        = src/test/resources/sample/uploaded",
+        "harvester.input.folder.external        = src/test/resources/sample/custom",
         "harvester.input.folder.hoarder         = src/test/resources/sample/collected",
         "librairy.cassandra.contactpoints       = wiig.dia.fi.upm.es",
         "librairy.cassandra.port                = 5011",

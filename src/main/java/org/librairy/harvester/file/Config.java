@@ -28,7 +28,7 @@ import java.util.List;
  */
 @Configuration("org.librairy.harvester.file")
 @ComponentScan({"org.librairy"})
-@PropertySource({"classpath:harvester.properties","classpath:eventbus.properties","classpath:eventbus.properties"})
+@PropertySource({"classpath:harvester.properties","classpath:boot.properties"})
 public class Config {
 
 
