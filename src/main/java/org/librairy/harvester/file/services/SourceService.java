@@ -87,7 +87,7 @@ public class SourceService {
                 LOG.info("creating a new domain associated to source: " + resource.getUri());
                 domain = Resource.newDomain();
 
-                String domainUri    = uriGenerator.newFor(Resource.Type.DOMAIN);
+                String domainUri    = uriGenerator.basedOnContent(Resource.Type.DOMAIN,source.getName());
                 String sourceId     = URIGenerator.retrieveId(source.getUri());
                 if (sourceId.equalsIgnoreCase("default")){
                     domainUri = uriGenerator.from(Resource.Type.DOMAIN,"default");
