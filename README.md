@@ -1,4 +1,9 @@
-# Harvester [![Release Status](https://travis-ci.org/librairy/harvester-file.svg?branch=master)](https://travis-ci.org/librairy/harvester-file) [![Dev Status](https://travis-ci.org/librairy/harvester-file.svg?branch=develop)](https://travis-ci.org/librairy/harvester-file) [![Doc](https://raw.githubusercontent.com/librairy/resources/master/figures/interface.png)](https://rawgit.com/librairy/harvester-file/doc/report/index.html)
+# Harvester
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/5e3e2fe9b1c242b6a4a13b7e6459b68e)](https://www.codacy.com/app/cbadenes/harvester-file)
+[![Release Status](https://travis-ci.org/librairy/harvester-file.svg?branch=master)](https://travis-ci.org/librairy/harvester-file)
+[![Dev Status](https://travis-ci.org/librairy/harvester-file.svg?branch=develop)](https://travis-ci.org/librairy/harvester-file)
+[![Coverage Status](https://coveralls.io/repos/github/librairy/harvester-file/badge.svg?branch=master)](https://coveralls.io/github/librairy/harvester-file?branch=master)
+[![Doc](https://raw.githubusercontent.com/librairy/resources/master/figures/interface.png)](https://rawgit.com/librairy/harvester-file/doc/report/index.html)
 
 Collect and process unstructured files to retrieve the full-text content and derived tokens from them.
 
