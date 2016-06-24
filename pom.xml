@@ -4,7 +4,7 @@
 
 	<groupId>org.librairy</groupId>
     <artifactId>harvester</artifactId>
-    <version>0.3</version>
+    <version>0.4-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>librairy harvester</name>
     <description>Collect and analyze unstructured files.</description>
