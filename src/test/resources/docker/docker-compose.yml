@@ -1,0 +1,5 @@
+version: "2"
+services:
+ harvester:
+   container_name: harvester
+   image: librairy/harvester:0.3-SNAPSHOT

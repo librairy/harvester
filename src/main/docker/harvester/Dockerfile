@@ -7,12 +7,10 @@ RUN mkdir $LIBRAIRY_HOME
 WORKDIR /usr/local/tomcat
 
 RUN mkdir $LIBRAIRY_HOME/files
-RUN mkdir $LIBRAIRY_HOME/files/uploaded
+RUN mkdir $LIBRAIRY_HOME/files/default
+RUN mkdir $LIBRAIRY_HOME/files/custom
 RUN mkdir $LIBRAIRY_HOME/files/serialized
 RUN mkdir $LIBRAIRY_HOME/files/collected
-
-ENV TEXT_MINER_URL http://backingdata.org/dri/library/1.2/DRIresources-1.2.tar.gz
-RUN curl "$TEXT_MINER_URL" | tar -C "$LIBRAIRY_HOME" -zx
 
 ADD harvester.war /usr/local/tomcat/webapps/harvester.war
 
@@ -28,7 +26,8 @@ ENV GRAPH_DB_PORT 7474
 ENV MESSAGE_BROKER_HOST event-bus
 ENV MESSAGE_BROKER_PORT 5672
 
-VOLUME $LIBRAIRY_HOME
+VOLUME /librairy
+VOLUME /usr/local/tomcat
 
 EXPOSE 8080
 CMD ["catalina.sh", "run"]

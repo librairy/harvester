@@ -9,7 +9,7 @@
 
     <logger name="edu.upf.taln.dri.lib" level="DEBUG"/>
 
-    <logger name="org.librairy" level="DEBUG"/>
+    <logger name="org.librairy" level="INFO"/>
 
     <logger name="es.upm" level="INFO"/>
 

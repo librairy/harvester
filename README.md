@@ -1,4 +1,9 @@
-# Harvester [![Release Status](https://travis-ci.org/librairy/harvester-file.svg?branch=master)](https://travis-ci.org/librairy/harvester-file) [![Dev Status](https://travis-ci.org/librairy/harvester-file.svg?branch=develop)](https://travis-ci.org/librairy/harvester-file) [![Doc](https://raw.githubusercontent.com/librairy/resources/master/figures/interface.png)](https://rawgit.com/librairy/harvester-file/doc/report/index.html)
+# Harvester
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/5e3e2fe9b1c242b6a4a13b7e6459b68e)](https://www.codacy.com/app/cbadenes/harvester-file)
+[![Release Status](https://travis-ci.org/librairy/harvester-file.svg?branch=master)](https://travis-ci.org/librairy/harvester-file)
+[![Dev Status](https://travis-ci.org/librairy/harvester-file.svg?branch=master)](https://travis-ci.org/librairy/harvester-file)
+[![Coverage Status](https://coveralls.io/repos/github/librairy/harvester-file/badge.svg?branch=master)](https://coveralls.io/github/librairy/harvester-file?branch=master)
+[![Doc](https://raw.githubusercontent.com/librairy/resources/master/figures/interface.png)](https://rawgit.com/librairy/harvester-file/doc/report/index.html)
 
 Collect and process unstructured files to retrieve the full-text content and derived tokens from them.
 
@@ -21,7 +26,7 @@ harvester:
   container_name: harvester
   image: librairy/harvester
   volumes:
-    - ./data:/librairy/files/uploaded
+    - ./data:/librairy/files/custom
   links:
       - column-db
       - document-db
@@ -42,12 +47,12 @@ Instead of deploy all containers as a whole, you can deploy each of them indepen
 
 - **FTP Server**:
     ```sh
-    $ docker run -it --rm --name ftp -p 5051:21 -v /Users/cbadenes/Downloads/ftp:/librairy/files/uploaded librairy/ftp:1.0
+    $ docker run -it --rm --name ftp -p 5051:21 -v ./ftp:/librairy/files/custom librairy/ftp:1.0
     ```
 
 - **Harvester**:
     ```sh
-    $ docker run -it --rm --name harvester -v /Users/cbadenes/Downloads/ftp:/librairy/files/uploaded librairy/harvester
+    $ docker run -it --rm --name harvester -v ./documents:/librairy/files librairy/harvester
     ```
 
 Remember that by using the flags: `-it --rm`, the services runs in foreground mode. Instead, you can deploy it in background mode as a domain service by using: `-d --restart=always`
