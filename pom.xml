@@ -120,7 +120,7 @@
         <spring.data.neo4j.ogm.version>2.0.0-M03</spring.data.neo4j.ogm.version>
         <spring.version>4.1.9.RELEASE</spring.version>
         <snappy.version>1.1.2</snappy.version>
-        <stanford.version>3.5.2</stanford.version><!-- 3.5.2 -->
+        <stanford.version>3.6.0</stanford.version><!-- 3.5.2 -->
         <stanford.spanish.version>3.6.0</stanford.spanish.version><!-- 3.5.2 -->
         <stanford.parser.version>1.0</stanford.parser.version>
         <surefire.junit.version>2.12</surefire.junit.version>
@@ -551,12 +551,6 @@
             </dependency>
             <dependency>
                 <groupId>edu.stanford.nlp</groupId>
-                <artifactId>stanford-spanish-corenlp</artifactId>
-                <version>${stanford.spanish.version}</version>
-                <classifier>models</classifier>
-            </dependency>
-            <dependency>
-                <groupId>edu.stanford.nlp</groupId>
                 <artifactId>stanford-parser</artifactId>
                 <version>${stanford.version}</version>
             </dependency>
@@ -565,6 +559,12 @@
                 <artifactId>stanford-corenlp</artifactId>
                 <version>${stanford.version}</version>
                 <classifier>models</classifier>
+            </dependency>
+            <dependency>
+                <groupId>edu.stanford.nlp</groupId>
+                <artifactId>stanford-corenlp</artifactId>
+                <version>${stanford.version}</version>
+                <classifier>models-spanish</classifier>
             </dependency>
             <dependency>
                 <groupId>intoxicant.analytics</groupId>
@@ -1090,8 +1090,8 @@
         </dependency>
         <dependency>
             <groupId>edu.stanford.nlp</groupId>
-            <artifactId>stanford-spanish-corenlp</artifactId>
-            <classifier>models</classifier>
+            <artifactId>stanford-corenlp</artifactId>
+            <classifier>models-spanish</classifier>
         </dependency>
         <dependency>
             <groupId>intoxicant.analytics</groupId>
