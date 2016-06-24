@@ -20,6 +20,7 @@ import org.librairy.storage.generator.URIGenerator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -43,6 +44,9 @@ public class DocumentService {
 
     @Autowired
     EventBus eventBus;
+
+    @Value("${LIBRAIRY_FILE_URI:false}")
+    Boolean useFileNameAsUri;
 
     private ParallelExecutor executor;
 
@@ -84,8 +88,12 @@ public class DocumentService {
             // Document
             Document document = Resource.newDocument();
             // -> uri
-            document.setUri(uriGenerator.basedOnContent(Resource.Type.DOCUMENT,fileDescription.getSummary()));
-            //document.setUri(uriGenerator.from(Resource.Type.DOCUMENT,Files.getFileNameWithoutExtension(ioFile.getAbsolutePath()));
+            if (useFileNameAsUri){
+                document.setUri(uriGenerator.from(Resource.Type.DOCUMENT,Files.getFileNameWithoutExtension(ioFile
+                        .getAbsolutePath())));
+            }else{
+                document.setUri(uriGenerator.basedOnContent(Resource.Type.DOCUMENT,fileDescription.getSummary()));
+            }
             // -> publishedOn
             document.setPublishedOn(fileDescription.getMetaInformation().getPublished());
             // -> publishedBy
