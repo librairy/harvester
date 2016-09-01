@@ -70,10 +70,9 @@ public class PartsService {
     }
 
     private Part createAndSavePart(String sense, String rawContent, String itemUri) {
-        Part part = Resource.newPart();
+        Part part = Resource.newPart(rawContent);
         part.setUri(uriGenerator.basedOnContent(Resource.Type.PART,rawContent + sense));
         part.setSense(sense);
-        part.setContent(rawContent);
 
         String tokens   = tokenizer.tokenize(rawContent, Language.EN).stream().
                 filter(token -> token.isValid()).

@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class RestRouteBuilder extends RouteBuilder {
 
-    @Value("${harvester.rest.port}")
+    @Value("${librairy.harvester.rest.port}")
     protected Integer port;
 
     @Override

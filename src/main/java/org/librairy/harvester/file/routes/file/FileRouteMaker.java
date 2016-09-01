@@ -27,19 +27,25 @@ public class FileRouteMaker implements RouteMaker{
 
     private static final Logger LOG = LoggerFactory.getLogger(FileRouteMaker.class);
 
-    @Value("${harvester.input.folder.external}")
-    protected String inputFolder;
+    @Value("#{environment['LIBRAIRY_HOME']?:'${librairy.home}'}")
+    String homeFolder;
 
-    @Value("${harvester.input.folder.default}")
+    @Value("${librairy.harvester.folder}")
+    String inputFolder;
+
+    @Value("${librairy.harvester.folder.external}")
+    protected String externalFolder;
+
+    @Value("${librairy.harvester.folder.default}")
     protected String defaultFolder;
 
     @PostConstruct
     public void setup(){
 
-        File inputF = new File(inputFolder);
+        File inputF = Paths.get(homeFolder, inputFolder, externalFolder).toFile();
         if (!inputF.exists()) inputF.mkdirs();
 
-        File defaultF = new File(defaultFolder);
+        File defaultF = Paths.get(homeFolder, inputFolder, defaultFolder).toFile();
         if (!defaultF.exists()) defaultF.mkdirs();
 
     }
@@ -52,14 +58,14 @@ public class FileRouteMaker implements RouteMaker{
     @Override
     public RouteDefinition build(Source source,Domain domain) {
 
-        Path folder = Paths.get(inputFolder, StringUtils.substringAfter(source.getUrl(),"//"));
+        Path folder = Paths.get(homeFolder,inputFolder,externalFolder, StringUtils.substringAfter(source.getUrl(),
+                "//"));
         if (source.getName().equalsIgnoreCase("default")){
-            folder = Paths.get(defaultFolder);
+            folder = Paths.get(homeFolder,inputFolder,defaultFolder);
         }
 
 
         String uri = new StringBuilder().
-                //append("file2i:").
                 append("file2i:").
                 append(folder.toFile().getAbsolutePath()).
                 append("?" +

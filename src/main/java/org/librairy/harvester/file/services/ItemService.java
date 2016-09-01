@@ -95,11 +95,10 @@ public class ItemService {
 
 
     private Item createItem(String content, String type, String url, Language language){
-        Item item = Resource.newItem();
+        Item item = Resource.newItem(content);
         item.setUri(uriGenerator.basedOnContent(Resource.Type.ITEM,content));
         item.setFormat(type);
         item.setUrl(url);
-        item.setContent(content);
         String tokens = tokenizer.tokenize(item.getContent(),language).stream().
                 filter(token -> token.isValid()).
                 map(token -> token.getLemma()).

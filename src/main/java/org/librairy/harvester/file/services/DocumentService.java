@@ -63,8 +63,6 @@ public class DocumentService {
     public void handle(File file){
         // Create a new Document
         try{
-            //TODO Move file to .done/ folder
-
             // Domain URI
             String domainUri        = file.getDomain();
 
@@ -86,7 +84,7 @@ public class DocumentService {
             FileDescription fileDescription = fileDescriptor.describe(ioFile);
 
             // Document
-            Document document = Resource.newDocument();
+            Document document = Resource.newDocument(fileDescription.getMetaInformation().getTitle());
             // -> uri
             if (useFileNameAsUri){
                 document.setUri(uriGenerator.from(Resource.Type.DOCUMENT,Files.getFileNameWithoutExtension(ioFile
@@ -99,7 +97,7 @@ public class DocumentService {
             // -> publishedBy
             document.setPublishedBy(sourceUri);
             // -> authoredOn
-            document.setAuthoredOn(fileDescription.getMetaInformation().getAuthored());
+            //document.setAuthoredOn(fileDescription.getMetaInformation().getAuthored());
             // -> authoredBy
             document.setAuthoredBy(fileDescription.getMetaInformation().getCreators());
             // -> contributedBy
@@ -112,8 +110,6 @@ public class DocumentService {
             document.setFormat(fileDescription.getMetaInformation().getPubFormat());
             // -> language
             document.setLanguage(fileDescription.getMetaInformation().getLanguage());
-            // -> title
-            document.setTitle(fileDescription.getMetaInformation().getTitle());
             // -> subject
             document.setSubject(fileDescription.getMetaInformation().getSubject());
             // -> description
@@ -135,8 +131,6 @@ public class DocumentService {
             if (!Strings.isNullOrEmpty(file.getAggregatedFrom())){
                 udm.save(Relation.newAggregates(file.getAggregatedFrom(),document.getUri()));
             }
-
-
 
             // Aggregated Files
             if (!fileDescription.getAggregatedFiles().isEmpty()){

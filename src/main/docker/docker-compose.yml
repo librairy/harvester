@@ -11,8 +11,9 @@ services:
  harvester:
    container_name: harvester
    image: librairy/harvester:latest
+   #restart: always
    volumes:
-     - ./data:/librairy/files
+     - ./documents:/librairy/files
    external_links:
        - column-db
        - document-db

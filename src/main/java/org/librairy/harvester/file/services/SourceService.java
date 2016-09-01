@@ -48,17 +48,32 @@ public class SourceService {
     public void setup(){
         this.executor = new ParallelExecutor();
         LOG.info("Restoring sources from ddbb..");
-        udm.find(Resource.Type.SOURCE).all().stream().map(uri -> udm.read(Resource.Type.SOURCE).byUri(uri)).filter(res -> res.isPresent()).map(res -> res.get()).forEach(source -> {
-            try {
-                List<String> res = udm.find(Resource.Type.DOMAIN).from(Resource.Type.SOURCE,source.getUri());
-                if (res != null && !res.isEmpty()){
-                    Optional<Resource> domain = udm.read(Resource.Type.DOMAIN).byUri(res.get(0));
-                    if (domain.isPresent()) addRoute((Source) source, (Domain) domain.get());
-                }
-            } catch (Exception e) {
-                LOG.error("Error initializing source from ddbb:" + source, e);
-            }
-        });
+        udm.find(Resource.Type.SOURCE)
+                .all()
+                .parallelStream()
+                .map(res -> udm.read(Resource.Type.SOURCE).byUri(res.getUri()))
+                .filter(res -> res.isPresent())
+                .map(res -> res.get().asSource())
+                .forEach(source -> {
+                    try {
+                        List<Resource> res = udm.find(Resource.Type.DOMAIN).from(Resource.Type.SOURCE,source.getUri());
+                        if (res.isEmpty()){
+                            res.add(createDefaultDomain(source));
+                        }
+
+                        // Adding routes by domain
+                        res.forEach(uri -> {
+                            Optional<Resource> resource = udm.read(Resource.Type.DOMAIN).byUri(uri.getUri());
+                            if (resource.isPresent()) try {
+                                addRoute(source, resource.get().asDomain());
+                            } catch (Exception e) {
+                                LOG.error("Error restoring domains", e);
+                            }
+                        });
+                    } catch (Exception e) {
+                        LOG.error("Error initializing source from ddbb:" + source, e);
+                    }
+                });
         LOG.info("All sources were restored from ddbb.");
     }
 
@@ -80,28 +95,10 @@ public class SourceService {
 
             Source source = res.get().asSource();
 
-            List<String> domains = udm.find(Resource.Type.DOMAIN).from(Resource.Type.SOURCE,resource.getUri());
+            List<Resource> domains = udm.find(Resource.Type.DOMAIN).from(Resource.Type.SOURCE,resource.getUri());
 
-            Domain domain;
-            if (domains == null || domains.isEmpty()){
-                LOG.info("creating a new domain associated to source: " + resource.getUri());
-                domain = Resource.newDomain();
-
-                String domainUri    = uriGenerator.basedOnContent(Resource.Type.DOMAIN,source.getName());
-                String sourceId     = URIGenerator.retrieveId(source.getUri());
-                if (sourceId.equalsIgnoreCase("default")){
-                    domainUri = uriGenerator.from(Resource.Type.DOMAIN,"default");
-                }
-                domain.setUri(domainUri);
-                domain.setName(source.getName());
-                domain.setDescription("attached to source: " + source.getUri());
-                udm.save(domain);
-                LOG.info("Domain: " + domain + " attached to source: " + source);
-                udm.save(Relation.newComposes(source.getUri(),domain.getUri()));
-
-            }else{
-                domain = ResourceUtils.map(udm.read(Resource.Type.DOMAIN).byUri(domains.get(0)).get(),Domain.class);
-            }
+            Domain domain = domains.isEmpty()? createDefaultDomain(source)
+                    : ResourceUtils.map(udm.read(Resource.Type.DOMAIN).byUri(domains.get(0).getUri()).get(),Domain.class) ;
 
             addRoute(source,domain);
         }catch (Exception e){
@@ -116,4 +113,21 @@ public class SourceService {
         camelContext.addRouteDefinition(route);
     }
 
+
+    private Domain createDefaultDomain(Source source){
+        LOG.info("creating a new domain associated to source: " + source.getUri());
+        Domain domain = Resource.newDomain(source.getName());
+
+        String domainUri    = uriGenerator.basedOnContent(Resource.Type.DOMAIN,source.getName());
+        String sourceId     = URIGenerator.retrieveId(source.getUri());
+        if (sourceId.equalsIgnoreCase("default")){
+            domainUri = uriGenerator.from(Resource.Type.DOMAIN,"default");
+        }
+        domain.setUri(domainUri);
+        domain.setDescription("attached to source: " + source.getUri());
+        udm.save(domain);
+        LOG.info("Domain: " + domain + " attached to source: " + source);
+        udm.save(Relation.newComposes(source.getUri(),domain.getUri()));
+        return domain;
+    }
 }

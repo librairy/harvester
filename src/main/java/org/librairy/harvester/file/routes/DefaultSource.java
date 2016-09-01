@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 /**
@@ -29,7 +31,13 @@ public class DefaultSource {
     @Autowired
     URIGenerator uriGenerator;
 
-    @Value("${harvester.input.folder.default}")
+    @Value("#{environment['LIBRAIRY_HOME']?:'${librairy.home}'}")
+    String homeFolder;
+
+    @Value("${librairy.harvester.folder}")
+    String inputFolder;
+
+    @Value("${librairy.harvester.folder.default}")
     String defaultFolder;
 
     @PostConstruct
@@ -37,11 +45,11 @@ public class DefaultSource {
 
         // Check if exists 'default' source
         if (udm.find(Resource.Type.SOURCE).by(Source.NAME, "default").isEmpty()){
-            Source source = Resource.newSource();
+            Source source = Resource.newSource("default");
             source.setUri(uriGenerator.from(Resource.Type.SOURCE, "default"));
-            source.setName("default");
             source.setDescription("default");
-            source.setUrl("file:/"+defaultFolder);
+            Path folderPath = Paths.get(homeFolder, inputFolder, defaultFolder);
+            source.setUrl("file:/"+folderPath.toFile().getAbsolutePath());
             LOG.info("Creating default source: " + source);
             udm.save(source);
         }

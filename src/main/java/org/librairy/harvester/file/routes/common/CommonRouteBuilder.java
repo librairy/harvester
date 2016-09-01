@@ -34,8 +34,13 @@ public class CommonRouteBuilder extends RouteBuilder {
     @Autowired
     DocumentService service;
 
+    @Value("#{environment['LIBRAIRY_HOME']?:'${librairy.home}'}")
+    String homeFolder;
 
-    @Value("${harvester.input.folder.hoarder}")
+    @Value("${librairy.harvester.folder}")
+    String inputFolder;
+
+    @Value("${librairy.harvester.folder.hoarder}")
     protected String outdir;
 
 

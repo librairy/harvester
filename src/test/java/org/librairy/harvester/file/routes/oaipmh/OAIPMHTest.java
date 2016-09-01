@@ -20,9 +20,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @Category(IntegrationTest.class)
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = Config.class)
-@TestPropertySource(properties = { "librairy.eventbus.uri = localhost", "harvester.input.folder.hoarder = " +
-        "../hoarder/target/storage", "harvester.input.folder.external = target/workspace", "librairy.upf.miner.config = " +
-        "src/test/resources/DRIconfig.properties" })
+@TestPropertySource(properties = {
+        "librairy.eventbus.uri = localhost"
+})
 public class OAIPMHTest {
 
     private static final Logger LOG = LoggerFactory.getLogger(OAIPMHTest.class);

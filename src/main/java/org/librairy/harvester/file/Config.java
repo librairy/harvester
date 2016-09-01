@@ -19,6 +19,8 @@ import org.springframework.core.env.Environment;
 
 import java.io.File;
 import java.net.URISyntaxException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
@@ -38,7 +40,10 @@ public class Config {
     @Autowired
     private Environment env;
 
-    @Value("${harvester.input.folder}")
+    @Value("#{environment['LIBRAIRY_HOME']?:'${librairy.home}'}")
+    String homeFolder;
+
+    @Value("${librairy.harvester.folder}")
     String inputFolder;
 
     @Value("${librairy.eventbus.host}")
@@ -47,23 +52,14 @@ public class Config {
     @Value("${librairy.eventbus.port}")
     private String port;
 
-    @Value("${librairy.eventbus.user}")
+    @Value("${librairy.eventbus.user.name}")
     private String user;
 
-    @Value("${librairy.eventbus.password}")
+    @Value("${librairy.eventbus.user.pwd}")
     private String pwd;
 
     @Value("${librairy.eventbus.keyspace}")
     private String keyspace;
-
-    @Value("${librairy.cassandra.contactpoints}")
-    String cassandraHosts;
-
-    @Value("${librairy.cassandra.port}")
-    Integer cassandraPort;
-
-    @Value("${librairy.cassandra.keyspace}")
-    String cassandraKeyspace;
 
     @Bean
     public SpringCamelContext camelContext(ApplicationContext applicationContext) throws Exception {
@@ -83,7 +79,8 @@ public class Config {
     @Bean(name = "fileStore")
     public FileIdempotentRepository getFileStore(){
         FileIdempotentRepository repository = new FileIdempotentRepository();
-        repository.setFileStore(new File(inputFolder+File.separator+".fileStore.dat"));
+        Path fileStorePath = Paths.get(homeFolder, inputFolder, ".fileStore.dat");
+        repository.setFileStore(fileStorePath.toFile());
         repository.setMaxFileStoreSize(Long.MAX_VALUE);
         repository.setCacheSize(Integer.MAX_VALUE);
         return repository;

@@ -22,7 +22,13 @@ public class OAIPMHRouteMaker implements RouteMaker{
 
     private static final Logger LOG = LoggerFactory.getLogger(OAIPMHRouteMaker.class);
 
-    @Value("${harvester.input.folder.hoarder}")
+    @Value("#{environment['LIBRAIRY_HOME']?:'${librairy.home}'}")
+    String homeFolder;
+
+    @Value("${librairy.harvester.folder}")
+    String inputFolder;
+
+    @Value("${librairy.harvester.folder.hoarder}")
     protected String basedir;
 
     @Override
@@ -35,7 +41,7 @@ public class OAIPMHRouteMaker implements RouteMaker{
 
         String uri = new StringBuilder().
                 append("file:").
-                append(Paths.get(basedir).toFile().getAbsolutePath()).
+                append(Paths.get(homeFolder,inputFolder,basedir).toFile().getAbsolutePath()).
                 append("/oaipmh/").
                 append(source.getName()).
                 append("?recursive=true&include=.*.xml&doneFileName=${file:name}.done").

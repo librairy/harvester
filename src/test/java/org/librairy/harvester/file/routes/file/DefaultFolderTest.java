@@ -6,23 +6,14 @@ import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.librairy.harvester.file.Config;
-import org.librairy.model.domain.relations.Relation;
-import org.librairy.model.domain.resources.Document;
-import org.librairy.model.domain.resources.Domain;
-import org.librairy.model.domain.resources.Resource;
-import org.librairy.model.domain.resources.Source;
-import org.librairy.model.utils.TimeUtils;
-import org.librairy.storage.UDM;
-import org.librairy.storage.generator.URIGenerator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import java.io.File;
+import java.nio.file.Paths;
 
 /**
  * Created by cbadenes on 14/01/16.
@@ -31,35 +22,29 @@ import java.io.File;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = Config.class)
 @TestPropertySource(properties = {
-        "harvester.input.folder                 = src/test/resources/sample",
-        "harvester.input.folder.default         = src/test/resources/sample/default",
-        "harvester.input.folder.meta            = src/test/resources/sample/meta",
-        "harvester.input.folder.external        = src/test/resources/sample/custom",
-        "harvester.input.folder.hoarder         = src/test/resources/sample/collected",
-        "librairy.cassandra.contactpoints       = wiig.dia.fi.upm.es",
-        "librairy.cassandra.port                = 5011",
-        "librairy.cassandra.keyspace            = research",
-        "librairy.elasticsearch.contactpoints   = wiig.dia.fi.upm.es",
-        "librairy.elasticsearch.port            = 5021",
-        "librairy.neo4j.contactpoints           = wiig.dia.fi.upm.es",
-        "librairy.neo4j.port                    = 5030",
-        "librairy.eventbus.host                 = localhost",
-        "librairy.eventbus.port                 = 5041"
+        "librairy.home                 = src/test/resources"
 })
 public class DefaultFolderTest {
 
     private static final Logger LOG = LoggerFactory.getLogger(DefaultFolderTest.class);
 
-    @Value("${harvester.input.folder.external}")
-    protected String inputFolder;
+    @Value("#{environment['LIBRAIRY_HOME']?:'${librairy.home}'}")
+    String homeFolder;
 
-    @Value("${harvester.input.folder.default}")
+    @Value("${librairy.harvester.folder}")
+    String inputFolder;
+
+    @Value("${librairy.harvester.folder.external}")
+    protected String externalFolder;
+
+    @Value("${librairy.harvester.folder.default}")
     protected String defaultFolder;
     
     @Test
     public void run() throws InterruptedException {
-        Assert.assertTrue(new File(inputFolder).exists());
-        Assert.assertTrue(new File(defaultFolder).exists());
+        Thread.sleep(120000);
+        Assert.assertTrue(Paths.get(homeFolder, inputFolder, externalFolder).toFile().exists());
+        Assert.assertTrue(Paths.get(homeFolder, inputFolder, defaultFolder).toFile().exists());
     }
 
 }

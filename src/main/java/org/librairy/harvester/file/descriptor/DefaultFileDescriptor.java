@@ -32,7 +32,13 @@ public class DefaultFileDescriptor implements Descriptor {
 
     Map<String,Descriptor> descriptorMap;
 
-    @Value("${harvester.input.folder.meta}")
+    @Value("#{environment['LIBRAIRY_HOME']?:'${librairy.home}'}")
+    String homeFolder;
+
+    @Value("${librairy.harvester.folder}")
+    String inputFolder;
+
+    @Value("${librairy.harvester.folder.meta}")
     String metaFolder;
 
     @PostConstruct
@@ -59,7 +65,7 @@ public class DefaultFileDescriptor implements Descriptor {
 
         // Search a meta-file
         String metaFileName = StringUtils.replace(file.getName(), "." + fileExtension, ".json");
-        File jsonFile = Paths.get(metaFolder, metaFileName).toFile();
+        File jsonFile = Paths.get(homeFolder,inputFolder,metaFolder, metaFileName).toFile();
 
         if (jsonFile.exists()){
             LOG.info("Used a referenced meta-information from: " + jsonFile.getAbsolutePath());

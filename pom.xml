@@ -3,10 +3,10 @@
     <modelVersion>4.0.0</modelVersion>
 
 	<groupId>org.librairy</groupId>
-    <artifactId>harvester</artifactId>
-    <version>0.4-SNAPSHOT</version>
+    <artifactId>librairy-harvester</artifactId>
+    <version>0.4</version>
     <packaging>war</packaging>
-    <name>librairy harvester</name>
+    <name>harvester</name>
     <description>Collect and analyze unstructured files.</description>
     <url>https://github.com/librairy/harvester-file</url>
     <organization>
@@ -86,7 +86,7 @@
         <jena.version>2.10.1</jena.version>
         <jgrapht.version>0.9.0</jgrapht.version>
         <junit.version>4.12</junit.version>
-        <librairy.version>0.3</librairy.version>
+        <librairy.boot.version>0.15</librairy.boot.version>
         <log4j.version>1.2.17</log4j.version>
         <log4j.slf4j.version>1.7.14</log4j.slf4j.version>
         <logback.version>1.1.3</logback.version>
@@ -874,7 +874,7 @@
         <dependency>
             <groupId>org.librairy</groupId>
             <artifactId>librairy-boot</artifactId>
-            <version>${librairy.version}</version>
+            <version>${librairy.boot.version}</version>
         </dependency>
 
         <!-- Spring Web -->
@@ -1324,7 +1324,7 @@
                 <artifactId>docker-maven-plugin</artifactId>
                 <version>0.2.3</version>
                 <configuration>
-                    <imageName>${docker.image.prefix}/${project.artifactId}</imageName>
+                    <imageName>${docker.image.prefix}/${project.name}</imageName>
                     <dockerDirectory>src/main/docker/harvester</dockerDirectory>
                     <resources>
                         <resource>
@@ -1335,6 +1335,7 @@
                     </resources>
                     <imageTags>
                         <imageTag>${project.version}</imageTag>
+                        <imageTag>latest</imageTag>
                     </imageTags>
                 </configuration>
             </plugin>
@@ -1494,4 +1495,3 @@
 
 
 </project>
-

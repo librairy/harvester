@@ -24,20 +24,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = Config.class)
 @TestPropertySource(properties = {
-        "harvester.input.folder                 = src/test/resources/workspace",
-        "harvester.input.folder.default         = src/test/resources/workspace/default",
-        "harvester.input.folder.meta            = src/test/resources/workspace/meta",
-        "harvester.input.folder.external        = src/test/resources/workspace/custom",
-        "harvester.input.folder.hoarder         = src/test/resources/workspace/collected",
-        "librairy.cassandra.contactpoints       = zavijava.dia.fi.upm.es",
-        "librairy.cassandra.port                = 5011",
-        "librairy.cassandra.keyspace            = research",
-        "librairy.elasticsearch.contactpoints   = zavijava.dia.fi.upm.es",
-        "librairy.elasticsearch.port            = 5021",
-        "librairy.neo4j.contactpoints           = zavijava.dia.fi.upm.es",
-        "librairy.neo4j.port                    = 5030",
-        "librairy.eventbus.host                 = zavijava.dia.fi.upm.es",
-        "librairy.eventbus.port                 = 5041"
+        "librairy.home                 = src/test/resources/workspace"
 })
 public class DocumentServiceTest {
 
@@ -61,10 +48,8 @@ public class DocumentServiceTest {
     @Test
     public void addFile() throws InterruptedException {
 
-
-        Source source = Resource.newSource();
+        Source source = Resource.newSource("files");
         source.setUri("http://org.librairy/sources/test");
-        source.setName("sample");
         udm.save(source);
 
         Thread.sleep(3000000);

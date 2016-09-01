@@ -25,7 +25,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @Category(IntegrationTest.class)
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = Config.class)
-@TestPropertySource(properties = { "librairy.eventbus.uri = localhost", "harvester.input.folder.hoarder = hoarder/target/storage", "librairy.upf.miner.config = harvester/src/test/resources/DRIconfig.properties" })
+@TestPropertySource(properties = {
+        "librairy.eventbus.uri = localhost"
+})
 public class RssTest {
 
     private static final Logger LOG = LoggerFactory.getLogger(RssTest.class);
