@@ -1284,7 +1284,7 @@
                         </systemProperty>
                         <systemProperty>
                             <name>COLUMN_DB_HOST</name>
-                            <value>wiig.dia.fi.upm.es</value>
+                            <value>localhost</value>
                         </systemProperty>
                         <systemProperty>
                             <name>COLUMN_DB_PORT</name>
@@ -1292,7 +1292,7 @@
                         </systemProperty>
                         <systemProperty>
                             <name>DOCUMENT_DB_HOST</name>
-                            <value>wiig.dia.fi.upm.es</value>
+                            <value>localhost</value>
                         </systemProperty>
                         <systemProperty>
                             <name>DOCUMENT_DB_PORT</name>
@@ -1300,7 +1300,7 @@
                         </systemProperty>
                         <systemProperty>
                             <name>GRAPH_DB_HOST</name>
-                            <value>wiig.dia.fi.upm.es</value>
+                            <value>localhost</value>
                         </systemProperty>
                         <systemProperty>
                             <name>GRAPH_DB_PORT</name>
@@ -1308,7 +1308,7 @@
                         </systemProperty>
                         <systemProperty>
                             <name>MESSAGE_BROKER_HOST</name>
-                            <value>wiig.dia.fi.upm.es</value>
+                            <value>localhost</value>
                         </systemProperty>
                         <systemProperty>
                             <name>MESSAGE_BROKER_PORT</name>
