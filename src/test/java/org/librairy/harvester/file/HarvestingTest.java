@@ -45,7 +45,6 @@ public class HarvestingTest {
         LOG.info("Wake Up!");
     }
 
-
     @Test
     public void simulate() throws InterruptedException {
 

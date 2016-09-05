@@ -1,10 +1,9 @@
 package org.librairy.harvester.file.services;
 
 import com.google.common.base.Strings;
-import it.uniroma1.lcl.jlt.util.Files;
+import com.google.common.io.Files;
 import org.librairy.harvester.file.descriptor.Descriptor;
 import org.librairy.harvester.file.descriptor.FileDescription;
-import org.librairy.harvester.file.descriptor.DefaultFileDescriptor;
 import org.librairy.harvester.file.eventbus.FileCreatedEventHandler;
 import org.librairy.harvester.file.executor.ParallelExecutor;
 import org.librairy.model.Event;
@@ -87,7 +86,7 @@ public class DocumentService {
             Document document = Resource.newDocument(fileDescription.getMetaInformation().getTitle());
             // -> uri
             if (useFileNameAsUri){
-                document.setUri(uriGenerator.from(Resource.Type.DOCUMENT,Files.getFileNameWithoutExtension(ioFile
+                document.setUri(uriGenerator.from(Resource.Type.DOCUMENT, Files.getNameWithoutExtension(ioFile
                         .getAbsolutePath())));
             }else{
                 document.setUri(uriGenerator.basedOnContent(Resource.Type.DOCUMENT,fileDescription.getSummary()));

@@ -4,7 +4,7 @@
 
 	<groupId>org.librairy</groupId>
     <artifactId>librairy-harvester</artifactId>
-    <version>0.6-SNAPSHOT</version>
+    <version>0.6</version>
     <packaging>war</packaging>
     <name>harvester</name>
     <description>Collect and analyze unstructured files.</description>
@@ -56,27 +56,26 @@
 
         <!-- Project Dependencies -->
 
-        <asm.version>5.0.4</asm.version>
-        <apache.commons.lang.version>3.0</apache.commons.lang.version>
-        <beanutils.version>1.9.2</beanutils.version>
+
+
+        <cassandra.driver.core.version>3.0.3</cassandra.driver.core.version>
+        <cassandra.driver.dse.version>3.0.0-rc1</cassandra.driver.dse.version>
+
         <camel.euia.version>1.0.0</camel.euia.version>
         <camel.oaipmh.version>1.0.5</camel.oaipmh.version>
         <camel.version>2.16.2</camel.version>
-        <cloning.version>1.9.1</cloning.version>
+
+
         <coreNlpExtensions.version>1.0</coreNlpExtensions.version>
-        <commons.lang.version>2.6</commons.lang.version>
-        <commons.pool.version>2.4.1</commons.pool.version>
-        <flexjson.version>2.0</flexjson.version>
+
         <gate.version>8.1</gate.version>
         <gate.stanford.version>1.0</gate.stanford.version>
-        <guava.version>18.0</guava.version>
-        <hector.version>1.1-3</hector.version>
-        <hibernate.version>4.3.0.Beta5</hibernate.version>
-        <httpcomponents.version>4.4</httpcomponents.version>
+
+
         <httpclient.version>3.1</httpclient.version>
         <jackson.version>1.9.11</jackson.version>
         <fasterxml.jackson.version>2.4.4</fasterxml.jackson.version>
-        <javassist.version>3.12.1.GA</javassist.version>
+
         <javatuples.version>1.2</javatuples.version>
         <javax.version>1.0</javax.version>
         <jaxb.version>2.2.11</jaxb.version>
@@ -86,7 +85,7 @@
         <jena.version>2.10.1</jena.version>
         <jgrapht.version>0.9.0</jgrapht.version>
         <junit.version>4.12</junit.version>
-        <librairy.boot.version>0.16</librairy.boot.version>
+        <librairy.boot.version>0.17</librairy.boot.version>
         <log4j.version>1.2.17</log4j.version>
         <log4j.slf4j.version>1.7.14</log4j.slf4j.version>
         <logback.version>1.1.3</logback.version>
@@ -105,23 +104,18 @@
         <rabbitmq.version>3.5.6</rabbitmq.version>
         <ressist.version>0.0.6</ressist.version>
         <restlet.version>2.3.5</restlet.version>
-        <scala.version>2.11.2</scala.version>
-        <scalatest.version>2.2.4</scalatest.version>
+
         <servlet.api.version>2.4</servlet.api.version>
         <slf4j.version>1.7.12</slf4j.version>
         <solr.version>5.4.0</solr.version>
-        <spark.version>1.5.0</spark.version>
+
+
         <springboot.version>1.2.1.RELEASE</springboot.version>
-        <spring.data.commons.version>1.12.0.M1</spring.data.commons.version>
-        <spring.data.jpa.version>1.10.0.M1</spring.data.jpa.version>
-        <spring.data.cassandra.version>1.4.0.M1</spring.data.cassandra.version>
-        <spring.data.elasticsearch.version>1.4.0.M1</spring.data.elasticsearch.version>
-        <spring.data.neo4j.version>4.1.0.M1</spring.data.neo4j.version>
-        <spring.data.neo4j.ogm.version>2.0.0-M03</spring.data.neo4j.ogm.version>
-        <spring.version>4.1.9.RELEASE</spring.version>
+        <spring.version>4.2.7.RELEASE</spring.version>
+
         <snappy.version>1.1.2</snappy.version>
-        <stanford.version>3.6.0</stanford.version><!-- 3.5.2 -->
-        <stanford.spanish.version>3.6.0</stanford.spanish.version><!-- 3.5.2 -->
+        <stanford.version>3.6.0</stanford.version>
+        <stanford.spanish.version>3.6.0</stanford.spanish.version>
         <stanford.parser.version>1.0</stanford.parser.version>
         <surefire.junit.version>2.12</surefire.junit.version>
         <swagger.jersey.version>1.5.0</swagger.jersey.version>
@@ -132,7 +126,6 @@
         <thrift.version>0.9.2</thrift.version>
         <tika.version>1.7</tika.version>
         <tudarmstadt.wikipedia.version>1.0.0</tudarmstadt.wikipedia.version>
-        <upf.version>1.2</upf.version>
         <virtuoso.jena.version>1.0</virtuoso.jena.version>
         <virtuoso.jdbc.version>1.0</virtuoso.jdbc.version>
         <wdtk.version>0.4.0</wdtk.version>
@@ -215,60 +208,16 @@
                 <version>${camel.version}</version>
             </dependency>
 
-            <!-- Cassandra Libraries -->
+            <!-- Cassandra -->
             <dependency>
-                <groupId>org.hectorclient</groupId>
-                <artifactId>hector-core</artifactId>
-                <version>${hector.version}</version>
+                <groupId>com.datastax.cassandra</groupId>
+                <artifactId>cassandra-driver-dse</artifactId>
+                <version>${cassandra.driver.dse.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.springframework.data</groupId>
-                <artifactId>spring-data-cassandra</artifactId>
-                <version>${spring.data.cassandra.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.xerial.snappy</groupId>
-                <artifactId>snappy-java</artifactId>
-                <version>${snappy.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>net.jpountz.lz4</groupId>
-                <artifactId>lz4</artifactId>
-                <version>${lz4.version}</version>
-            </dependency>
-
-            <!-- Elasticsearch Libraries -->
-            <dependency>
-                <groupId>org.springframework.data</groupId>
-                <artifactId>spring-data-elasticsearch</artifactId>
-                <version>${spring.data.elasticsearch.version}</version>
-            </dependency>
-
-            <!-- Graph Libraries -->
-            <dependency>
-                <groupId>org.jgrapht</groupId>
-                <artifactId>jgrapht-core</artifactId>
-                <version>${jgrapht.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.data</groupId>
-                <artifactId>spring-data-neo4j</artifactId>
-                <version>${spring.data.neo4j.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.neo4j</groupId>
-                <artifactId>neo4j-ogm-api</artifactId>
-                <version>${spring.data.neo4j.ogm.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.neo4j</groupId>
-                <artifactId>neo4j-ogm-core</artifactId>
-                <version>${spring.data.neo4j.ogm.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.neo4j</groupId>
-                <artifactId>neo4j-ogm-http-driver</artifactId>
-                <version>${spring.data.neo4j.ogm.version}</version>
+                <groupId>com.datastax.cassandra</groupId>
+                <artifactId>cassandra-driver-core</artifactId>
+                <version>${cassandra.driver.core.version}</version>
             </dependency>
 
             <!-- In-Memory DB Libraries -->
@@ -359,79 +308,8 @@
                 <version>${lucene.version}</version>
             </dependency>
 
-            <!-- Machine Learning Libraries -->
-            <dependency>
-                <groupId>org.apache.mahout</groupId>
-                <artifactId>mahout-core</artifactId>
-                <version>${mahout.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>es.upm.oeg.epnoi</groupId>
-                <artifactId>epnoi-ressist</artifactId>
-                <version>${ressist.version}</version>
-            </dependency>
-
-            <!-- Message Broker Libraries -->
-            <dependency>
-                <groupId>com.rabbitmq</groupId>
-                <artifactId>amqp-client</artifactId>
-                <version>${rabbitmq.version}</version>
-            </dependency>
-
-            <!-- Meta Programming Libraries -->
-            <dependency>
-                <groupId>org.ow2.asm</groupId>
-                <artifactId>asm-all</artifactId>
-                <version>${asm.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>commons-beanutils</groupId>
-                <artifactId>commons-beanutils</artifactId>
-                <version>${beanutils.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.projectlombok</groupId>
-                <artifactId>lombok</artifactId>
-                <version>${lombok.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.google.guava</groupId>
-                <artifactId>guava</artifactId>
-                <version>${guava.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>commons-lang</groupId>
-                <artifactId>commons-lang</artifactId>
-                <version>${commons.lang.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.commons</groupId>
-                <artifactId>commons-lang3</artifactId>
-                <version>${apache.commons.lang.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.neovisionaries</groupId>
-                <artifactId>nv-i18n</artifactId>
-                <version>${nvi18n.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>javassist</groupId>
-                <artifactId>javassist</artifactId>
-                <version>${javassist.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>uk.com.robust-it</groupId>
-                <artifactId>cloning</artifactId>
-                <version>${cloning.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.commons</groupId>
-                <artifactId>commons-pool2</artifactId>
-                <version>${commons.pool.version}</version>
-            </dependency>
 
             <!-- Networking Libraries -->
-
             <dependency>
                 <groupId>commons-httpclient</groupId>
                 <artifactId>commons-httpclient</artifactId>
@@ -472,26 +350,6 @@
                 <groupId>org.restlet.jee</groupId>
                 <artifactId>org.restlet.ext.spring</artifactId>
                 <version>${restlet.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.thrift</groupId>
-                <artifactId>libthrift</artifactId>
-                <version>${thrift.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.httpcomponents</groupId>
-                <artifactId>httpcore</artifactId>
-                <version>${httpcomponents.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.httpcomponents</groupId>
-                <artifactId>httpclient</artifactId>
-                <version>${httpcomponents.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.httpcomponents</groupId>
-                <artifactId>httpmime</artifactId>
-                <version>${httpcomponents.version}</version>
             </dependency>
 
             <!-- NLP Libraries -->
@@ -543,6 +401,7 @@
                 <type>pom</type>
                 <version>${jena.version}</version>
             </dependency>
+
             <!-- Stanford Libraries -->
             <dependency>
                 <groupId>edu.stanford.nlp</groupId>
@@ -584,35 +443,6 @@
                 <version>${pdfbox.version}</version>
             </dependency>
 
-            <!-- Relational DB Libraries -->
-            <dependency>
-                <groupId>org.hibernate</groupId>
-                <artifactId>hibernate-core</artifactId>
-                <version>${hibernate.version}</version>
-            </dependency>
-
-            <!-- Scala Libraries -->
-            <dependency>
-                <groupId>org.scala-lang</groupId>
-                <artifactId>scalap</artifactId>
-                <version>${scala.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.scala-lang</groupId>
-                <artifactId>scala-library</artifactId>
-                <version>${scala.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.scala-lang</groupId>
-                <artifactId>scala-compiler</artifactId>
-                <version>${scala.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.scala-lang</groupId>
-                <artifactId>scala-reflect</artifactId>
-                <version>${scala.version}</version>
-            </dependency>
-
             <!-- Solr Libraries -->
             <dependency>
                 <groupId>org.apache.solr</groupId>
@@ -620,19 +450,17 @@
                 <version>${solr.version}</version>
             </dependency>
 
-            <!-- Spark Libraries -->
-            <dependency>
-                <groupId>org.apache.spark</groupId>
-                <artifactId>spark-core_2.11</artifactId>
-                <version>${spark.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.spark</groupId>
-                <artifactId>spark-core_2.10</artifactId>
-                <version>${spark.version}</version>
-            </dependency>
-
             <!-- Spring Libraries -->
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-core</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-messaging</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-web</artifactId>
@@ -667,21 +495,6 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-logging</artifactId>
                 <version>${springboot.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-test</artifactId>
-                <version>${spring.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.data</groupId>
-                <artifactId>spring-data-jpa</artifactId>
-                <version>${spring.data.jpa.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.data</groupId>
-                <artifactId>spring-data-commons</artifactId>
-                <version>${spring.data.commons.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.springframework</groupId>
@@ -732,56 +545,10 @@
                 <artifactId>camel-test</artifactId>
                 <version>${camel.version}</version>
             </dependency>
-
-            <!-- Virtuoso Libraries -->
             <dependency>
-                <groupId>jena-virtuoso</groupId>
-                <artifactId>jena-virtuoso</artifactId>
-                <version>${virtuoso.jena.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>virtuoso-jdbc3</groupId>
-                <artifactId>virtuoso-jdbc3</artifactId>
-                <version>${virtuoso.jdbc.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>virtuoso-jdbc4</groupId>
-                <artifactId>virtuoso-jdbc4</artifactId>
-                <version>${virtuoso.jdbc.version}</version>
-            </dependency>
-
-            <!-- Wikipedia Libraries -->
-            <dependency>
-                <groupId>org.sweble.wikitext</groupId>
-                <artifactId>swc-parser-lazy</artifactId>
-                <version>${sweble.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.sweble.wikitext</groupId>
-                <artifactId>swc-engine</artifactId>
-                <version>${sweble.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>de.tudarmstadt.ukp.wikipedia</groupId>
-                <artifactId>de.tudarmstadt.ukp.wikipedia.api</artifactId>
-                <version>${tudarmstadt.wikipedia.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>de.tudarmstadt.ukp.wikipedia</groupId>
-                <artifactId>de.tudarmstadt.ukp.wikipedia.parser</artifactId>
-                <version>${tudarmstadt.wikipedia.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.wikidata.wdtk</groupId>
-                <artifactId>wdtk-dumpfiles</artifactId>
-                <version>${wdtk.version}</version>
-            </dependency>
-
-            <!-- WordNet Libraries -->
-            <dependency>
-                <groupId>edu.mit</groupId>
-                <artifactId>jwi</artifactId>
-                <version>${jwi.version}</version>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-test</artifactId>
+                <version>${spring.version}</version>
             </dependency>
 
             <!-- WS-REST Libraries -->
@@ -877,14 +644,18 @@
             <version>${librairy.boot.version}</version>
         </dependency>
 
-        <!-- Spring Web -->
-        <!--<dependency>-->
-            <!--<groupId>org.springframework</groupId>-->
-            <!--<artifactId>spring-web</artifactId>-->
-        <!--</dependency>-->
+        <!-- Spring Boot -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-amqp</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-logging</artifactId>
         </dependency>
 
         <!-- Unit tests -->
@@ -1007,65 +778,16 @@
             <!--	<classifier>jdk14</classifier>-->
         </dependency>
 
-        <!-- Google Guava Library -->
-        <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-        </dependency>
-
         <!-- JSoup Extractor: For lucene classifier -->
         <dependency>
             <groupId>org.jsoup</groupId>
             <artifactId>jsoup</artifactId>
         </dependency>
 
-        <!-- Apache Commons Lang -->
-        <dependency>
-            <groupId>commons-lang</groupId>
-            <artifactId>commons-lang</artifactId>
-        </dependency>
-
         <!-- Apache PDF Box -->
         <dependency>
             <groupId>org.apache.pdfbox</groupId>
             <artifactId>pdfbox</artifactId>
-        </dependency>
-
-        <!-- UPF Text Mining -->
-        <dependency>
-            <groupId>edu.upf.taln.dri</groupId>
-            <artifactId>lib</artifactId>
-            <version>${upf.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>grph</groupId>
-                    <artifactId>grph</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>mate.anna.extra</groupId>
-                    <artifactId>seg</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>jtidy</groupId>
-                    <artifactId>jtidy</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>com.google.collections</groupId>
-                    <artifactId>google-collections</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>com.fasterxml.jackson.core</groupId>
-                    <artifactId>jackson-databind</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>log4j</groupId>
-                    <artifactId>log4j</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.slf4j</groupId>
-                    <artifactId>slf4j-log4j12</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
 
         <!-- Stanford Libraries -->
@@ -1322,7 +1044,7 @@
             <plugin>
                 <groupId>com.spotify</groupId>
                 <artifactId>docker-maven-plugin</artifactId>
-                <version>0.2.3</version>
+                <version>0.4.11</version>
                 <configuration>
                     <imageName>${docker.image.prefix}/${project.name}</imageName>
                     <dockerDirectory>src/main/docker/harvester</dockerDirectory>
@@ -1333,6 +1055,7 @@
                             <include>${project.build.finalName}.war</include>
                         </resource>
                     </resources>
+                    <forceTags>true</forceTags>
                     <imageTags>
                         <imageTag>${project.version}</imageTag>
                         <imageTag>latest</imageTag>

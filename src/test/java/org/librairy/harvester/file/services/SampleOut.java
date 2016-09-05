@@ -1,6 +1,7 @@
 package org.librairy.harvester.file.services;
 
-import it.uniroma1.lcl.jlt.util.Files;
+
+import com.google.common.io.Files;
 
 import java.io.File;
 import java.io.IOException;
@@ -20,8 +21,9 @@ public class SampleOut {
         System.out.println("Name: " + file.getName());
         System.out.println("Path: " + file.getPath());
         System.out.println("CanonicalPath: " + file.getCanonicalPath());
-        System.out.println("FileName without extension"  + Files.getFileNameWithoutExtension(file.getAbsolutePath()));
+        //System.out.println("FileName without extension"  + Files.getFileNameWithoutExtension(file.getAbsolutePath()));
 
+        System.out.println("FileName without extension"  + Files.getNameWithoutExtension(file.getAbsolutePath()));
 
 
     }

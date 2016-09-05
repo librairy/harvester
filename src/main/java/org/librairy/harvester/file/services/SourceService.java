@@ -89,7 +89,7 @@ public class SourceService {
             Optional<Resource> res = udm.read(Resource.Type.SOURCE).byUri(resource.getUri());
 
             if (!res.isPresent()){
-                LOG.warn("Source not found by uri: " + resource.getUri());
+                LOG.debug("Source not found by uri: " + resource.getUri());
                 return;
             }
 
