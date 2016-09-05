@@ -15,17 +15,13 @@ services:
    volumes:
      - ./documents:/librairy/files
    external_links:
-       - column-db
-       - document-db
-       - graph-db
-       - event-bus
+     - column-db
+     - document-db
+     - graph-db
+     - event-bus
    networks:
-       - "db"
-       - "events"
+       - "lnet"
 networks:
-  db:
+  lnet:
     external:
-      name: base_db
-  events:
-    external:
-      name: base_events
+      name: distribution_lnet

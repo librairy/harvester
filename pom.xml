@@ -4,7 +4,7 @@
 
 	<groupId>org.librairy</groupId>
     <artifactId>librairy-harvester</artifactId>
-    <version>0.7-SNAPSHOT</version>
+    <version>0.6</version>
     <packaging>war</packaging>
     <name>harvester</name>
     <description>Collect and analyze unstructured files.</description>
@@ -135,6 +135,15 @@
 
     <dependencyManagement>
         <dependencies>
+
+            <!-- librairy boot dependencyManagement -->
+            <dependency>
+                <groupId>org.librairy</groupId>
+                <artifactId>librairy-boot</artifactId>
+                <version>${librairy.boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
 
             <!-- Camel Workflow Libraries -->
             <dependency>
@@ -648,14 +657,12 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-amqp</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-logging</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-tomcat</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <!-- Unit tests -->
@@ -999,44 +1006,6 @@
                         <contextPath>/harvester</contextPath>
                     </webApp>
                     <useTestScope>true</useTestScope>
-                    <systemProperties>
-                        <systemProperty>
-                            <name>LIBRAIRY_HOME</name>
-                            <value>.</value>
-                        </systemProperty>
-                        <systemProperty>
-                            <name>COLUMN_DB_HOST</name>
-                            <value>localhost</value>
-                        </systemProperty>
-                        <systemProperty>
-                            <name>COLUMN_DB_PORT</name>
-                            <value>5011</value>
-                        </systemProperty>
-                        <systemProperty>
-                            <name>DOCUMENT_DB_HOST</name>
-                            <value>localhost</value>
-                        </systemProperty>
-                        <systemProperty>
-                            <name>DOCUMENT_DB_PORT</name>
-                            <value>5021</value>
-                        </systemProperty>
-                        <systemProperty>
-                            <name>GRAPH_DB_HOST</name>
-                            <value>localhost</value>
-                        </systemProperty>
-                        <systemProperty>
-                            <name>GRAPH_DB_PORT</name>
-                            <value>5030</value>
-                        </systemProperty>
-                        <systemProperty>
-                            <name>MESSAGE_BROKER_HOST</name>
-                            <value>localhost</value>
-                        </systemProperty>
-                        <systemProperty>
-                            <name>MESSAGE_BROKER_PORT</name>
-                            <value>5041</value>
-                        </systemProperty>
-                    </systemProperties>
                 </configuration>
             </plugin>
 

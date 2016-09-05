@@ -3,20 +3,6 @@
 [INFO] ------------------------------------------------------------------------
 [INFO] Building harvester 0.6
 [INFO] ------------------------------------------------------------------------
-Downloading: https://raw.github.com/librairy/boot/mvn-repo/org/neo4j/neo4j-ogm-api/2.0.0-SNAPSHOT/maven-metadata.xml
-Downloading: https://raw.github.com/cbadenes/test-utils/mvn-repo/org/neo4j/neo4j-ogm-api/2.0.0-SNAPSHOT/maven-metadata.xml
-Downloading: https://raw.github.com/cbadenes/external-libs/mvn-repo/org/neo4j/neo4j-ogm-api/2.0.0-SNAPSHOT/maven-metadata.xml
-Downloading: https://raw.github.com/cbadenes/external-libs/mvn-repo/org/neo4j/neo4j-ogm-api/2.0.0-SNAPSHOT/neo4j-ogm-api-2.0.0-SNAPSHOT.pom
-Downloading: https://raw.github.com/cbadenes/test-utils/mvn-repo/org/neo4j/neo4j-ogm-api/2.0.0-SNAPSHOT/neo4j-ogm-api-2.0.0-SNAPSHOT.pom
-Downloading: https://raw.github.com/librairy/boot/mvn-repo/org/neo4j/neo4j-ogm-api/2.0.0-SNAPSHOT/neo4j-ogm-api-2.0.0-SNAPSHOT.pom
-[WARNING] The POM for org.neo4j:neo4j-ogm-api:jar:2.0.0-SNAPSHOT is missing, no dependency information available
-Downloading: https://raw.github.com/cbadenes/external-libs/mvn-repo/org/neo4j/neo4j-ogm-compiler/2.0.0-SNAPSHOT/maven-metadata.xml
-Downloading: https://raw.github.com/cbadenes/test-utils/mvn-repo/org/neo4j/neo4j-ogm-compiler/2.0.0-SNAPSHOT/maven-metadata.xml
-Downloading: https://raw.github.com/librairy/boot/mvn-repo/org/neo4j/neo4j-ogm-compiler/2.0.0-SNAPSHOT/maven-metadata.xml
-Downloading: https://raw.github.com/cbadenes/external-libs/mvn-repo/org/neo4j/neo4j-ogm-compiler/2.0.0-SNAPSHOT/neo4j-ogm-compiler-2.0.0-SNAPSHOT.pom
-Downloading: https://raw.github.com/cbadenes/test-utils/mvn-repo/org/neo4j/neo4j-ogm-compiler/2.0.0-SNAPSHOT/neo4j-ogm-compiler-2.0.0-SNAPSHOT.pom
-Downloading: https://raw.github.com/librairy/boot/mvn-repo/org/neo4j/neo4j-ogm-compiler/2.0.0-SNAPSHOT/neo4j-ogm-compiler-2.0.0-SNAPSHOT.pom
-[WARNING] The POM for org.neo4j:neo4j-ogm-compiler:jar:2.0.0-SNAPSHOT is missing, no dependency information available
 [INFO] 
 [INFO] --- maven-dependency-plugin:2.8:tree (default-cli) @ librairy-harvester ---
 [INFO] org.librairy:librairy-harvester:war:0.6
@@ -27,7 +13,8 @@ Downloading: https://raw.github.com/librairy/boot/mvn-repo/org/neo4j/neo4j-ogm-c
 [INFO] |  +- com.google.guava:guava:jar:18.0:compile
 [INFO] |  +- org.springframework.data:spring-data-cassandra:jar:1.5.0.M1:compile
 [INFO] |  |  +- org.springframework.data:spring-cql:jar:1.5.0.M1:compile
-[INFO] |  |  \- org.springframework:spring-expression:jar:4.2.7.RELEASE:compile
+[INFO] |  |  +- org.springframework:spring-expression:jar:4.2.7.RELEASE:compile
+[INFO] |  |  \- org.slf4j:jcl-over-slf4j:jar:1.7.21:compile
 [INFO] |  +- org.xerial.snappy:snappy-java:jar:1.1.2:compile
 [INFO] |  +- net.jpountz.lz4:lz4:jar:1.3.0:compile
 [INFO] |  +- org.springframework.data:spring-data-elasticsearch:jar:1.4.0.M1:compile
@@ -50,7 +37,7 @@ Downloading: https://raw.github.com/librairy/boot/mvn-repo/org/neo4j/neo4j-ogm-c
 [INFO] |  +- org.neo4j:neo4j-ogm-compiler:jar:2.0.0:compile
 [INFO] |  +- org.neo4j:neo4j-ogm-api:jar:2.0.0:compile
 [INFO] |  +- org.neo4j:neo4j-ogm-core:jar:2.0.0:compile
-[INFO] |  |  \- org.apache.commons:commons-lang3:jar:3.4:compile
+[INFO] |  |  \- org.apache.commons:commons-lang3:jar:3.0:compile
 [INFO] |  +- org.neo4j:neo4j-ogm-http-driver:jar:2.0.0:compile
 [INFO] |  |  \- commons-io:commons-io:jar:2.4:compile
 [INFO] |  +- org.neo4j:neo4j-kernel:jar:2.3.2:compile
@@ -75,12 +62,9 @@ Downloading: https://raw.github.com/librairy/boot/mvn-repo/org/neo4j/neo4j-ogm-c
 [INFO] |  +- org.springframework.boot:spring-boot-starter:jar:1.2.1.RELEASE:compile
 [INFO] |  |  +- org.springframework.boot:spring-boot:jar:1.2.1.RELEASE:compile
 [INFO] |  |  +- org.springframework.boot:spring-boot-autoconfigure:jar:1.2.1.RELEASE:compile
+[INFO] |  |  +- org.springframework.boot:spring-boot-starter-logging:jar:1.2.1.RELEASE:compile
+[INFO] |  |  |  \- org.slf4j:jul-to-slf4j:jar:1.7.8:compile
 [INFO] |  |  \- org.yaml:snakeyaml:jar:1.14:compile
-[INFO] |  +- org.springframework.boot:spring-boot-starter-tomcat:jar:1.2.1.RELEASE:compile
-[INFO] |  |  +- org.apache.tomcat.embed:tomcat-embed-core:jar:8.0.21:compile
-[INFO] |  |  +- org.apache.tomcat.embed:tomcat-embed-el:jar:8.0.15:compile
-[INFO] |  |  +- org.apache.tomcat.embed:tomcat-embed-logging-juli:jar:8.0.15:compile
-[INFO] |  |  \- org.apache.tomcat.embed:tomcat-embed-websocket:jar:8.0.15:compile
 [INFO] |  +- com.fasterxml.jackson.core:jackson-databind:jar:2.4.4:compile
 [INFO] |  |  \- com.fasterxml.jackson.core:jackson-annotations:jar:2.4.0:compile
 [INFO] |  +- org.hibernate:hibernate-validator:jar:5.1.3.Final:compile
@@ -89,15 +73,6 @@ Downloading: https://raw.github.com/librairy/boot/mvn-repo/org/neo4j/neo4j-ogm-c
 [INFO] |  |  \- com.fasterxml:classmate:jar:1.0.0:compile
 [INFO] |  +- org.springframework:spring-core:jar:4.2.7.RELEASE:compile
 [INFO] |  \- org.springframework:spring-webmvc:jar:4.2.7.RELEASE:compile
-[INFO] +- org.springframework.boot:spring-boot-starter-amqp:jar:1.2.1.RELEASE:compile
-[INFO] |  +- org.springframework:spring-messaging:jar:4.2.7.RELEASE:compile
-[INFO] |  +- org.springframework:spring-tx:jar:4.1.4.RELEASE:compile
-[INFO] |  \- org.springframework.amqp:spring-rabbit:jar:1.4.1.RELEASE:compile
-[INFO] |     +- org.springframework.retry:spring-retry:jar:1.1.2.RELEASE:compile
-[INFO] |     \- org.springframework.amqp:spring-amqp:jar:1.4.1.RELEASE:compile
-[INFO] +- org.springframework.boot:spring-boot-starter-logging:jar:1.2.1.RELEASE:compile
-[INFO] |  +- org.slf4j:jcl-over-slf4j:jar:1.7.8:compile
-[INFO] |  \- org.slf4j:jul-to-slf4j:jar:1.7.8:compile
 [INFO] +- junit:junit:jar:4.12:test
 [INFO] |  \- org.hamcrest:hamcrest-core:jar:1.3:test
 [INFO] +- org.mockito:mockito-all:jar:1.9.5:test
@@ -112,8 +87,9 @@ Downloading: https://raw.github.com/librairy/boot/mvn-repo/org/neo4j/neo4j-ogm-c
 [INFO] |  \- com.sun.xml.bind:jaxb-impl:jar:2.2.11:compile
 [INFO] +- org.apache.camel:camel-spring:jar:2.16.2:compile
 [INFO] |  +- org.springframework:spring-context:jar:4.2.7.RELEASE:compile
-[INFO] |  \- org.springframework:spring-aop:jar:4.2.7.RELEASE:compile
-[INFO] |     \- aopalliance:aopalliance:jar:1.0:compile
+[INFO] |  +- org.springframework:spring-aop:jar:4.2.7.RELEASE:compile
+[INFO] |  |  \- aopalliance:aopalliance:jar:1.0:compile
+[INFO] |  \- org.springframework:spring-tx:jar:4.1.9.RELEASE:compile
 [INFO] +- org.apache.camel:camel-groovy:jar:2.16.2:compile
 [INFO] |  \- org.codehaus.groovy:groovy-all:jar:2.4.5:compile
 [INFO] +- org.apache.camel:camel-script:jar:2.16.2:compile
@@ -121,11 +97,11 @@ Downloading: https://raw.github.com/librairy/boot/mvn-repo/org/neo4j/neo4j-ogm-c
 [INFO] |  \- net.sf.saxon:Saxon-HE:jar:9.5.1-5:compile
 [INFO] +- org.apache.camel:camel-cassandraql:jar:2.16.2:compile
 [INFO] |  \- com.datastax.cassandra:cassandra-driver-core:jar:3.0.3:compile
-[INFO] |     \- io.netty:netty-handler:jar:4.0.37.Final:compile
-[INFO] |        +- io.netty:netty-buffer:jar:4.0.37.Final:compile
-[INFO] |        |  \- io.netty:netty-common:jar:4.0.37.Final:compile
-[INFO] |        +- io.netty:netty-transport:jar:4.0.37.Final:compile
-[INFO] |        \- io.netty:netty-codec:jar:4.0.37.Final:compile
+[INFO] |     \- io.netty:netty-handler:jar:4.0.34.Final:compile
+[INFO] |        +- io.netty:netty-buffer:jar:4.0.34.Final:compile
+[INFO] |        |  \- io.netty:netty-common:jar:4.0.34.Final:compile
+[INFO] |        +- io.netty:netty-transport:jar:4.0.34.Final:compile
+[INFO] |        \- io.netty:netty-codec:jar:4.0.34.Final:compile
 [INFO] +- org.apache.camel:camel-rabbitmq:jar:2.16.2:compile
 [INFO] |  \- commons-pool:commons-pool:jar:1.6:compile
 [INFO] +- org.apache.camel:camel-http:jar:2.16.2:compile
@@ -231,7 +207,7 @@ Downloading: https://raw.github.com/librairy/boot/mvn-repo/org/neo4j/neo4j-ogm-c
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time: 6.164 s
-[INFO] Finished at: 2016-09-05T12:20:20+02:00
-[INFO] Final Memory: 32M/564M
+[INFO] Total time: 1.375 s
+[INFO] Finished at: 2016-09-05T15:28:51+02:00
+[INFO] Final Memory: 27M/437M
 [INFO] ------------------------------------------------------------------------
