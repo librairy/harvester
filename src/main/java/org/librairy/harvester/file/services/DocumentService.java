@@ -119,7 +119,7 @@ public class DocumentService {
             document.setType(fileDescription.getMetaInformation().getType());
 
             udm.save(document);
-            LOG.info("Added document: " + document.getUri());
+            LOG.info("A new document has been created: " + document.getUri());
 
 
             // Relate it to Source
@@ -142,7 +142,7 @@ public class DocumentService {
                     aggregatedFileDesc.setUrl(aggregatedFile.getAbsolutePath());
                     aggregatedFileDesc.setAggregatedFrom(document.getUri());
 
-                    LOG.info("Publishing event from aggregated file: " + aggregatedFileDesc);
+                    LOG.debug("Publishing event from aggregated file: " + aggregatedFileDesc);
                     eventBus.post(Event.from(aggregatedFileDesc), RoutingKey.of(FileCreatedEventHandler.ROUTING_KEY));
                 }
 

@@ -80,7 +80,7 @@ public class ItemService {
                 Item textualItem = createItem(textualContent, "text", file.getAbsolutePath(),language);
                 udm.save(textualItem);
                 udm.save(Relation.newBundles(document.getUri(),textualItem.getUri()));
-                LOG.info("Added textual item: " + textualItem.getUri());
+                LOG.info("A new textual item has been created: " + textualItem.getUri());
             }
 
             // -> Image Item

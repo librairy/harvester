@@ -16,12 +16,12 @@ public class Serializations {
 
     public static void serialize(Object document, String path){
         try{
-            LOG.info("Serializing:  " + path);
+            LOG.trace("Serializing:  " + path);
             File file = new File(path);
             ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(file));
             oos.writeObject(document);
             oos.close();
-            LOG.info("Serialized: " + document + " in:  " + path);
+            LOG.debug("Serialized: " + document + " in:  " + path);
         }catch(Exception ex){
             LOG.error("Error serializing annotated document: " + document + " to file: " + path);
         }
@@ -29,12 +29,12 @@ public class Serializations {
 
     public static <T> T deserialize(Class<T> clazz, String path){
         try{
-            LOG.info("Deserializing file:  " + path);
+            LOG.trace("Deserializing file:  " + path);
             File file = new File(path);
             FileInputStream fin = new FileInputStream(file);
             ObjectInputStream ois = new ObjectInputStream(fin);
             Object object = ois.readObject();
-            LOG.info("Deserialized:  " + path);
+            LOG.debug("Deserialized:  " + path);
             return clazz.cast(object);
         }catch(Exception e){
             throw new RuntimeException("Error deserializing document: " + path, e);

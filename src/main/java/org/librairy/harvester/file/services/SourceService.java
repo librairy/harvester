@@ -115,7 +115,7 @@ public class SourceService {
 
 
     private Domain createDefaultDomain(Source source){
-        LOG.info("creating a new domain associated to source: " + source.getUri());
+        LOG.debug("creating a new domain associated to source: " + source.getUri());
         Domain domain = Resource.newDomain(source.getName());
 
         String domainUri    = uriGenerator.basedOnContent(Resource.Type.DOMAIN,source.getName());
@@ -126,7 +126,7 @@ public class SourceService {
         domain.setUri(domainUri);
         domain.setDescription("attached to source: " + source.getUri());
         udm.save(domain);
-        LOG.info("Domain: " + domain + " attached to source: " + source);
+        LOG.info("A new Domain has been created: " + domain.getUri() + " attached to Source: " + source.getUri());
         udm.save(Relation.newComposes(source.getUri(),domain.getUri()));
         return domain;
     }
