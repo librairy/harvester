@@ -5,6 +5,7 @@ import com.google.common.io.Files;
 import org.apache.commons.beanutils.BeanUtils;
 import org.librairy.harvester.file.descriptor.pdf.PdfDescriptor;
 import org.librairy.harvester.file.descriptor.txt.TxtDescriptor;
+import org.librairy.harvester.file.utils.Serializations;
 import org.librairy.model.domain.resources.MetaInformation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -61,6 +62,13 @@ public class DefaultFileDescriptor implements Descriptor {
         }
 
 
+        // Check if serialized
+        File serializedFile = new File(file.getAbsolutePath()+".0.ser");
+        if (serializedFile.exists()){
+            return Serializations.deserialize(FileDescription.class, serializedFile.getAbsolutePath());
+        }
+
+
         FileDescription fileDescription = descriptor.describe(file);
 
         // Search a meta-file
@@ -83,6 +91,9 @@ public class DefaultFileDescriptor implements Descriptor {
                 LOG.warn("Error mapping to json the meta-file: " + jsonFile.getAbsolutePath(),e);
             }
         }
+
+        // Serialize file
+        Serializations.serialize(fileDescription,serializedFile.getAbsolutePath());
 
         return fileDescription;
     }

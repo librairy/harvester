@@ -4,6 +4,7 @@ import lombok.Data;
 import org.librairy.model.domain.resources.MetaInformation;
 
 import java.io.File;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +14,7 @@ import java.util.List;
  * @author cbadenes
  */
 @Data
-public class FileDescription {
+public class FileDescription implements Serializable {
 
     private MetaInformation metaInformation = new MetaInformation();
 

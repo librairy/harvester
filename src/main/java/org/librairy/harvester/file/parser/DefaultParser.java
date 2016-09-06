@@ -2,8 +2,10 @@ package org.librairy.harvester.file.parser;
 
 import com.google.common.io.Files;
 import org.apache.commons.collections.map.HashedMap;
+import org.librairy.harvester.file.descriptor.FileDescription;
 import org.librairy.harvester.file.parser.pdf.PDFParser;
 import org.librairy.harvester.file.parser.txt.TxtParser;
+import org.librairy.harvester.file.utils.Serializations;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -33,6 +35,12 @@ public class DefaultParser implements Parser{
     public ParsedDocument parse(File file){
         LOG.debug("Trying to parse: " + file.getAbsolutePath());
 
+        // Check if serialized
+        File serializedFile = new File(file.getAbsolutePath()+".1.ser");
+        if (serializedFile.exists()){
+            return Serializations.deserialize(ParsedDocument.class, serializedFile.getAbsolutePath());
+        }
+
         String fileExtension = Files.getFileExtension(file.getAbsolutePath()).toLowerCase();
         Parser parser = parserMap.get(fileExtension);
 
@@ -41,7 +49,12 @@ public class DefaultParser implements Parser{
                     .getAbsolutePath() + "]");
         }
 
-        return parser.parse(file);
+        ParsedDocument parsedDocument = parser.parse(file);
+
+        // Serialize
+        Serializations.serialize(parsedDocument, serializedFile.getAbsolutePath());
+
+        return parsedDocument;
 
     }
 
