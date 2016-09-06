@@ -4,7 +4,7 @@
 
 	<groupId>org.librairy</groupId>
     <artifactId>librairy-harvester</artifactId>
-    <version>0.8-SNAPSHOT</version>
+    <version>0.7</version>
     <packaging>war</packaging>
     <name>harvester</name>
     <description>Collect and analyze unstructured files.</description>
@@ -936,7 +936,7 @@
                             <branch>refs/heads/mvn-repo</branch>
                             <includes><include>**/*</include></includes>
                             <merge>true</merge>
-                            <repositoryName>harvester-file</repositoryName>
+                            <repositoryName>harvester</repositoryName>
                             <repositoryOwner>librairy</repositoryOwner>
                             <server>github</server>
                         </configuration>
@@ -952,7 +952,7 @@
                             <message>Building site for ${project.version}</message>
                             <noJekyll>true</noJekyll>
                             <merge>true</merge>
-                            <repositoryName>harvester-file</repositoryName>
+                            <repositoryName>harvester</repositoryName>
                             <repositoryOwner>librairy</repositoryOwner>
                             <server>github</server>
                             <path>report</path>
