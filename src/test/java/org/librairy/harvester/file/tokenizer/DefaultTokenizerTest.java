@@ -3,16 +3,12 @@ package org.librairy.harvester.file.tokenizer;
 import org.apache.commons.lang.StringUtils;
 import org.junit.Assert;
 import org.junit.Test;
-import org.librairy.harvester.file.descriptor.FileDescription;
-import org.librairy.harvester.file.descriptor.pdf.PdfDescriptor;
 import org.librairy.harvester.file.parser.ParsedDocument;
 import org.librairy.harvester.file.parser.pdf.PDFParser;
 
 import java.io.File;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import static com.sun.tools.doclets.formats.html.markup.HtmlStyle.description;
 
 /**
  * Created on 01/05/16:
