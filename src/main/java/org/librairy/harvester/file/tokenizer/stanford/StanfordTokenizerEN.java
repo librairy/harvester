@@ -93,7 +93,10 @@ public class StanfordTokenizerEN implements StanfordTokenizer {
         props.setProperty("ssplit.boundaryTokenRegex", "[.]|[!?]+|[。]|[！？]+");
 
         // Custom tokenize
-        props.setProperty("tokenize.options","untokenizable=allDelete,normalizeOtherBrackets=false,normalizeParentheses=false");
+        //props.setProperty("tokenize.options","untokenizable=allDelete,normalizeOtherBrackets=false," +
+//                "normalizeParentheses=false");
+        props.setProperty("tokenize.options","untokenizable=noneDelete,normalizeOtherBrackets=false," +
+                "normalizeParentheses=false");
 
         // Custom stopwords
 //        props.setProperty("customAnnotatorClass.stopword", "intoxicant.analytics.coreNlp.StopwordAnnotator");

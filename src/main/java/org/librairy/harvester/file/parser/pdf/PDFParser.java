@@ -6,7 +6,6 @@ import org.librairy.harvester.file.parser.ParsedDocument;
 import org.librairy.harvester.file.parser.Parser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import java.io.File;

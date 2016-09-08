@@ -92,8 +92,9 @@ public class StanfordTokenizerES implements StanfordTokenizer {
         props.setProperty("ssplit.boundaryTokenRegex", "[.]|[!?]+|[。]|[！？]+");
 
         // Custom tokenize
-        props.setProperty("tokenize.options","untokenizable=allDelete,normalizeOtherBrackets=false,normalizeParentheses=false");
-
+//        props.setProperty("tokenize.options","untokenizable=allDelete,normalizeOtherBrackets=false,normalizeParentheses=false");
+        props.setProperty("tokenize.options","untokenizable=noneDelete,normalizeOtherBrackets=false," +
+                "normalizeParentheses=false");
 
         // Spanish or English Model
         props.setProperty("pos.model", "edu/stanford/nlp/models/pos-tagger/spanish/spanish-distsim.tagger");

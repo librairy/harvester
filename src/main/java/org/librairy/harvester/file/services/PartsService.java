@@ -82,7 +82,7 @@ public class PartsService {
 
         udm.save(part);
         udm.save(Relation.newDescribes(part.getUri(),itemUri));
-        LOG.info("A new part has been created: " + part.getUri() + " from Item: " + itemUri);
+        LOG.info("New Part: " + part.getUri() + " from Item: " + itemUri);
         return part;
     }
 

@@ -119,7 +119,7 @@ public class DocumentService {
             document.setType(fileDescription.getMetaInformation().getType());
 
             udm.save(document);
-            LOG.info("A new document has been created: " + document.getUri());
+            LOG.info("New document: " + document.getUri() + " from file: " + file.getUrl());
 
 
             // Relate it to Source
@@ -148,6 +148,8 @@ public class DocumentService {
 
             }
 
+        }catch (RuntimeException e){
+            LOG.error("Error adding document from: " + file + ". Reason: " + e.getMessage());
         }catch (Exception e){
             LOG.error("Error adding document from: " + file, e);
         }

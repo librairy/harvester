@@ -3,10 +3,16 @@ package org.librairy.harvester.file.tokenizer;
 import org.apache.commons.lang.StringUtils;
 import org.junit.Assert;
 import org.junit.Test;
+import org.librairy.harvester.file.descriptor.FileDescription;
+import org.librairy.harvester.file.descriptor.pdf.PdfDescriptor;
+import org.librairy.harvester.file.parser.ParsedDocument;
+import org.librairy.harvester.file.parser.pdf.PDFParser;
 
 import java.io.File;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static com.sun.tools.doclets.formats.html.markup.HtmlStyle.description;
 
 /**
  * Created on 01/05/16:
@@ -48,5 +54,21 @@ public class DefaultTokenizerTest {
         String fileName2 = StringUtils.substringBeforeLast(file2.getName(), ".");
         Language language2 = fileName2.endsWith("_ES")? Language.ES : Language.EN;
         Assert.assertEquals(Language.ES,language2);
+    }
+
+    @Test
+    public void tokenizePdf(){
+        File file = new File("./src/test/resources/files/default/siggraph/a99-kopf.pdf");
+
+        PDFParser pdfParser = new PDFParser();
+
+        ParsedDocument document = pdfParser.parse(file);
+
+
+        DefaultTokenizer tokenizer = new DefaultTokenizer();
+        tokenizer.setup();
+
+        tokenizer.tokenize(document.getText(), Language.EN);
+
     }
 }
