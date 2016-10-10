@@ -1,3 +1,10 @@
+/*
+ * Copyright (c) 2016. Universidad Politecnica de Madrid
+ *
+ * @author Badenes Olmedo, Carlos <cbadenes@fi.upm.es>
+ *
+ */
+
 package org.librairy.harvester.file.eventbus;
 
 import org.librairy.harvester.file.services.DocumentService;
@@ -45,10 +52,8 @@ public class FileCreatedEventHandler implements EventBusSubscriber {
         try{
             service.handleParallel(event.to(File.class));
         } catch (RuntimeException e){
-            // TODO Notify to event-bus when source has not been added
             LOG.warn(e.getMessage());
         }catch (Exception e){
-            // TODO Notify to event-bus when source has not been added
             LOG.error("Error adding new source: " + event, e);
         }
     }

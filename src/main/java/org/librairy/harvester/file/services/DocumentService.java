@@ -1,3 +1,10 @@
+/*
+ * Copyright (c) 2016. Universidad Politecnica de Madrid
+ *
+ * @author Badenes Olmedo, Carlos <cbadenes@fi.upm.es>
+ *
+ */
+
 package org.librairy.harvester.file.services;
 
 import com.google.common.base.Strings;
@@ -83,7 +90,7 @@ public class DocumentService {
             FileDescription fileDescription = fileDescriptor.describe(ioFile);
 
             // Document
-            Document document = Resource.newDocument(fileDescription.getMetaInformation().getTitle());
+            Document document = Resource.newDocument(fileDescription.getMetaInformation().getTitle().toLowerCase());
             // -> uri
             if (useFileNameAsUri){
                 document.setUri(uriGenerator.from(Resource.Type.DOCUMENT, Files.getNameWithoutExtension(ioFile
