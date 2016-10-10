@@ -52,10 +52,8 @@ public class FileCreatedEventHandler implements EventBusSubscriber {
         try{
             service.handleParallel(event.to(File.class));
         } catch (RuntimeException e){
-            // TODO Notify to event-bus when source has not been added
             LOG.warn(e.getMessage());
         }catch (Exception e){
-            // TODO Notify to event-bus when source has not been added
             LOG.error("Error adding new source: " + event, e);
         }
     }

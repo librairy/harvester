@@ -7,10 +7,10 @@
 
 package org.librairy.harvester.file.eventbus;
 
-import com.google.common.base.Strings;
-import org.librairy.harvester.file.services.ItemService;
+import org.librairy.harvester.file.services.PartService;
 import org.librairy.model.Event;
 import org.librairy.model.domain.resources.Item;
+import org.librairy.model.domain.resources.Part;
 import org.librairy.model.domain.resources.Resource;
 import org.librairy.model.modules.BindingKey;
 import org.librairy.model.modules.EventBus;
@@ -28,12 +28,12 @@ import javax.annotation.PostConstruct;
  * Created by cbadenes on 01/12/15.
  */
 @Component
-public class ItemCreatedEventHandler implements EventBusSubscriber {
+public class PartCreatedEventHandler implements EventBusSubscriber {
 
-    private static final Logger LOG = LoggerFactory.getLogger(ItemCreatedEventHandler.class);
+    private static final Logger LOG = LoggerFactory.getLogger(PartCreatedEventHandler.class);
 
     @Autowired
-    ItemService itemService;
+    PartService service;
 
     @Autowired
     UDM udm;
@@ -43,9 +43,9 @@ public class ItemCreatedEventHandler implements EventBusSubscriber {
 
     @PostConstruct
     public void init(){
-        RoutingKey routingKey = RoutingKey.of(Resource.Type.ITEM, Resource.State.CREATED);
+        RoutingKey routingKey = RoutingKey.of(Resource.Type.PART, Resource.State.CREATED);
         LOG.info("Trying to register as subscriber of '" + routingKey + "' events ..");
-        eventBus.subscribe(this, BindingKey.of(routingKey, "harvester-item"));
+        eventBus.subscribe(this, BindingKey.of(routingKey, "harvester-part"));
         LOG.info("registered successfully");
     }
 
@@ -57,10 +57,9 @@ public class ItemCreatedEventHandler implements EventBusSubscriber {
 
             Resource resource = event.to(Resource.class);
 
-            Item item = udm.read(Resource.Type.ITEM).byUri(resource.getUri()).get().asItem();
-            if (Strings.isNullOrEmpty(item.getTokens())){
-                itemService.tokenize(item);
-            }
+            Part part = udm.read(Resource.Type.PART).byUri(resource.getUri()).get().asPart();
+            service.tokenize(part);
+
         } catch (RuntimeException e){
             LOG.warn(e.getMessage());
         }catch (Exception e){

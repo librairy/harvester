@@ -9,11 +9,13 @@ package org.librairy.harvester.file.eventbus;
 
 import org.librairy.harvester.file.services.ItemService;
 import org.librairy.model.Event;
+import org.librairy.model.domain.resources.Document;
 import org.librairy.model.domain.resources.Resource;
 import org.librairy.model.modules.BindingKey;
 import org.librairy.model.modules.EventBus;
 import org.librairy.model.modules.EventBusSubscriber;
 import org.librairy.model.modules.RoutingKey;
+import org.librairy.storage.UDM;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,7 +50,9 @@ public class DocumentCreatedEventHandler implements EventBusSubscriber {
     public void handle(Event event) {
         LOG.debug("New Document event received: " + event);
         try{
+
             service.handleParallel(event.to(Resource.class));
+
         } catch (RuntimeException e){
             // TODO Notify to event-bus when source has not been added
             LOG.warn(e.getMessage());
