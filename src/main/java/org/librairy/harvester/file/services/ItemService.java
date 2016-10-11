@@ -113,6 +113,7 @@ public class ItemService {
                 Item item = Resource.newItem(textualContent);
                 item.setFormat("text");
                 item.setUrl(file.getAbsolutePath());
+                item.setTokens("");
                 udm.save(item);
                 udm.save(Relation.newBundles(document.getUri(),item.getUri()));
                 LOG.info("New (textual) Item: " + item.getUri() + " from Document: " + document.getUri());
@@ -145,5 +146,6 @@ public class ItemService {
                 collect(Collectors.joining(" "));
         item.setTokens(tokens);
         udm.update(item);
+        LOG.info("Item " + item.getUri() +  " tokenized");
     }
 }
