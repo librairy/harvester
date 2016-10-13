@@ -11,7 +11,7 @@
 
 	<groupId>org.librairy</groupId>
     <artifactId>librairy-harvester</artifactId>
-    <version>0.16-SNAPSHOT</version>
+    <version>0.15</version>
     <packaging>war</packaging>
     <name>harvester</name>
     <description>Collect and analyze unstructured files.</description>

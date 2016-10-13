@@ -100,7 +100,9 @@ public class DocumentService {
             }
 
             // Document
-            Document document = Resource.newDocument(fileDescription.getMetaInformation().getTitle().toLowerCase());
+            String ref = !Strings.isNullOrEmpty(fileDescription.getMetaInformation().getTitle())? fileDescription
+                    .getMetaInformation().getTitle().toLowerCase() : Files.getNameWithoutExtension(path);
+            Document document = Resource.newDocument(ref);
             // -> uri
             if (useFileNameAsUri){
                 document.setUri(uriGenerator.from(Resource.Type.DOCUMENT, Files.getNameWithoutExtension(path)));
