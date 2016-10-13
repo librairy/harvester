@@ -34,7 +34,6 @@ public class PartService {
 
     public void tokenize(Part part){
         // TODO Handle multiple languages
-        // Language language = LanguageHelper.getLanguageFrom(file);
         String tokens = tokenizer.tokenize(part.getContent(),Language.EN).stream().
                 filter(token -> token.isValid()).
                 map(token -> token.getLemma()).

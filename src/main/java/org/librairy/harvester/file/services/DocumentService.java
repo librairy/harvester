@@ -79,22 +79,31 @@ public class DocumentService {
             String path             = file.getUrl();
 
 
-            java.io.File ioFile = new java.io.File(path);
+            // Meta-Information
+            FileDescription fileDescription = new FileDescription();
+            fileDescription.setMetaInformation(file.getMetaInformation());
+            fileDescription.setSummary(file.getMetaInformation().getDescription());
 
-            if (!ioFile.exists()){
-                LOG.warn("File does not exist: " + ioFile.getAbsolutePath() + " from: " + file);
-                return;
+
+            if (path.startsWith("file") || path.startsWith("/")){
+
+                java.io.File ioFile = new java.io.File(path);
+
+                if (!ioFile.exists()){
+                    LOG.warn("File does not exist: " + ioFile.getAbsolutePath() + " from: " + file);
+                    return;
+                }
+
+                // Retrieve File Description
+                fileDescription = fileDescriptor.describe(ioFile);
+                path = ioFile.getAbsolutePath();
             }
-
-            // Retrieve File Description
-            FileDescription fileDescription = fileDescriptor.describe(ioFile);
 
             // Document
             Document document = Resource.newDocument(fileDescription.getMetaInformation().getTitle().toLowerCase());
             // -> uri
             if (useFileNameAsUri){
-                document.setUri(uriGenerator.from(Resource.Type.DOCUMENT, Files.getNameWithoutExtension(ioFile
-                        .getAbsolutePath())));
+                document.setUri(uriGenerator.from(Resource.Type.DOCUMENT, Files.getNameWithoutExtension(path)));
             }else{
                 document.setUri(uriGenerator.basedOnContent(Resource.Type.DOCUMENT,fileDescription.getSummary()));
             }
@@ -103,13 +112,13 @@ public class DocumentService {
             // -> publishedBy
             document.setPublishedBy(sourceUri);
             // -> authoredOn
-            //document.setAuthoredOn(fileDescription.getMetaInformation().getAuthored());
+            document.setAuthoredOn(fileDescription.getMetaInformation().getAuthored());
             // -> authoredBy
             document.setAuthoredBy(fileDescription.getMetaInformation().getCreators());
             // -> contributedBy
             document.setContributedBy(fileDescription.getMetaInformation().getContributors());
             // -> retrievedFrom
-            document.setRetrievedFrom(ioFile.getAbsolutePath());
+            document.setRetrievedFrom(path);
             // -> retrievedOn
             document.setRetrievedOn(TimeUtils.asISO());
             // -> format
@@ -156,7 +165,7 @@ public class DocumentService {
             }
 
         }catch (RuntimeException e){
-            LOG.error("Error adding document from: " + file + ". Reason: " + e.getMessage());
+            LOG.error("Error adding document from: " + file + ". Reason: " + e.getMessage(),e);
         }catch (Exception e){
             LOG.error("Error adding document from: " + file, e);
         }

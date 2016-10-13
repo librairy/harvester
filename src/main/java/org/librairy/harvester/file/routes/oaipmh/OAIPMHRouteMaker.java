@@ -46,13 +46,15 @@ public class OAIPMHRouteMaker implements RouteMaker{
     @Override
     public RouteDefinition build(Source source,Domain domain) {
 
-        String uri = new StringBuilder().
-                append("file:").
-                append(Paths.get(homeFolder,inputFolder,basedir).toFile().getAbsolutePath()).
-                append("/oaipmh/").
-                append(source.getName()).
-                append("?recursive=true&include=.*.xml&doneFileName=${file:name}.done").
-                toString();
+//        String uri = new StringBuilder().
+//                append("file:").
+//                append(Paths.get(homeFolder,inputFolder,basedir).toFile().getAbsolutePath()).
+//                append("/oaipmh/").
+//                append(source.getName()).
+//                append("?recursive=true&include=.*.xml&doneFileName=${file:name}.done").
+//                toString();
+
+        String uri = source.getUrl();
 
         LOG.debug("URI created for harvesting purposes: " + uri);
 

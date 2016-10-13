@@ -7,11 +7,27 @@
 
 package org.librairy.harvester.file.tokenizer;
 
+import com.google.common.base.Strings;
+
 /**
  * Created on 01/05/16:
  *
  * @author cbadenes
  */
 public enum Language {
-    EN, ES
+    EN, ES;
+
+    public static Language from(String value){
+        if (Strings.isNullOrEmpty(value)) return EN;
+        switch (value.toLowerCase()){
+            case "en":
+            case "eng":
+                return EN;
+            case "es":
+            case "spa":
+                return ES;
+            default:
+                return EN;
+        }
+    }
 }

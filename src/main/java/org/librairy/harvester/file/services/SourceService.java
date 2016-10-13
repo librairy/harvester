@@ -7,6 +7,7 @@
 
 package org.librairy.harvester.file.services;
 
+import com.google.common.base.Strings;
 import org.apache.camel.model.RouteDefinition;
 import org.apache.camel.spring.SpringCamelContext;
 import org.apache.commons.lang.StringUtils;
@@ -55,9 +56,10 @@ public class SourceService {
     public void setup(){
         this.executor = new ParallelExecutor();
         LOG.info("Restoring sources from ddbb..");
+
         udm.find(Resource.Type.SOURCE)
                 .all()
-                .parallelStream()
+                .stream()
                 .map(res -> udm.read(Resource.Type.SOURCE).byUri(res.getUri()))
                 .filter(res -> res.isPresent())
                 .map(res -> res.get().asSource())
@@ -115,9 +117,11 @@ public class SourceService {
 
     private void addRoute(Source source, Domain domain) throws Exception {
         // Create a new route for harvesting this source
-        RouteDefinition route = routeDefinitionFactory.newRoute(source,domain);
-        LOG.info("adding route to harvest: " + route);
-        camelContext.addRouteDefinition(route);
+        if (!Strings.isNullOrEmpty(source.getUrl())){
+            RouteDefinition route = routeDefinitionFactory.newRoute(source,domain);
+            LOG.info("adding route to harvest: " + route);
+            camelContext.addRouteDefinition(route);
+        }
     }
 
 

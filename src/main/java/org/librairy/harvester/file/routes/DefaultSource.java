@@ -55,8 +55,7 @@ public class DefaultSource {
             Source source = Resource.newSource("default");
             source.setUri(uriGenerator.from(Resource.Type.SOURCE, "default"));
             source.setDescription("default");
-            Path folderPath = Paths.get(homeFolder, inputFolder, defaultFolder);
-            source.setUrl("file:/"+folderPath.toFile().getAbsolutePath());
+            source.setUrl("file://default");
             LOG.info("Creating default source: " + source);
             udm.save(source);
         }

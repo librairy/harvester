@@ -11,6 +11,7 @@ import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.librairy.model.Record;
 import org.librairy.model.domain.resources.File;
+import org.librairy.model.domain.resources.MetaInformation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -38,11 +39,28 @@ public class ResourceBuilder implements Processor {
             // TODO Handle multiple attached files
             String path             = exchange.getProperty(Record.PUBLICATION_URL_LOCAL,String.class);
 
+            // MetaInformation
+            MetaInformation metaInformation = new MetaInformation();
+            metaInformation.setRights(exchange.getProperty(Record.PUBLICATION_RIGHTS,String.class));
+            metaInformation.setDescription(exchange.getProperty(Record.PUBLICATION_DESCRIPTION,String.class));
+            metaInformation.setLanguage(exchange.getProperty(Record.PUBLICATION_LANGUAGE,String.class));
+            metaInformation.setContributors(exchange.getProperty(Record.PUBLICATION_CONTRIBUTORS,String.class));
+            metaInformation.setCreators(exchange.getProperty(Record.PUBLICATION_CREATORS,String.class));
+            metaInformation.setAuthored(exchange.getProperty(Record.PUBLICATION_AUTHORED,String.class));
+            metaInformation.setFormat(exchange.getProperty(Record.PUBLICATION_FORMAT,String.class));
+            metaInformation.setPubFormat(exchange.getProperty(Record.PUBLICATION_METADATA_FORMAT,String.class));
+            metaInformation.setPublished(exchange.getProperty(Record.PUBLICATION_PUBLISHED,String.class));
+            metaInformation.setPubURI(exchange.getProperty(Record.PUBLICATION_URI,String.class));
+            metaInformation.setTitle(exchange.getProperty(Record.PUBLICATION_TITLE,String.class));
+            metaInformation.setSubject(exchange.getProperty(Record.PUBLICATION_SUBJECT,String.class));
+            metaInformation.setType(exchange.getProperty(Record.PUBLICATION_TYPE,String.class));
+
             // File
             File file = new File();
             file.setDomain(domainUri);
             file.setSource(sourceUri);
             file.setUrl(path);
+            file.setMetaInformation(metaInformation);
             LOG.debug("file created: " + file);
 
             //TODO publish to event-bus

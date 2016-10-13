@@ -40,7 +40,7 @@ public class OAIPMHRouteBuilder extends RouteBuilder {
                 setProperty(Record.PUBLICATION_PUBLISHED,      xpath("//oai:header/oai:datestamp/text()",String.class).namespaces(ns)).
                 setProperty(Record.PUBLICATION_URI,            xpath("//oai:header/oai:identifier/text()",String.class).namespaces(ns)).
                 setProperty(Record.PUBLICATION_URL,            xpath("//oai:metadata/oai:dc/dc:identifier/text()",String.class).namespaces(ns)).
-                setProperty(Record.PUBLICATION_URL_LOCAL,      simple("${header.CamelFileAbsolutePath}")).
+                setProperty(Record.PUBLICATION_URL_LOCAL,      xpath("//oai:metadata/oai:dc/dc:relation/text()",String.class).namespaces(ns)).
                 setProperty(Record.PUBLICATION_SUBJECT,        xpath("string-join(//oai:metadata/oai:dc/dc:subject/text(),\";\")", String.class).namespaces(ns)).
                 setProperty(Record.PUBLICATION_AUTHORED,       xpath("//oai:metadata/oai:dc/dc:date/text()",String.class).namespaces(ns)).
                 setProperty(Record.PUBLICATION_LANGUAGE,       xpath("string-join(//oai:metadata/oai:dc/dc:language/text(),\";\")", String.class).namespaces(ns)).

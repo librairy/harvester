@@ -113,6 +113,7 @@ public class ItemService {
                 Item item = Resource.newItem(textualContent);
                 item.setFormat("text");
                 item.setUrl(file.getAbsolutePath());
+                item.setLanguage(document.getLanguage());
                 item.setTokens("");
                 udm.save(item);
                 udm.save(Relation.newBundles(document.getUri(),item.getUri()));
@@ -140,7 +141,7 @@ public class ItemService {
     public void tokenize(Item item){
         // TODO Handle multiple languages
         // Language language = LanguageHelper.getLanguageFrom(file);
-        String tokens = tokenizer.tokenize(item.getContent(),Language.EN).stream().
+        String tokens = tokenizer.tokenize(item.getContent(),Language.from(item.getLanguage())).stream().
                 filter(token -> token.isValid()).
                 map(token -> token.getLemma()).
                 collect(Collectors.joining(" "));
