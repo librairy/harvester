@@ -23,6 +23,7 @@ import org.librairy.model.domain.relations.Relation;
 import org.librairy.model.domain.resources.Document;
 import org.librairy.model.domain.resources.Item;
 import org.librairy.model.domain.resources.Resource;
+import org.librairy.model.utils.TimeUtils;
 import org.librairy.storage.UDM;
 import org.librairy.storage.generator.URIGenerator;
 import org.slf4j.Logger;
@@ -121,12 +122,34 @@ public class ItemService {
             }
 
             // Override meta-inf of document
-            if (Strings.isNullOrEmpty(document.getTitle())){
-                FileDescription fileDescription = fileDescriptor.describe(file);
+            FileDescription fileDescription = fileDescriptor.describe(file);
+
+            if (Strings.isNullOrEmpty(document.getTitle()))
                 document.setTitle(fileDescription.getMetaInformation().getTitle());
+            if (Strings.isNullOrEmpty(document.getDescription()))
                 document.setDescription(fileDescription.getSummary());
-                udm.update(document);
-            }
+            if (Strings.isNullOrEmpty(document.getFormat()))
+                document.setFormat(fileDescription.getMetaInformation().getFormat());
+            if (Strings.isNullOrEmpty(document.getAuthoredBy()))
+                document.setAuthoredBy(fileDescription.getMetaInformation().getCreators());
+            if (Strings.isNullOrEmpty(document.getAuthoredOn()))
+                document.setAuthoredOn(fileDescription.getMetaInformation().getAuthored());
+            if (Strings.isNullOrEmpty(document.getRetrievedOn()))
+                document.setRetrievedOn(TimeUtils.asISO());
+            if (Strings.isNullOrEmpty(document.getRetrievedFrom()))
+                document.setRetrievedOn(fileDescription.getMetaInformation().getPubURI());
+            if (Strings.isNullOrEmpty(document.getLanguage()))
+                document.setLanguage(fileDescription.getMetaInformation().getLanguage());
+            if (Strings.isNullOrEmpty(document.getPublishedOn()))
+                document.setPublishedOn(fileDescription.getMetaInformation().getPublished());
+            if (Strings.isNullOrEmpty(document.getRights()))
+                document.setRights(fileDescription.getMetaInformation().getRights());
+            if (Strings.isNullOrEmpty(document.getContributedBy()))
+                document.setContributedBy(fileDescription.getMetaInformation().getContributors());
+            if (Strings.isNullOrEmpty(document.getPublishedBy()))
+                document.setPublishedBy(fileDescription.getMetaInformation().getPubURI());
+
+            udm.update(document);
 
             // -> Image Item
 

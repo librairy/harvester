@@ -78,9 +78,9 @@ public class PdfDescriptor implements Descriptor{
             metaInformation.setAuthored(timeFormatter.format(docInformation.getCreationDate().getTime()));
         }
         //metaInformation.setPubURI("unknown");
-        //metaInformation.setContributors("unknown");
+        metaInformation.setContributors(docInformation.getCreator());
+
         SecurityHandler securityHandler = document.getSecurityHandler();
-        //metaInformation.setRights("unknown");
         if (securityHandler != null && securityHandler.getCurrentAccessPermission() != null){
             metaInformation.setRights(securityHandler.getCurrentAccessPermission().toString());
         }
