@@ -30,26 +30,12 @@ public class CommonRouteBuilder extends RouteBuilder {
     private static final Logger LOG = LoggerFactory.getLogger(CommonRouteBuilder.class);
 
     public static final String URI_RO_BUILD        = "direct:common.ro.build";
-//    public static final String URI_RO_BUILD        = "seda:common.ro.build??concurrentConsumers=10";
 
     @Autowired
     ErrorHandler errorHandler;
 
     @Autowired
     ResourceBuilder resourceBuilder;
-
-    @Autowired
-    DocumentService service;
-
-    @Value("#{environment['LIBRAIRY_HOME']?:'${librairy.home}'}")
-    String homeFolder;
-
-    @Value("${librairy.harvester.folder}")
-    String inputFolder;
-
-    @Value("${librairy.harvester.folder.hoarder}")
-    protected String outdir;
-
 
     @Override
     public void configure() throws Exception {

@@ -50,7 +50,7 @@ public class Config {
     @Value("#{environment['LIBRAIRY_HOME']?:'${librairy.home}'}")
     String homeFolder;
 
-    @Value("${librairy.harvester.folder}")
+    @Value("${librairy.harvester.inbox}")
     String inputFolder;
 
     @Value("${librairy.eventbus.host}")
@@ -86,7 +86,7 @@ public class Config {
     @Bean(name = "fileStore")
     public FileIdempotentRepository getFileStore(){
         FileIdempotentRepository repository = new FileIdempotentRepository();
-        Path fileStorePath = Paths.get(homeFolder, inputFolder, ".fileStore.dat");
+        Path fileStorePath = Paths.get(homeFolder, inputFolder, ".files.dat");
         repository.setFileStore(fileStorePath.toFile());
         repository.setMaxFileStoreSize(Long.MAX_VALUE);
         repository.setCacheSize(Integer.MAX_VALUE);

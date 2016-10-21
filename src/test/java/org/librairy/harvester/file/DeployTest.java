@@ -28,17 +28,10 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 public class DeployTest {
 
     private static final Logger LOG = LoggerFactory.getLogger(DeployTest.class);
-
-    @Autowired
-    UDM udm;
-
-    @Autowired
-    URIGenerator uriGenerator;
-    
     @Test
     public void run() throws InterruptedException {
         LOG.info("Sleepping...");
-        Thread.sleep(10000000);
+        Thread.sleep(Integer.MAX_VALUE);
         LOG.info("Wake Up!");
     }
 

@@ -10,6 +10,7 @@ package org.librairy.harvester.file.descriptor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.io.Files;
 import org.apache.commons.beanutils.BeanUtils;
+import org.apache.commons.lang.StringUtils;
 import org.librairy.harvester.file.descriptor.pdf.PdfDescriptor;
 import org.librairy.harvester.file.descriptor.txt.TxtDescriptor;
 import org.librairy.harvester.file.utils.Serializations;
@@ -18,7 +19,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.util.StringUtils;
 
 import javax.annotation.PostConstruct;
 import java.io.File;
@@ -43,10 +43,10 @@ public class DefaultFileDescriptor implements Descriptor {
     @Value("#{environment['LIBRAIRY_HOME']?:'${librairy.home}'}")
     String homeFolder;
 
-    @Value("${librairy.harvester.folder}")
+    @Value("${librairy.harvester.inbox}")
     String inputFolder;
 
-    @Value("${librairy.harvester.folder.meta}")
+    @Value("${librairy.harvester.inbox.meta}")
     String metaFolder;
 
     @PostConstruct
@@ -70,7 +70,8 @@ public class DefaultFileDescriptor implements Descriptor {
 
 
         // Check if serialized
-        File serializedFile = new File(file.getAbsolutePath()+".0.ser");
+        String fileName = StringUtils.substringAfter(file.getName(),"-");
+        File serializedFile = Paths.get(file.getParent(),fileName+".0.ser").toFile();
         if (serializedFile.exists()){
             return Serializations.deserialize(FileDescription.class, serializedFile.getAbsolutePath());
         }

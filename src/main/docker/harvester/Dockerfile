@@ -1,16 +1,13 @@
-FROM tomcat:8-jre8
+FROM librairy/tomcat:1.0
 MAINTAINER Librairy <librairy.framework@gmail.com>
 
 ENV LIBRAIRY_HOME /librairy
-RUN mkdir $LIBRAIRY_HOME
 
 WORKDIR /usr/local/tomcat
 
 RUN mkdir $LIBRAIRY_HOME/files
-RUN mkdir $LIBRAIRY_HOME/files/default
-RUN mkdir $LIBRAIRY_HOME/files/custom
-RUN mkdir $LIBRAIRY_HOME/files/serialized
-RUN mkdir $LIBRAIRY_HOME/files/collected
+RUN mkdir $LIBRAIRY_HOME/inbox
+RUN mkdir $LIBRAIRY_HOME/inbox/default
 
 ADD harvester.war /usr/local/tomcat/webapps/harvester.war
 

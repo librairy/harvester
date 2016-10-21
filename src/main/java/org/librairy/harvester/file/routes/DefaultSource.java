@@ -14,13 +14,9 @@ import org.librairy.storage.generator.URIGenerator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.List;
 
 /**
  * Created on 07/04/16:
@@ -37,15 +33,6 @@ public class DefaultSource {
 
     @Autowired
     URIGenerator uriGenerator;
-
-    @Value("#{environment['LIBRAIRY_HOME']?:'${librairy.home}'}")
-    String homeFolder;
-
-    @Value("${librairy.harvester.folder}")
-    String inputFolder;
-
-    @Value("${librairy.harvester.folder.default}")
-    String defaultFolder;
 
     @PostConstruct
     public void setup(){

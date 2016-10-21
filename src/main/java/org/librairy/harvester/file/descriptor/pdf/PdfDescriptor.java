@@ -9,14 +9,13 @@ package org.librairy.harvester.file.descriptor.pdf;
 
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDDocumentInformation;
+import org.apache.pdfbox.pdmodel.encryption.AccessPermission;
 import org.apache.pdfbox.pdmodel.encryption.SecurityHandler;
-import org.apache.pdfbox.util.PDFTextStripper;
+import org.apache.pdfbox.text.PDFTextStripper;
 import org.librairy.harvester.file.descriptor.Descriptor;
 import org.librairy.harvester.file.descriptor.FileDescription;
 import org.librairy.harvester.file.helper.LanguageHelper;
-import org.librairy.harvester.file.tokenizer.Language;
 import org.librairy.model.domain.resources.MetaInformation;
-import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.io.IOException;
@@ -41,7 +40,7 @@ public class PdfDescriptor implements Descriptor{
 
             // MetaInformation
             MetaInformation metainformation = retrieveMetaInformation(pdDocument);
-            metainformation.setLanguage(LanguageHelper.getLanguageFrom(file).name());
+            metainformation.setLanguage(pdDocument.getDocumentCatalog().getLanguage());
             fileDescription.setMetaInformation(metainformation);
 
             // Summary
@@ -49,6 +48,7 @@ public class PdfDescriptor implements Descriptor{
 
             // File Name
 
+            pdDocument.close();
 
         } catch (IOException e) {
             throw new RuntimeException("UnexpectedError reading pdf file",e);
@@ -80,10 +80,11 @@ public class PdfDescriptor implements Descriptor{
         //metaInformation.setPubURI("unknown");
         metaInformation.setContributors(docInformation.getCreator());
 
-        SecurityHandler securityHandler = document.getSecurityHandler();
-        if (securityHandler != null && securityHandler.getCurrentAccessPermission() != null){
-            metaInformation.setRights(securityHandler.getCurrentAccessPermission().toString());
-        }
+
+        AccessPermission accessPermission = document.getCurrentAccessPermission();
+        if (accessPermission != null)
+            metaInformation.setRights(accessPermission.toString());
+
         return metaInformation;
     }
 

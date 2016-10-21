@@ -38,19 +38,15 @@ public class DefaultFolderTest {
     @Value("#{environment['LIBRAIRY_HOME']?:'${librairy.home}'}")
     String homeFolder;
 
-    @Value("${librairy.harvester.folder}")
+    @Value("${librairy.harvester.inbox}")
     String inputFolder;
 
-    @Value("${librairy.harvester.folder.external}")
-    protected String externalFolder;
-
-    @Value("${librairy.harvester.folder.default}")
+    @Value("${librairy.harvester.inbox.default}")
     protected String defaultFolder;
     
     @Test
     public void run() throws InterruptedException {
         Thread.sleep(120000);
-        Assert.assertTrue(Paths.get(homeFolder, inputFolder, externalFolder).toFile().exists());
         Assert.assertTrue(Paths.get(homeFolder, inputFolder, defaultFolder).toFile().exists());
     }
 

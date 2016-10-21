@@ -67,7 +67,7 @@ public class ItemService {
     Parser parser;
 
     @Autowired
-    Descriptor fileDescriptor;
+    DocumentService documentService;
 
     @PostConstruct
     public void setup(){
@@ -94,16 +94,15 @@ public class ItemService {
             Document document = (Document) res.get();
 
             // Parsing File of the Document
-            String path = document.getRetrievedFrom();
-            File file;
-            if (path.startsWith("http")){
-                // download file
-                Path fileStorePath = Paths.get(homeFolder, inputFolder, "downloaded",URIGenerator.retrieveId(document
-                        .getUri())+"."+ Files.getFileExtension(path));
-                file = fileStorePath.toFile();
-                FileUtils.copyURLToFile(new URL(path), file);
-            }else{
-                file = new File(path);
+            String fileName = URIGenerator.retrieveId(document.getUri());
+            Path filePath   = Paths.get(homeFolder, inputFolder,fileName+"."+document.getFormat());
+            File file       = filePath.toFile();
+
+            if (!file.exists() && !Strings.isNullOrEmpty(document.getRetrievedFrom())) {
+                documentService.retrieveFile(document.getRetrievedFrom(), file);
+            }else if (!file.exists()){
+                LOG.warn("No file associated to document: " + document);
+                return;
             }
 
             ParsedDocument parsedDocument = parser.parse(file);
@@ -116,40 +115,12 @@ public class ItemService {
                 item.setUrl(file.getAbsolutePath());
                 item.setLanguage(document.getLanguage());
                 item.setTokens("");
+                item.setAuthoredBy(document.getAuthoredBy());
+                item.setType("text");
                 udm.save(item);
                 udm.save(Relation.newBundles(document.getUri(),item.getUri()));
                 LOG.info("New (textual) Item: " + item.getUri() + " from Document: " + document.getUri());
             }
-
-            // Override meta-inf of document
-            FileDescription fileDescription = fileDescriptor.describe(file);
-
-            if (Strings.isNullOrEmpty(document.getTitle()))
-                document.setTitle(fileDescription.getMetaInformation().getTitle());
-            if (Strings.isNullOrEmpty(document.getDescription()))
-                document.setDescription(fileDescription.getSummary());
-            if (Strings.isNullOrEmpty(document.getFormat()))
-                document.setFormat(fileDescription.getMetaInformation().getFormat());
-            if (Strings.isNullOrEmpty(document.getAuthoredBy()))
-                document.setAuthoredBy(fileDescription.getMetaInformation().getCreators());
-            if (Strings.isNullOrEmpty(document.getAuthoredOn()))
-                document.setAuthoredOn(fileDescription.getMetaInformation().getAuthored());
-            if (Strings.isNullOrEmpty(document.getRetrievedOn()))
-                document.setRetrievedOn(TimeUtils.asISO());
-            if (Strings.isNullOrEmpty(document.getRetrievedFrom()))
-                document.setRetrievedOn(fileDescription.getMetaInformation().getPubURI());
-            if (Strings.isNullOrEmpty(document.getLanguage()))
-                document.setLanguage(fileDescription.getMetaInformation().getLanguage());
-            if (Strings.isNullOrEmpty(document.getPublishedOn()))
-                document.setPublishedOn(fileDescription.getMetaInformation().getPublished());
-            if (Strings.isNullOrEmpty(document.getRights()))
-                document.setRights(fileDescription.getMetaInformation().getRights());
-            if (Strings.isNullOrEmpty(document.getContributedBy()))
-                document.setContributedBy(fileDescription.getMetaInformation().getContributors());
-            if (Strings.isNullOrEmpty(document.getPublishedBy()))
-                document.setPublishedBy(fileDescription.getMetaInformation().getPubURI());
-
-            udm.update(document);
 
             // -> Image Item
 

@@ -1,16 +1,12 @@
 [INFO] Scanning for projects...
-[WARNING] The POM for com.github.github:site-maven-plugin:jar:0.13-SNAPSHOT is missing, no dependency information available
-[WARNING] Failed to retrieve plugin descriptor for com.github.github:site-maven-plugin:0.13-SNAPSHOT: Plugin com.github.github:site-maven-plugin:0.13-SNAPSHOT or one of its dependencies could not be resolved: Could not find artifact com.github.github:site-maven-plugin:jar:0.13-SNAPSHOT
 [INFO]                                                                         
 [INFO] ------------------------------------------------------------------------
-[INFO] Building harvester 0.13-SNAPSHOT
+[INFO] Building harvester 0.18-SNAPSHOT
 [INFO] ------------------------------------------------------------------------
-[WARNING] The POM for com.github.github:site-maven-plugin:jar:0.13-SNAPSHOT is missing, no dependency information available
-[WARNING] Failed to retrieve plugin descriptor for com.github.github:site-maven-plugin:0.13-SNAPSHOT: Plugin com.github.github:site-maven-plugin:0.13-SNAPSHOT or one of its dependencies could not be resolved: Could not find artifact com.github.github:site-maven-plugin:jar:0.13-SNAPSHOT
 [INFO] 
 [INFO] --- maven-dependency-plugin:2.8:tree (default-cli) @ librairy-harvester ---
-[INFO] org.librairy:librairy-harvester:war:0.13-SNAPSHOT
-[INFO] +- org.librairy:librairy-boot:jar:0.25:compile
+[INFO] org.librairy:librairy-harvester:war:0.18-SNAPSHOT
+[INFO] +- org.librairy:librairy-boot:jar:0.30:compile
 [INFO] |  +- org.projectlombok:lombok:jar:1.16.4:compile
 [INFO] |  +- commons-beanutils:commons-beanutils:jar:1.9.2:compile
 [INFO] |  |  \- commons-collections:commons-collections:jar:3.2.1:compile
@@ -104,6 +100,8 @@
 [INFO] +- org.apache.camel:camel-groovy:jar:2.16.2:compile
 [INFO] |  \- org.codehaus.groovy:groovy-all:jar:2.4.5:compile
 [INFO] +- org.apache.camel:camel-script:jar:2.16.2:compile
+[INFO] +- es.upm.oeg.camel:camel-oaipmh:jar:1.0.5:compile
+[INFO] |  \- joda-time:joda-time:jar:2.7:compile
 [INFO] +- org.apache.camel:camel-saxon:jar:2.16.2:compile
 [INFO] |  \- net.sf.saxon:Saxon-HE:jar:9.5.1-5:compile
 [INFO] +- org.apache.camel:camel-cassandraql:jar:2.16.2:compile
@@ -186,7 +184,6 @@
 [INFO] +- edu.stanford.nlp:stanford-corenlp:jar:3.6.0:compile
 [INFO] |  +- com.io7m.xom:xom:jar:1.2.10:compile
 [INFO] |  |  \- xml-apis:xml-apis:jar:1.4.01:compile
-[INFO] |  +- joda-time:joda-time:jar:2.9:compile
 [INFO] |  +- de.jollyday:jollyday:jar:0.4.7:compile
 [INFO] |  |  \- javax.xml.bind:jaxb-api:jar:2.2.7:compile
 [INFO] |  +- com.googlecode.efficient-java-matrix-library:ejml:jar:0.23:compile
@@ -212,7 +209,7 @@
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time: 1.587 s
-[INFO] Finished at: 2016-10-11T09:37:45+02:00
-[INFO] Final Memory: 26M/309M
+[INFO] Total time: 1.502 s
+[INFO] Finished at: 2016-10-21T13:28:14+02:00
+[INFO] Final Memory: 28M/437M
 [INFO] ------------------------------------------------------------------------

@@ -32,11 +32,8 @@ public class RssRouteMaker implements RouteMaker {
     @Value("#{environment['LIBRAIRY_HOME']?:'${librairy.home}'}")
     String homeFolder;
 
-    @Value("${librairy.harvester.folder}")
+    @Value("${librairy.harvester.inbox}")
     String inputFolder;
-
-    @Value("${librairy.harvester.folder.hoarder}")
-    protected String basedir;
 
     @Override
     public boolean accept(String protocol) {
@@ -48,7 +45,7 @@ public class RssRouteMaker implements RouteMaker {
 
         String uri = new StringBuilder().
                 append("file:").
-                append(Paths.get(homeFolder,inputFolder,basedir).toFile().getAbsolutePath()).
+                append(Paths.get(homeFolder,inputFolder,source.getName()).toFile().getAbsolutePath()).
                 append("/rss/").
                 append(source.getName()).
                 append("?recursive=true&include=.*.xml&doneFileName=${file:name}.done").

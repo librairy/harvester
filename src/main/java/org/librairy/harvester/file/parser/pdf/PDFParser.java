@@ -8,7 +8,7 @@
 package org.librairy.harvester.file.parser.pdf;
 
 import org.apache.pdfbox.pdmodel.PDDocument;
-import org.apache.pdfbox.util.PDFTextStripper;
+import org.apache.pdfbox.text.PDFTextStripper;
 import org.librairy.harvester.file.parser.ParsedDocument;
 import org.librairy.harvester.file.parser.Parser;
 import org.slf4j.Logger;
@@ -31,6 +31,7 @@ public class PDFParser implements Parser {
 
     @PostConstruct
     public void setup(){
+        System.setProperty("sun.java2d.cmm", "sun.java2d.cmm.kcms.KcmsServiceProvider");
         this.timeFormatter  = new SimpleDateFormat("yyyyMMdd'T'HH:mm:ssZ");
     }
 
@@ -44,6 +45,9 @@ public class PDFParser implements Parser {
 
             ParsedDocument document = new ParsedDocument();
             document.setText(new PDFTextStripper().getText(pdDocument));
+
+            pdDocument.close();
+
             return document;
         } catch (IOException e) {
             throw new RuntimeException("Error getting content from pdf file: " + file.getAbsolutePath(),e);

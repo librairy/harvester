@@ -37,19 +37,20 @@ public class FileRouteMaker implements RouteMaker{
     @Value("#{environment['LIBRAIRY_HOME']?:'${librairy.home}'}")
     String homeFolder;
 
+
     @Value("${librairy.harvester.folder}")
+    protected String internalFolder;
+
+    @Value("${librairy.harvester.inbox}")
     String inputFolder;
 
-    @Value("${librairy.harvester.folder.external}")
-    protected String externalFolder;
-
-    @Value("${librairy.harvester.folder.default}")
+    @Value("${librairy.harvester.inbox.default}")
     protected String defaultFolder;
 
     @PostConstruct
     public void setup(){
 
-        File inputF = Paths.get(homeFolder, inputFolder, externalFolder).toFile();
+        File inputF = Paths.get(homeFolder, internalFolder).toFile();
         if (!inputF.exists()) inputF.mkdirs();
 
         File defaultF = Paths.get(homeFolder, inputFolder, defaultFolder).toFile();
@@ -65,12 +66,7 @@ public class FileRouteMaker implements RouteMaker{
     @Override
     public RouteDefinition build(Source source,Domain domain) {
 
-        Path folder = Paths.get(homeFolder,inputFolder,externalFolder, StringUtils.substringAfter(source.getUrl(),
-                "//"));
-        if (source.getName().equalsIgnoreCase("default")){
-            folder = Paths.get(homeFolder,inputFolder,defaultFolder);
-        }
-
+        Path folder = Paths.get(homeFolder,inputFolder, source.getName());
 
         String uri = new StringBuilder().
                 append("file2i:").

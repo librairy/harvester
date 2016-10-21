@@ -9,6 +9,7 @@ package org.librairy.harvester.file.services;
 
 import com.google.common.base.Strings;
 import com.google.common.io.Files;
+import org.apache.commons.io.FileUtils;
 import org.librairy.harvester.file.descriptor.Descriptor;
 import org.librairy.harvester.file.descriptor.FileDescription;
 import org.librairy.harvester.file.eventbus.FileCreatedEventHandler;
@@ -30,6 +31,11 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 /**
  * Created by cbadenes on 11/02/16.
@@ -54,6 +60,12 @@ public class DocumentService {
     @Value("${LIBRAIRY_FILE_URI:false}")
     Boolean useFileNameAsUri;
 
+    @Value("#{environment['LIBRAIRY_HOME']?:'${librairy.home}'}")
+    String homeFolder;
+
+    @Value("${librairy.harvester.folder}")
+    String inputFolder;
+
     private ParallelExecutor executor;
 
     @PostConstruct
@@ -69,50 +81,34 @@ public class DocumentService {
     public void handle(File file){
         // Create a new Document
         try{
-            // Domain URI
-            String domainUri        = file.getDomain();
-
-            // Source URI
-            String sourceUri        = file.getSource();
-
             // Document File
-            String path             = file.getUrl();
 
+            String fileExtension    = Files.getFileExtension(file.getUrl());
+            String fileName         = Files.getNameWithoutExtension(file.getUrl());
+            String tmpFileName      = System.currentTimeMillis()+"-"+fileName+"."+fileExtension;
 
-            // Meta-Information
-            FileDescription fileDescription = new FileDescription();
-            fileDescription.setMetaInformation(file.getMetaInformation());
-            fileDescription.setSummary(file.getMetaInformation().getDescription());
+            Path tmpFilePath        = Paths.get(homeFolder, inputFolder,tmpFileName);
 
+            retrieveFile(file.getUrl(), tmpFilePath.toFile());
 
-            if (path.startsWith("file") || path.startsWith("/")){
-
-                java.io.File ioFile = new java.io.File(path);
-
-                if (!ioFile.exists()){
-                    LOG.warn("File does not exist: " + ioFile.getAbsolutePath() + " from: " + file);
-                    return;
-                }
-
-                // Retrieve File Description
-                fileDescription = fileDescriptor.describe(ioFile);
-                path = ioFile.getAbsolutePath();
-            }
+            FileDescription fileDescription = fileDescriptor.describe(tmpFilePath.toFile());
 
             // Document
-            String ref = !Strings.isNullOrEmpty(fileDescription.getMetaInformation().getTitle())? fileDescription
-                    .getMetaInformation().getTitle().toLowerCase() : Files.getNameWithoutExtension(path);
-            Document document = Resource.newDocument(ref);
+
+            Document document = Resource.newDocument();
             // -> uri
             if (useFileNameAsUri){
-                document.setUri(uriGenerator.from(Resource.Type.DOCUMENT, Files.getNameWithoutExtension(path)));
+                document.setUri(uriGenerator.from(Resource.Type.DOCUMENT, fileName));
             }else{
                 document.setUri(uriGenerator.basedOnContent(Resource.Type.DOCUMENT,fileDescription.getSummary()));
             }
+            String title = (Strings.isNullOrEmpty(fileDescription.getMetaInformation().getTitle()))? fileName
+                :fileDescription.getMetaInformation().getTitle();
+            document.setTitle(title);
             // -> publishedOn
             document.setPublishedOn(fileDescription.getMetaInformation().getPublished());
             // -> publishedBy
-            document.setPublishedBy(sourceUri);
+//            document.setPublishedBy(sourceUri);
             // -> authoredOn
             document.setAuthoredOn(fileDescription.getMetaInformation().getAuthored());
             // -> authoredBy
@@ -120,7 +116,7 @@ public class DocumentService {
             // -> contributedBy
             document.setContributedBy(fileDescription.getMetaInformation().getContributors());
             // -> retrievedFrom
-            document.setRetrievedFrom(path);
+            document.setRetrievedFrom(file.getUrl());
             // -> retrievedOn
             document.setRetrievedOn(TimeUtils.asISO());
             // -> format
@@ -139,15 +135,20 @@ public class DocumentService {
             udm.save(document);
             LOG.info("New document: " + document.getUri() + " from file: " + file.getUrl());
 
+            // Move temporal file to final
+            String finalFileName    = URIGenerator.retrieveId(document.getUri())+"."+fileExtension;
+            FileUtils.moveFile(tmpFilePath.toFile(), Paths.get(homeFolder, inputFolder,finalFileName).toFile());
 
             // Relate it to Source
-            udm.save(Relation.newProvides(sourceUri,document.getUri()));
+            if (!Strings.isNullOrEmpty(file.getSource()))
+                udm.save(Relation.newProvides(file.getSource(),document.getUri()));
             // Relate it to Domain
-            udm.save(Relation.newContains(domainUri,document.getUri()));
+            if (!Strings.isNullOrEmpty(file.getDomain()))
+                udm.save(Relation.newContains(file.getDomain(),document.getUri()));
+
             // Relate it to Document
-            if (!Strings.isNullOrEmpty(file.getAggregatedFrom())){
+            if (!Strings.isNullOrEmpty(file.getAggregatedFrom()))
                 udm.save(Relation.newAggregates(file.getAggregatedFrom(),document.getUri()));
-            }
 
             // Aggregated Files
             if (!fileDescription.getAggregatedFiles().isEmpty()){
@@ -155,8 +156,8 @@ public class DocumentService {
                 for(java.io.File aggregatedFile: fileDescription.getAggregatedFiles()){
 
                     File aggregatedFileDesc = new File();
-                    aggregatedFileDesc.setDomain(domainUri);
-                    aggregatedFileDesc.setSource(sourceUri);
+                    aggregatedFileDesc.setDomain(file.getDomain());
+                    aggregatedFileDesc.setSource(file.getSource());
                     aggregatedFileDesc.setUrl(aggregatedFile.getAbsolutePath());
                     aggregatedFileDesc.setAggregatedFrom(document.getUri());
 
@@ -170,6 +171,15 @@ public class DocumentService {
             LOG.error("Error adding document from: " + file + ". Reason: " + e.getMessage(),e);
         }catch (Exception e){
             LOG.error("Error adding document from: " + file, e);
+        }
+    }
+
+
+    public void retrieveFile(String url, java.io.File output) throws IOException {
+        if (url.startsWith("http")){
+            FileUtils.copyURLToFile(new URL(url),output);
+        }else{
+            FileUtils.copyFile(Paths.get(url).toFile(), output);
         }
     }
 
