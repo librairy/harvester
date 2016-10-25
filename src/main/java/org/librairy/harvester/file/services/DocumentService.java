@@ -100,7 +100,7 @@ public class DocumentService {
             if (useFileNameAsUri){
                 document.setUri(uriGenerator.from(Resource.Type.DOCUMENT, fileName));
             }else{
-                document.setUri(uriGenerator.basedOnContent(Resource.Type.DOCUMENT,fileDescription.getSummary()));
+                document.setUri(uriGenerator.basedOnContent(Resource.Type.DOCUMENT,file.getUrl()));
             }
             String title = (Strings.isNullOrEmpty(fileDescription.getMetaInformation().getTitle()))? fileName
                 :fileDescription.getMetaInformation().getTitle();
@@ -175,11 +175,24 @@ public class DocumentService {
     }
 
 
-    public void retrieveFile(String url, java.io.File output) throws IOException {
+    public void retrieveFile(String url, java.io.File output) throws IOException, InterruptedException {
         if (url.startsWith("http")){
             FileUtils.copyURLToFile(new URL(url),output);
         }else{
-            FileUtils.copyFile(Paths.get(url).toFile(), output);
+            int retries = 0;
+            IOException error = null;
+            do{
+                try{
+                    FileUtils.copyFile(Paths.get(url).toFile(), output);
+                    break;
+                }catch (IOException e){
+                    retries +=1;
+                    error = e;
+                    LOG.warn(e.getMessage());
+                    Thread.sleep(2000);
+                }
+            }while(retries < 5);
+            if (retries>=5) throw error;
         }
     }
 

@@ -87,6 +87,7 @@ public class PdfDescriptor implements Descriptor{
     }
 
     private String retrieveSummary(PDDocument document) throws IOException {
+        //TODO build a summary
         PDFTextStripper stripper = new PDFTextStripper();
         stripper.setStartPage(0);
         stripper.setEndPage(1);
