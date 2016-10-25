@@ -3,11 +3,10 @@ MAINTAINER Librairy <librairy.framework@gmail.com>
 
 ENV LIBRAIRY_HOME /librairy
 
-WORKDIR /usr/local/tomcat
-
 RUN mkdir $LIBRAIRY_HOME/files
 RUN mkdir $LIBRAIRY_HOME/inbox
-RUN mkdir $LIBRAIRY_HOME/inbox/default
+
+WORKDIR /usr/local/tomcat
 
 ADD harvester.war /usr/local/tomcat/webapps/harvester.war
 
