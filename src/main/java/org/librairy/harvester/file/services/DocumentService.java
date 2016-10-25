@@ -132,12 +132,12 @@ public class DocumentService {
             // -> type
             document.setType(fileDescription.getMetaInformation().getType());
 
-            udm.save(document);
-            LOG.info("New document: " + document.getUri() + " from file: " + file.getUrl());
-
             // Move temporal file to final
             String finalFileName    = URIGenerator.retrieveId(document.getUri())+"."+fileExtension;
             FileUtils.moveFile(tmpFilePath.toFile(), Paths.get(homeFolder, inputFolder,finalFileName).toFile());
+
+            udm.save(document);
+            LOG.info("New document: " + document.getUri() + " from file: " + file.getUrl());
 
             // Relate it to Source
             if (!Strings.isNullOrEmpty(file.getSource()))
