@@ -8,22 +8,13 @@
 package org.librairy.harvester.file.services;
 
 import com.google.common.base.Strings;
-import com.google.common.io.Files;
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.lang.StringUtils;
-import org.librairy.harvester.file.descriptor.Descriptor;
-import org.librairy.harvester.file.descriptor.FileDescription;
 import org.librairy.harvester.file.executor.ParallelExecutor;
-import org.librairy.harvester.file.helper.LanguageHelper;
 import org.librairy.harvester.file.parser.ParsedDocument;
 import org.librairy.harvester.file.parser.Parser;
-import org.librairy.harvester.file.tokenizer.Language;
-import org.librairy.harvester.file.tokenizer.Tokenizer;
 import org.librairy.model.domain.relations.Relation;
 import org.librairy.model.domain.resources.Document;
 import org.librairy.model.domain.resources.Item;
 import org.librairy.model.domain.resources.Resource;
-import org.librairy.model.utils.TimeUtils;
 import org.librairy.storage.UDM;
 import org.librairy.storage.generator.URIGenerator;
 import org.slf4j.Logger;
@@ -33,12 +24,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
-import java.io.*;
-import java.net.URL;
+import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 /**
  * Created by cbadenes on 11/02/16.
@@ -53,9 +42,6 @@ public class ItemService {
 
     @Autowired
     URIGenerator uriGenerator;
-
-    @Autowired
-    Tokenizer tokenizer;
 
     @Value("#{environment['LIBRAIRY_HOME']?:'${librairy.home}'}")
     String homeFolder;
@@ -130,17 +116,5 @@ public class ItemService {
             LOG.error("Error adding item from: " + resource.getUri(), e);
         }
 
-    }
-
-    public void tokenize(Item item){
-        // TODO Handle multiple languages
-        // Language language = LanguageHelper.getLanguageFrom(file);
-        String tokens = tokenizer.tokenize(item.getContent(),Language.from(item.getLanguage())).stream().
-                filter(token -> token.isValid()).
-                map(token -> token.getLemma()).
-                collect(Collectors.joining(" "));
-        item.setTokens(tokens);
-        udm.update(item);
-        LOG.info("Item " + item.getUri() +  " tokenized");
     }
 }

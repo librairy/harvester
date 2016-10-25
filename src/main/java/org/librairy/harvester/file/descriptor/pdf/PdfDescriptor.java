@@ -10,11 +10,9 @@ package org.librairy.harvester.file.descriptor.pdf;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDDocumentInformation;
 import org.apache.pdfbox.pdmodel.encryption.AccessPermission;
-import org.apache.pdfbox.pdmodel.encryption.SecurityHandler;
 import org.apache.pdfbox.text.PDFTextStripper;
 import org.librairy.harvester.file.descriptor.Descriptor;
 import org.librairy.harvester.file.descriptor.FileDescription;
-import org.librairy.harvester.file.helper.LanguageHelper;
 import org.librairy.model.domain.resources.MetaInformation;
 
 import java.io.File;

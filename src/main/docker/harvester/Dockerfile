@@ -11,10 +11,7 @@ RUN mkdir $LIBRAIRY_HOME/inbox/default
 
 ADD harvester.war /usr/local/tomcat/webapps/harvester.war
 
-ADD waitFor.sh /
-RUN chmod +x /waitFor.sh
-
-ENV JAVA_OPTS='-Xmx4g'
+#ENV JAVA_OPTS='-Xmx4g'
 
 VOLUME /librairy
 VOLUME /usr/local/tomcat
