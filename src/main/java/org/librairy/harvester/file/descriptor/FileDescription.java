@@ -8,7 +8,7 @@
 package org.librairy.harvester.file.descriptor;
 
 import lombok.Data;
-import org.librairy.model.domain.resources.MetaInformation;
+import org.librairy.boot.model.domain.resources.MetaInformation;
 
 import java.io.File;
 import java.io.Serializable;

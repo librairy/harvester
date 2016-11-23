@@ -13,9 +13,9 @@ import org.apache.camel.model.language.SimpleExpression;
 import org.apache.commons.lang.StringUtils;
 import org.librairy.harvester.file.routes.RouteMaker;
 import org.librairy.harvester.file.routes.common.CommonRouteBuilder;
-import org.librairy.model.Record;
-import org.librairy.model.domain.resources.Domain;
-import org.librairy.model.domain.resources.Source;
+import org.librairy.boot.model.Record;
+import org.librairy.boot.model.domain.resources.Domain;
+import org.librairy.boot.model.domain.resources.Source;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -87,7 +87,7 @@ public class FileRouteMaker implements RouteMaker{
                 ).
                 toString();
 
-        LOG.debug("URI created for harvesting purposes: " + uri);
+        LOG.info("URI created for harvesting purposes: " + uri);
 
         return new RouteDefinition().
                 from(uri).

@@ -13,7 +13,7 @@ import org.apache.pdfbox.pdmodel.encryption.AccessPermission;
 import org.apache.pdfbox.text.PDFTextStripper;
 import org.librairy.harvester.file.descriptor.Descriptor;
 import org.librairy.harvester.file.descriptor.FileDescription;
-import org.librairy.model.domain.resources.MetaInformation;
+import org.librairy.boot.model.domain.resources.MetaInformation;
 
 import java.io.File;
 import java.io.IOException;

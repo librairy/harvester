@@ -14,7 +14,7 @@ import org.apache.commons.lang.StringUtils;
 import org.librairy.harvester.file.descriptor.pdf.PdfDescriptor;
 import org.librairy.harvester.file.descriptor.txt.TxtDescriptor;
 import org.librairy.harvester.file.utils.Serializations;
-import org.librairy.model.domain.resources.MetaInformation;
+import org.librairy.boot.model.domain.resources.MetaInformation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

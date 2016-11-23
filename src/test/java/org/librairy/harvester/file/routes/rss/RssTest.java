@@ -9,13 +9,13 @@ package org.librairy.harvester.file.routes.rss;
 
 import es.cbadenes.lab.test.IntegrationTest;
 import org.librairy.harvester.file.Config;
-import org.librairy.model.Event;
-import org.librairy.model.domain.resources.Resource;
-import org.librairy.model.domain.resources.Source;
-import org.librairy.model.modules.EventBus;
-import org.librairy.model.modules.RoutingKey;
-import org.librairy.storage.UDM;
-import org.librairy.model.utils.ResourceUtils;
+import org.librairy.boot.model.Event;
+import org.librairy.boot.model.domain.resources.Resource;
+import org.librairy.boot.model.domain.resources.Source;
+import org.librairy.boot.model.modules.EventBus;
+import org.librairy.boot.model.modules.RoutingKey;
+import org.librairy.boot.storage.UDM;
+import org.librairy.boot.model.utils.ResourceUtils;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
@@ -53,7 +53,7 @@ public class RssTest {
         source.setUrl("rss://rss.slashdot.org/Slashdot/slashdot");
 
         if (!udm.exists(Resource.Type.SOURCE).withUri(source.getUri())){
-            udm.save(ResourceUtils.map(source, org.librairy.model.domain.resources.Source.class));
+            udm.save(ResourceUtils.map(source, org.librairy.boot.model.domain.resources.Source.class));
         }
 
 

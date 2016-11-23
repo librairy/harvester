@@ -10,7 +10,7 @@ package org.librairy.harvester.file.routes.rss;
 import lombok.Getter;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.builder.xml.Namespaces;
-import org.librairy.model.Record;
+import org.librairy.boot.model.Record;
 import org.springframework.stereotype.Component;
 
 /**

@@ -8,24 +8,27 @@
 package org.librairy.harvester.file.services;
 
 import com.google.common.base.Strings;
+import lombok.Setter;
 import org.apache.camel.model.RouteDefinition;
 import org.apache.camel.spring.SpringCamelContext;
 import org.apache.commons.lang.StringUtils;
+import org.librairy.boot.storage.system.column.repository.UnifiedColumnRepository;
 import org.librairy.harvester.file.executor.ParallelExecutor;
 import org.librairy.harvester.file.routes.RouteDefinitionFactory;
-import org.librairy.model.domain.relations.Relation;
-import org.librairy.model.domain.resources.Domain;
-import org.librairy.model.domain.resources.Resource;
-import org.librairy.model.domain.resources.Source;
-import org.librairy.model.utils.ResourceUtils;
-import org.librairy.storage.UDM;
-import org.librairy.storage.generator.URIGenerator;
+import org.librairy.boot.model.domain.relations.Relation;
+import org.librairy.boot.model.domain.resources.Domain;
+import org.librairy.boot.model.domain.resources.Resource;
+import org.librairy.boot.model.domain.resources.Source;
+import org.librairy.boot.model.utils.ResourceUtils;
+import org.librairy.boot.storage.UDM;
+import org.librairy.boot.storage.generator.URIGenerator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
@@ -42,6 +45,9 @@ public class SourceService {
 
     @Autowired
     RouteDefinitionFactory routeDefinitionFactory;
+
+    @Autowired @Setter
+    UnifiedColumnRepository columnRepository;
 
     @Autowired
     UDM udm;
@@ -65,14 +71,20 @@ public class SourceService {
                 .map(res -> res.get().asSource())
                 .forEach(source -> {
                     try {
-                        List<Resource> res = udm.find(Resource.Type.DOMAIN).from(Resource.Type.SOURCE,source.getUri());
-                        if (res.isEmpty()){
-                            res.add(createDefaultDomain(source));
+
+                        Iterable<Relation> rels = columnRepository.findBy(Relation.Type.COMPOSES, "start", source.getUri());
+
+                        Iterator<Relation> iter = rels.iterator();
+
+                        if (!iter.hasNext()){
+                            Domain domain = createDefaultDomain(source);
+                            addRoute(source, domain);
+                            return;
                         }
 
                         // Adding routes by domain
-                        res.forEach(uri -> {
-                            Optional<Resource> resource = udm.read(Resource.Type.DOMAIN).byUri(uri.getUri());
+                        rels.forEach(rel -> {
+                            Optional<Resource> resource = udm.read(Resource.Type.DOMAIN).byUri(rel.getEndUri());
                             if (resource.isPresent()) try {
                                 addRoute(source, resource.get().asDomain());
                             } catch (Exception e) {
@@ -104,10 +116,12 @@ public class SourceService {
 
             Source source = res.get().asSource();
 
-            List<Resource> domains = udm.find(Resource.Type.DOMAIN).from(Resource.Type.SOURCE,resource.getUri());
 
-            Domain domain = domains.isEmpty()? createDefaultDomain(source)
-                    : ResourceUtils.map(udm.read(Resource.Type.DOMAIN).byUri(domains.get(0).getUri()).get(),Domain.class) ;
+            Iterable<Relation> rels = columnRepository.findBy(Relation.Type.COMPOSES, "start", source.getUri());
+
+
+            Domain domain = !rels.iterator().hasNext()? createDefaultDomain(source)
+                    : udm.read(Resource.Type.DOMAIN).byUri(rels.iterator().next().getEndUri()).get().asDomain() ;
 
             addRoute(source,domain);
         }catch (Exception e){
@@ -117,11 +131,13 @@ public class SourceService {
 
     private void addRoute(Source source, Domain domain) throws Exception {
         // Create a new route for harvesting this source
-        if (!Strings.isNullOrEmpty(source.getUrl())){
-            RouteDefinition route = routeDefinitionFactory.newRoute(source,domain);
-            LOG.info("adding route to harvest: " + route);
-            camelContext.addRouteDefinition(route);
+        if (Strings.isNullOrEmpty(source.getUrl())){
+            LOG.warn("Source has not valid URL: " + source);
+            return;
         }
+        RouteDefinition route = routeDefinitionFactory.newRoute(source,domain);
+        LOG.info("adding route to harvest: " + route);
+        camelContext.addRouteDefinition(route);
     }
 
 

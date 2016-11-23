@@ -9,8 +9,8 @@ package org.librairy.harvester.file.routes;
 
 import com.google.common.base.Strings;
 import org.apache.camel.model.RouteDefinition;
-import org.librairy.model.domain.resources.Domain;
-import org.librairy.model.domain.resources.Source;
+import org.librairy.boot.model.domain.resources.Domain;
+import org.librairy.boot.model.domain.resources.Source;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -12,7 +12,7 @@ import org.junit.Test;
 import org.librairy.harvester.file.descriptor.FileDescription;
 import org.librairy.harvester.file.descriptor.pdf.PdfDescriptor;
 import org.librairy.harvester.file.parser.pdf.PDFParser;
-import org.librairy.model.domain.resources.MetaInformation;
+import org.librairy.boot.model.domain.resources.MetaInformation;
 
 import java.io.File;
 

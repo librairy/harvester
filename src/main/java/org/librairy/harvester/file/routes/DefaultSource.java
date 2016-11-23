@@ -7,10 +7,10 @@
 
 package org.librairy.harvester.file.routes;
 
-import org.librairy.model.domain.resources.Resource;
-import org.librairy.model.domain.resources.Source;
-import org.librairy.storage.UDM;
-import org.librairy.storage.generator.URIGenerator;
+import org.librairy.boot.model.domain.resources.Resource;
+import org.librairy.boot.model.domain.resources.Source;
+import org.librairy.boot.storage.UDM;
+import org.librairy.boot.storage.generator.URIGenerator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

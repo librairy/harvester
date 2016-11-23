@@ -9,7 +9,7 @@ package org.librairy.harvester.file.descriptor;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import org.librairy.model.domain.resources.MetaInformation;
+import org.librairy.boot.model.domain.resources.MetaInformation;
 
 import java.io.File;
 import java.io.IOException;

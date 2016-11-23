@@ -12,8 +12,8 @@ import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.librairy.harvester.file.Config;
-import org.librairy.model.modules.EventBus;
-import org.librairy.storage.UDM;
+import org.librairy.boot.model.modules.EventBus;
+import org.librairy.boot.storage.UDM;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,7 +48,7 @@ public class OAIPMHTest {
 //        source.setName("oaipmh-bournemouth");
 //        source.setUrl("oaipmh://eprints.bournemouth.ac.uk/cgi/oai2?from=2015-01-01T00:00:00Z");
 //
-//        udm.saveSource(ResourceUtils.map(source, org.librairy.storage.model.Source.class));
+//        udm.saveSource(ResourceUtils.map(source, org.librairy.boot.storage.model.Source.class));
 //
 //        LOG.info("trying to send a 'source.created' event: " + source);
 //        this.eventBus.post(Event.from(source), RoutingKey.of(Resource.Type.SOURCE, Resource.State.CREATED));

@@ -8,8 +8,8 @@
 package org.librairy.harvester.file.routes;
 
 import org.apache.camel.model.RouteDefinition;
-import org.librairy.model.domain.resources.Source;
-import org.librairy.model.domain.resources.Domain;
+import org.librairy.boot.model.domain.resources.Source;
+import org.librairy.boot.model.domain.resources.Domain;
 
 /**
  * Created by cbadenes on 01/12/15.
