@@ -13,7 +13,7 @@ services:
    image: librairy/harvester:latest
    #restart: always
    volumes:
-     - ./documents:/librairy/files
+     - ./documents:/librairy/inbox
    external_links:
      - column-db
      - document-db
@@ -24,4 +24,4 @@ services:
 networks:
   lnet:
     external:
-      name: distribution_lnet
+      name: storage_lnet
