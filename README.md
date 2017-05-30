@@ -1,9 +1,6 @@
 # Harvester
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/5e3e2fe9b1c242b6a4a13b7e6459b68e)](https://www.codacy.com/app/cbadenes/harvester-file)
 [![Release Status](https://travis-ci.org/librairy/harvester-file.svg?branch=master)](https://travis-ci.org/librairy/harvester-file)
-[![Dev Status](https://travis-ci.org/librairy/harvester-file.svg?branch=master)](https://travis-ci.org/librairy/harvester-file)
-[![Coverage Status](https://coveralls.io/repos/github/librairy/harvester-file/badge.svg?branch=master)](https://coveralls.io/github/librairy/harvester-file?branch=master)
-[![Doc](https://raw.githubusercontent.com/librairy/resources/master/figures/interface.png)](https://rawgit.com/librairy/harvester-file/doc/report/index.html)
 
 Collect and process unstructured files to retrieve the full-text content and derived tokens from them.
 
@@ -11,7 +8,7 @@ Collect and process unstructured files to retrieve the full-text content and der
 
 A prerequisite to consider is to have installed [Docker-Compose](https://docs.docker.com/compose/) in your system.
 
-You can run this service in a isolated way (see *Distibuted Deployment* section) or as extension of the [explorer](https://github.com/librairy/explorer).
+You can run this service in a isolated way (see *Distibuted Deployment* section) or as extension of the [api](https://github.com/librairy/api).
 In that case, add the following services to the existing `docker-compose.yml` file:
 
 ```yml
@@ -39,7 +36,7 @@ and then, deploy it by typing:
 ```sh
 $ docker-compose up
 ```
-That's all!! **librairy harvester** should be run in your system now along with **librairy explorer**.
+That's all!! **harvester** should be run in your system now along with **librairy**.
 
 ## Distributed Deployment
 
