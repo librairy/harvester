@@ -1,6 +1,6 @@
 # Harvester
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/5e3e2fe9b1c242b6a4a13b7e6459b68e)](https://www.codacy.com/app/cbadenes/harvester-file)
-[![Release Status](https://travis-ci.org/librairy/harvester-file.svg?branch=master)](https://travis-ci.org/librairy/harvester-file)
+[![Release Status](https://travis-ci.org/librairy/harvester.svg?branch=master)](https://travis-ci.org/librairy/harvester)
 
 Collect and process unstructured files to retrieve the full-text content and derived tokens from them.
 
